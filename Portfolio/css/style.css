@@ -1,0 +1,75 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('../media/fonts/Roboto-Regular.ttf');
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    font-family: 'Roboto';
+    margin: 0px;
+    background-image: url("../media/images/Website-BG.png");
+    background-size: cover;
+    height: 100%;
+}
+
+#menu-object {
+    width: 90%;
+    height: 100%;
+    margin-left: 5%;
+    position: absolute;
+    z-index: 1;
+}
+
+#footer-object {
+    bottom: 0px;
+    margin-left: 5%;
+    position: fixed;
+    width: 90%;
+}
+
+#logo-container {
+    text-align: center;
+}
+
+#logo {
+    margin-top: 50px;
+    width: 200px;
+    padding: 25px;
+}
+
+#main-container {
+    text-align: center;
+	color: white;
+    background-color: rgb(55, 55, 55);
+    width: 90%;
+    margin-left: 5%;
+    height: 100%;
+}
+
+#main-container h1 {
+    font-size: 50px;
+}
+
+#main-container p {
+    margin: 10px;
+}
+
+#explanation {
+    width: 500px;
+    background-color: rgba(0,0,0,0.2);
+    position: absolute;
+    transform: translate(-50%, 0);
+    left: 50%;
+}
+
+.code {
+    background-color: rgb(100, 100, 100);
+    padding: 1px;
+    border-radius: 5px;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: left;
+    margin: 15px;
+}
