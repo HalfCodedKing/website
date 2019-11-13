@@ -7,14 +7,14 @@ window.onload = function() {
     locationRequest.open("GET", "https://ipinfo.io?token=" + KEYloc, true);
     locationRequest.onload = function() {
         if (this.readyState == 4 && this.status == 200) {
-            var data = JSON.parse(this.response);
+            var data = JSON.parse(this.responseText);
             var loc = data.loc.split(",");
             //console.log(data)
 
             weatherRequest.open("GET", "https://api.openweathermap.org/data/2.5/weather?lat=" + loc[0] + "&lon=" + loc[1] + "&APPID=" + KEYweather, true);
             weatherRequest.onload = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    var weather = JSON.parse(this.response);
+                    var weather = JSON.parse(this.responseText);
                     console.log(weather)
                     var temp = Math.round((weather.main.temp - 273) * 10) / 10;
                     var icon = weather.weather["0"].icon;
@@ -34,7 +34,7 @@ window.onload = function() {
         weatherRequest.open("GET", "https://api.openweathermap.org/data/2.5/weather?q=" + document.getElementById("searchBox").value + "&APPID=" + KEYweather, true);
         weatherRequest.onload = function() {
             if (this.readyState == 4 && this.status == 200) {
-                var weather = JSON.parse(this.response);
+                var weather = JSON.parse(this.responseText);
                 var temp = Math.round((weather.main.temp - 273) * 10) / 10;
                 var icon = weather.weather["0"].icon;
                 document.getElementById("icon").src = "https://openweathermap.org/img/wn/" + icon + "@2x.png"
