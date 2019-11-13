@@ -4,7 +4,7 @@ window.onload = function() {
     var KEYweather = "16a2c3d698b77a6ac2b3837e67cdc357";
     var KEYloc = "2a59946795727a";
 
-    locationRequest.open("GET", "http://ipinfo.io?token=" + KEYloc, true);
+    locationRequest.open("GET", "https://ipinfo.io?token=" + KEYloc, true);
     locationRequest.onload = function() {
         if (this.readyState == 4 && this.status == 200) {
             var data = JSON.parse(this.response);
