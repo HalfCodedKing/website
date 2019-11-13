@@ -18,7 +18,7 @@ window.onload = function() {
                     console.log(weather)
                     var temp = Math.round((weather.main.temp - 273) * 10) / 10;
                     var icon = weather.weather["0"].icon;
-                    document.getElementById("icon").src = "http://openweathermap.org/img/wn/" + icon + "@2x.png"
+                    document.getElementById("icon").src = "https://openweathermap.org/img/wn/" + icon + "@2x.png"
                     document.getElementById("icon").alt = weather.weather['0'].description;
                     document.getElementById("icon").title = weather.weather['0'].description;
                     document.getElementById("temp").innerHTML = temp + "°C";
@@ -37,7 +37,7 @@ window.onload = function() {
                 var weather = JSON.parse(this.response);
                 var temp = Math.round((weather.main.temp - 273) * 10) / 10;
                 var icon = weather.weather["0"].icon;
-                document.getElementById("icon").src = "http://openweathermap.org/img/wn/" + icon + "@2x.png"
+                document.getElementById("icon").src = "https://openweathermap.org/img/wn/" + icon + "@2x.png"
                 document.getElementById("icon").alt = weather.weather['0'].description;
                 document.getElementById("icon").title = weather.weather['0'].description;
                 document.getElementById("temp").innerHTML = temp + "°C";
