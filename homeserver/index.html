@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Assistant Server</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+    <script src="script.js"></script>
+</head>
+<body>
+    <p id="lights"></p>
+
+    <form action="receive.php" method="GET">
+    <!--username <input type="text" name="username"><br>
+    password <input type="password" name="password"><br>-->
+    <input type="text" name="value">
+    <input type="submit">
+    </form>
+</body>
+
+<script>
+    $($document).ready(function() {
+        $.getJSON("data.json", function(data) {
+            document.getElementById("lights").innerHTML = data.lights;
+        });
+    });
+</script>
+</html>
