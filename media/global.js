@@ -2,9 +2,9 @@ header = `
 
 <div id="menu">
     <ul>
-        <li><a name="weather" href="/weather/index.html">Weather</a></li>
-        <li><a name="projects" href="/projects/index.html">Projects</a></li>
-        <li><a name="home" href="/index.html">Home</a></li>
+        <li><a name="weather" href="/weather/">Weather</a></li>
+        <li><a name="projects" href="/projects/">Projects</a></li>
+        <li><a name="home" href="/">Home</a></li>
     </ul>
     <div id="title">
         <h1></h1>
