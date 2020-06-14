@@ -2,13 +2,16 @@ header = `
 
 <div id="menu">
     <ul>
-        <li><a href="">Weather</a></li>
-        <li><a href="">Projects</a></li>
+        <li><a name="weather" href="/weather/index.html">Weather</a></li>
+        <li><a name="projects" href="/projects/index.html">Projects</a></li>
+        <li><a name="home" href="/index.html">Home</a></li>
     </ul>
 </div>
 
 <style>
     #menu {
+        margin-top: 20px;
+        margin-right: 20px;
         background-color: #2b2b2b;
     }
     
@@ -29,6 +32,10 @@ header = `
         display: block;
         text-align: center;
         padding: 10px;
+    }
+
+    #menu ul li a:hover {
+        color: rgb(161, 161, 161);
     }
 </style>
 

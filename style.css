@@ -1,5 +1,16 @@
-#menu-icon {
-    float: right;
-    -webkit-user-select: none;
-    -webkit-user-drag: none;
+body {
+    background-color: #2b2b2b;
+}
+
+h1 {
+    display: inline;
+    font-family: 'Titillium Web', sans-serif;
+    border-bottom: red 10px solid;
+}
+
+#name {
+    color: whitesmoke;
+    font-size: 40px;
+    margin-top: 8em;
+    text-align: center;
 }
