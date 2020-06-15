@@ -13,12 +13,6 @@
     <title>Home</title>
 </head>
 <body>
-    <script>
-        $(document).ready(function() {
-            $("#menu ul li a[name='home']").css("background-color", "#444444")
-        })
-    </script>
-
     <div id="header">
 
     </div>
@@ -32,3 +26,10 @@
     </div>
 </body>
 </html>
+
+<script>
+    $(document).ready(function() {
+        console.log($("#menu ul li a[name='home']"))
+        $("#menu ul li a[name='home']").css("background-color", "#444444")
+    })
+</script>

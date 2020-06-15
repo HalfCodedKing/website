@@ -1,5 +1,4 @@
-header = `
-
+var header = `
 <div id="menu">
     <ul>
         <li><a name="weather" href="/weather/">Weather</a></li>
@@ -7,7 +6,7 @@ header = `
         <li><a name="home" href="/">Home</a></li>
     </ul>
     <div id="title">
-        <h1></h1>
+        <h1> </h1>
     </div>
 </div>
 
@@ -59,9 +58,8 @@ header = `
         display: inline;
     }
 </style>
-
 `
 
 $(document).ready(function () {
     $('#header').prepend(header);
-  });
+});
