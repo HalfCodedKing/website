@@ -14,8 +14,11 @@ if __name__ == "__main__":
     d = {"title":title, "main":main_image, "a":a, "b":b, "msa":msa, "raw":raw}
     result = src.substitute(d)
 
-    html = open("/home/pi/website/weather/index.html")
+    html = open("/home/pi/website/weather/index.html", "r")
     src = html.read()
     a = re.search(r'\b(main_content)\b', src)
     index = a.start() + 17
     b = src[:index] + result + src[index:]
+    html = open("/home/pi/website/weather/index.html", "w")
+    html.write(b)
+    print("done")
