@@ -18,51 +18,6 @@ var pass = `
     </div>
 </div>
 
-<style>
-
-    #container {
-        display: inline-flex;
-        padding: 10px;
-        height: 30em;
-        margin-top: 20px;
-    }
-
-    #pass_title {
-        font-size: 50px;
-        padding: 0;
-        margin: 0;
-        margin-left: 20px;
-    }
-
-    #main_image {
-        margin-right: 25px;
-    }
-
-    #main_image img {
-        height: 30em;
-        float: left;
-    }
-
-    #side_links {
-
-    }
-
-    #side_links ul {
-        list-style-type: none;
-        padding: 0;
-    }
-
-    #side_links ul li {
-        padding-top: 2em;
-    }
-
-    #side_links ul li a {
-        font-size: 40px;
-        text-decoration: none;
-        color: black;
-    }
-</style>
-
 `
 
 $(document).ready(function () {
