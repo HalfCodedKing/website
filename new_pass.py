@@ -13,7 +13,7 @@ if __name__ == "__main__":
     html = open("/home/pi/website/media/pass.html")
     src = Template(html.read())
     prefix = "/weather/images/{}/".format(now)
-    d = {"title":title, "main":prefix + main_image.split("/")[-1], "a":prefix + a.split("/")[-1], "b":prefix + b.split("/")[-1], "msa":prefix + msa.split("/")[-1], "raw":prefix + raw.split("/")[-1]}
+    d = {"title":title.split("/")[-1], "main":prefix + main_image.split("/")[-1], "a":prefix + a.split("/")[-1], "b":prefix + b.split("/")[-1], "msa":prefix + msa.split("/")[-1], "raw":prefix + raw.split("/")[-1]}
     result = src.substitute(d)
 
     html = open("/home/pi/website/weather/index.html", "r")
