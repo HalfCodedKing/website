@@ -21,5 +21,5 @@ var pass = `
 `
 
 $(document).ready(function () {
-    $("#main_content").prepend(pass);
+    //$("#main_content").prepend(pass);
 });
