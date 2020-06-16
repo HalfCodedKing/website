@@ -3,7 +3,7 @@ var header = `
     <ul>
         <li><a name="weather" href="/weather/">Weather</a></li>
         <li><a name="projects" href="/projects/">Projects</a></li>
-        <li><a name="home" href="/">Home</a></li>
+        <li><a name="home" href="/.">Home</a></li>
     </ul>
     <div id="title">
         <h1> </h1>
@@ -15,6 +15,7 @@ var header = `
         text-align: center;
         padding: 0;
         margin: 0;
+
         position: relative;
         height: 200px;
         background-color: #2b2b2b;
@@ -60,6 +61,43 @@ var header = `
 </style>
 `
 
+footer = `
+
+<div id="footer">
+    <h1>Handcrafted by Felix Perron</h1>
+    <div id="line"></div>
+    <h2>felixxperron@gmail.com</h2>
+</div>
+
+<style>
+    #footer {
+        width: 100%;
+        height: 100px;
+        background-color: #2b2b2b;
+        text-align: center;
+        color: whitesmoke;
+    }
+
+    #footer h1 {
+        padding-top: 10px;
+        margin: 0;
+    }
+
+    #line {
+        height: 2px;
+        background-color: red;
+        width: 50%;
+        margin: 5px auto;
+    }
+
+    #footer h2 {
+        margin: 0;
+    }
+</style>
+
+`
+
 $(document).ready(function () {
     $('#header').prepend(header);
+    $('#footer_div').prepend(footer)
 });

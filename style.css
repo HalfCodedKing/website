@@ -1,7 +1,6 @@
 h1 {
     display: inline;
     font-family: 'Titillium Web', sans-serif;
-    border-bottom: red 10px solid;
 }
 
 #name {
@@ -9,4 +8,11 @@ h1 {
     font-size: 40px;
     margin-top: 5em;
     text-align: center;
+}
+
+#line {
+    margin: 0 auto;
+    width: 35%;
+    height: 8px;
+    background-color: red;
 }

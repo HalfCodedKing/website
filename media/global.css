@@ -10,3 +10,7 @@ html, body {
     background-color: whitesmoke;
     height: auto;
 }
+
+#title {
+    font-family: 'Titillium Web', sans-serif;
+}
