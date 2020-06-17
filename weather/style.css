@@ -1,6 +1,6 @@
 .pass {
-    display: block;
-    height: 30em;
+    display: flex;
+    height: auto;
     padding: 50px 100px;
 }
 
@@ -11,9 +11,12 @@
 }
 
 .main_image img {
-    height: 30em;
-    float: left;
+    width: 40em;
     padding-right: 40px;
+}
+
+.container {
+    display: ;
 }
 
 .side_links ul {
