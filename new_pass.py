@@ -2,16 +2,36 @@ from string import Template
 import sys
 import re
 from datetime import datetime
+from imgurpython import ImgurClient
+import json
 
 if __name__ == "__main__":
     #assign all the arguments to variables
-    now = sys.argv[1]
+    now = sys.argv[1] #useless
     title = sys.argv[2]
     main_image = sys.argv[3]
     a = sys.argv[4]
     b = sys.argv[5]
     msa = sys.argv[6]
     raw = sys.argv[7]
+
+
+
+    #get imgur creds
+    f = open("imgur_creds.json")
+    data = json.load(f)
+    client_id = data["id"]
+    client_secret = data["secret"]
+    f.close()
+
+    #upload the images to imgur
+    client = ImgurClient(client_id, client_secret)
+    a = client.upload_from_path(a)
+    b = client.upload_from_path(b)
+    msa = client.upload_from_path(msa)
+    raw = client.upload_from_path(raw)
+
+
 
     #read the pass.html format file
     html = open("/home/pi/website/media/pass.html")
@@ -25,8 +45,7 @@ if __name__ == "__main__":
     title = "{} at {}".format(sat, title)
 
     #substitute arguments into the template
-    prefix = "/weather/images/{}/".format(now)
-    d = {"title":title, "main":prefix + main_image.split("/")[-1], "a":prefix + a.split("/")[-1], "b":prefix + b.split("/")[-1], "msa":prefix + msa.split("/")[-1], "raw":prefix + raw.split("/")[-1]}
+    d = {"title":title, "main":a["link"], "a":a["link"], "b":b["link"], "msa":msa["link"], "raw":raw["link"]}
     result = src.substitute(d)
 
     #read the index.html file for the weather page
@@ -41,4 +60,3 @@ if __name__ == "__main__":
     #write the code index.html
     html = open("/home/pi/website/weather/index.html", "w")
     html.write(b)
-    print("done")
