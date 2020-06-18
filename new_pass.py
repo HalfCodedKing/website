@@ -18,7 +18,7 @@ if __name__ == "__main__":
 
 
     #get imgur creds
-    f = open("imgur_creds.json")
+    f = open("/home/pi/website/imgur_creds.json")
     data = json.load(f)
     client_id = data["id"]
     client_secret = data["secret"]
