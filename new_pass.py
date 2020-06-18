@@ -26,7 +26,17 @@ if __name__ == "__main__":
 
     #upload the images to imgur
     client = ImgurClient(client_id, client_secret)
-    a = client.upload_from_path(a)
+    counter=1
+    while True:
+        try:
+            a = client.upload_from_path(a)
+            print("uploaded")
+            break
+        except:
+            print("failed")
+            sleep(60*counter)
+            counter+=1
+            continue
     b = client.upload_from_path(b)
     msa = client.upload_from_path(msa)
     raw = client.upload_from_path(raw)
