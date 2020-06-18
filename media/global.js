@@ -48,13 +48,14 @@ var header = `
     }
 
     #title {
-        padding-top: 90px;
+        padding-top: 70px;
+        paddin-bottom: 1em;
     }
 
     #title h1 {
         font-family: 'Titillium Web', sans-serif;
         color: whitesmoke;
-        font-size: 60px;
+        font-size: 4vw;
         border-bottom: 5px solid red;
         display: inline;
     }

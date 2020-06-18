@@ -1,17 +1,22 @@
 .pass {
     display: flex;
     height: auto;
-    padding: 50px 100px;
+    padding: 5vh 0;
+    padding-left: 3vw;
 }
 
 .pass_title {
-    font-size: 50px;
+    font-size: 3vw;
     padding: 0;
     margin: 0;
 }
 
+.main_image {
+    width: 35vw;
+}
+
 .main_image img {
-    width: 100%;
+    width: inherit;
     padding-right: 100px;
 }
 
@@ -20,7 +25,7 @@
 }
 
 .side_links {
-    margin-left: 40px;
+    margin-left: 3vw;
 }
 
 .side_links ul {
@@ -29,11 +34,11 @@
 }
 
 .side_links ul li {
-    padding-top: 15px;
+    padding-top: 1vh;
 }
 
 .side_links ul li a {
-    font-size: 40px;
+    font-size: 2vw;
     color: black;
 }
 
