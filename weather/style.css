@@ -2,7 +2,6 @@
     display: flex;
     height: auto;
     padding: 50px 100px;
-    
 }
 
 .pass_title {
@@ -12,12 +11,16 @@
 }
 
 .main_image img {
-    width: 40em;
-    padding-right: 40px;
+    width: 100%;
+    padding-right: 100px;
 }
 
 .container {
-    display: ;
+    margin-left: 20px;
+}
+
+.side_links {
+    margin-left: 40px;
 }
 
 .side_links ul {
@@ -26,12 +29,11 @@
 }
 
 .side_links ul li {
-    padding-top: 2em;
+    padding-top: 15px;
 }
 
 .side_links ul li a {
     font-size: 40px;
-    margin-left: 40px;
     color: black;
 }
 
