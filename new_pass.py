@@ -53,28 +53,28 @@ if __name__ == "__main__":
 
     #get the next pass of NOAA 15
     predictor = get_predictor_from_tle_lines((tle[NOAA15+1], tle[NOAA15+2]))
-    NOAA15_next_pass = predictor.get_next_pass(loc, max_elevation_gt=20).aos
+    NOAA15_next_pass = predictor.get_next_pass(loc, max_elevation_gt=20).los
 
     #get the next pass of NOAA 18
     p1redictor = get_predictor_from_tle_lines((tle[NOAA18+1], tle[NOAA18+2]))
-    NOAA18_next_pass = predictor.get_next_pass(loc, max_elevation_gt=20).aos
+    NOAA18_next_pass = predictor.get_next_pass(loc, max_elevation_gt=20).los
 
     #get the next pass of NOAA 19
     predictor = get_predictor_from_tle_lines((tle[NOAA19+1], tle[NOAA19+2]))
-    NOAA19_next_pass = predictor.get_next_pass(loc, max_elevation_gt=20).aos
+    NOAA19_next_pass = predictor.get_next_pass(loc, max_elevation_gt=20).los
 
     #get the closest to now
     closest = min([NOAA15_next_pass, NOAA18_next_pass, NOAA19_next_pass], key=lambda x: abs(x - datetime.utcnow()))
         
 
         
-    ##### Append new information to weather.html file #####
+    ##### Append new information to weather.html #####
 
-    #read the pass.html format file
+    #read the pass.html template file
     html = open("/home/pi/website/media/pass.html")
     src = Template(html.read())
 
-    #change the format of the title
+    #change the format of the date for the title
     title = title.split("/")[-1]
     sat = title[:6]
     title = title[6:]

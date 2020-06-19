@@ -29,7 +29,7 @@ function CountDownTimer(dt, id)
         var minutes = Math.floor((distance % _hour) / _minute);
         var seconds = Math.floor((distance % _minute) / _second);
 
-        document.getElementById(id).innerHTML = days + 'days ';
+        document.getElementById(id).innerHTML = "Time until next image: about " + days + 'days ';
         document.getElementById(id).innerHTML += hours + 'hrs ';
         document.getElementById(id).innerHTML += minutes + 'mins ';
         document.getElementById(id).innerHTML += seconds + 'secs';

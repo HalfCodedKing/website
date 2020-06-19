@@ -2,6 +2,11 @@ body {
     background-color: whitesmoke;
 }
 
+#countdown {
+    text-align: center;
+    font-size: 2em;
+}
+
 .pass {
     display: flex;
     height: auto;
