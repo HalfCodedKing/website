@@ -1,3 +1,7 @@
+body {
+    background-color: whitesmoke;
+}
+
 .pass {
     display: flex;
     height: auto;
