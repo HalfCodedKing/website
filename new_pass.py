@@ -84,6 +84,7 @@ if __name__ == "__main__":
     #substitute arguments into the template
     d = {"title":title, "main":a["link"], "a":a["link"], "b":b["link"], "msa":msa["link"], "raw":raw["link"]}
     result = src.substitute(d)
+    result = BeautifulSoup(result)
 
     #read the index.html file for the weather page
     html = open("/home/pi/website/weather/index.html", "r")
