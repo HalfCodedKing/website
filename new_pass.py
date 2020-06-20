@@ -7,6 +7,7 @@ import requests
 from orbit_predictor.sources import EtcTLESource, get_predictor_from_tle_lines
 from orbit_predictor.locations import Location
 from bs4 import BeautifulSoup
+from time import sleep
 
 if __name__ == "__main__":
     #assign all the arguments to variables
@@ -29,10 +30,50 @@ if __name__ == "__main__":
 
     #upload the images to imgur
     client = ImgurClient(client_id, client_secret)
-    a = client.upload_from_path(a)
-    b = client.upload_from_path(b)
-    msa = client.upload_from_path(msa)
-    raw = client.upload_from_path(raw)
+    counter=1
+    while True:
+        try:
+            a = client.upload_from_path(a)
+            print("uploaded")
+            break
+        except:
+            print("failed")
+            sleep(counter)
+            counter+=1
+            continue
+    counter=1
+    while True:
+        try:
+            b = client.upload_from_path(b)
+            print("uploaded")
+            break
+        except:
+            print("failed")
+            sleep(counter)
+            counter+=1
+            continue
+    counter=1
+    while True:
+        try:
+            msa = client.upload_from_path(msa)
+            print("uploaded")
+            break
+        except:
+            print("failed")
+            sleep(counter)
+            counter+=1
+            continue
+    counter=1
+    while True:
+        try:
+            raw = client.upload_from_path(raw)
+            print("uploaded")
+            break
+        except:
+            print("failed")
+            sleep(counter)
+            counter+=1
+            continue
 
 
 
