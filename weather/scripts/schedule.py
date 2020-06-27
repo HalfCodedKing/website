@@ -48,19 +48,19 @@ NOAA19_passes = NOAA19_predictor.passes_over(location=loc, when_utc=datetime.utc
 #create one big list of all the passes
 passes = []
 for p in NOAA15_passes:
-    passes.append(["NOAA15", p])
+    passes.append(["NOAA 15", p])
 for p in NOAA18_passes:
-    passes.append(["NOAA18", p])
+    passes.append(["NOAA 18", p])
 for p in NOAA19_passes:
-    passes.append(["NOAA19", p])
+    passes.append(["NOAA 19", p])
 
 #sort them by their date
 passes.sort(key=lambda x: x[1].aos)
 
 freqs = {
-    'NOAA15': 137000000,
-    'NOAA18': 137912500,
-    'NOAA19': 137100000
+    'NOAA 15': 137000000,
+    'NOAA 18': 137912500,
+    'NOAA 19': 137100000
 }
 
 #turn the info into json data
