@@ -9,10 +9,11 @@ from imgurpython import ImgurClient
 from bs4 import BeautifulSoup
 from time import sleep
 from string import Template
+import shlex
 
 if __name__ == "__main__":
     #get the index of the pass in daily_passes.json
-    pass_index = sys.argv[1]
+    pass_index = int(sys.argv[1])
 
     #get info about the pass from the daily_passes.json
     f = open("/home/pi/website/weather/scripts/daily_passes.json")
@@ -36,7 +37,8 @@ if __name__ == "__main__":
         os.makedirs("/home/pi/drive/weather/images/{}".format(day))
 
     #create new directory for this pass
-    os.makedirs("/home/pi/drive/weather/images/{}/{}".format(day, local_time))
+    if not os.path.exists("/home/pi/drive/weather/images/{}/{}".format(day, local_time)):
+        os.makedirs("/home/pi/drive/weather/images/{}/{}".format(day, local_time))
 
     #update the status in daily_passes.json
     with open("/home/pi/website/weather/scripts/daily_passes.json", "r") as f:
@@ -46,8 +48,10 @@ if __name__ == "__main__":
         json.dump(data, f, indent=4, sort_keys=True)
 
     #record the pass with rtl_fm
-    command = "timeout {} rtl_fm -d 0 -f {} -g 37.2 -s 37000 -E deemp -F 9 - | sox -t raw -e signed -c 1 -b 16 -r 37000 - {}.wav rate 11025".format(duration, frequency, outfile)
-    subprocess.call([command.split(" ")])
+    command1 = "timeout {} rtl_fm -d 0 -f {} -g 37.2 -s 37000 -E deemp -F 9 -".format(duration, frequency)
+    command2 = "sox -t raw -e signed -c 1 -b 16 -r 37000 - {}.wav rate 11025".format(outfile)
+    ps = subprocess.Popen(command1.split(" "), stdout=subprocess.PIPE)
+    subprocess.check_output(command2.split(" "), stdin=ps.stdout)
 
     #update the status in daily_passes.json
     with open("/home/pi/website/weather/scripts/daily_passes.json", "r") as f:
