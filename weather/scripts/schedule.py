@@ -105,3 +105,5 @@ for p in data:
     ps = subprocess.Popen(('echo', 'python3 /home/pi/website/weather/scripts/process.py {}'.format(i)), stdout=subprocess.PIPE)
     subprocess.check_output(('at', 'now + {} minutes'.format(delta_min)), stdin=ps.stdout)
     i += 1
+
+print("done scheduling")
