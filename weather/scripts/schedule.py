@@ -84,5 +84,5 @@ i = 0
 for p in data:
     delta = datetime.strptime(p["aos"], "%Y-%m-%d %H:%M:%S.%f %Z") - datetime.utcnow()
     delta_min = round(delta.total_seconds() / 60)
-    subprocess.call(["echo", "python3 /home/pi/website/weather/scripts/process.py {} | at now + {} minutes".format(i, delta_min)])
+    subprocess.call(["echo", "python3 /home/pi/website/weather/scripts/process.py {}".format(i), " | at now + {} minutes".format(delta_min)])
     i += 1
