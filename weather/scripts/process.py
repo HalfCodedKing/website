@@ -62,22 +62,22 @@ if __name__ == "__main__":
 
     #create map overlay
     epoch = (datetime.strptime(p['aos'], "%Y-%m-%d %H:%M:%S.%f %Z") - datetime.utcfromtimestamp(0)).total_seconds()
-    subprocess.call(["/usr/local/bin/wxmap -T \"{}\" -H /home/pi/website/weather/scripts/weather.tle -p 0 -l 0 -o {} {}-map.png".format(sat, epoch, outfile).split(" ")])
+    subprocess.call("/usr/local/bin/wxmap -T \"{}\" -H /home/pi/website/weather/scripts/weather.tle -p 0 -l 0 -o {} {}-map.png".format(sat, epoch, outfile).split(" "))
 
     #create image from channel a
-    subprocess.call(["/usr/local/bin/wxtoimg -m {}-map.png -A -a -B 120 -L 600 {}.wav {}.a.png".format(outfile, outfile, outfile).split(" ")])
+    subprocess.call("/usr/local/bin/wxtoimg -m {}-map.png -A -a -B 120 -L 600 {}.wav {}.a.png".format(outfile, outfile, outfile).split(" "))
 
     #create image from channel b
-    subprocess.call(["/usr/local/bin/wxtoimg -m {}-map.png -A -b -B 120 -L 600 {}.wav {}.b.png".format(outfile, outfile, outfile).split(" ")])
+    subprocess.call("/usr/local/bin/wxtoimg -m {}-map.png -A -b -B 120 -L 600 {}.wav {}.b.png".format(outfile, outfile, outfile).split(" "))
 
     #create image with MSA enhancement from channel a
-    subprocess.call(["/usr/local/bin/wxtoimg -m {}-map.png -A -B 120 -L 600 -e MSA {}.wav {}.MSA.png".format(outfile, outfile, outfile).split(" ")])
+    subprocess.call("/usr/local/bin/wxtoimg -m {}-map.png -A -B 120 -L 600 -e MSA {}.wav {}.MSA.png".format(outfile, outfile, outfile).split(" "))
     
     #create image with MSA-precip enhancement from channel a
-    subprocess.call(["/usr/local/bin/wxtoimg -m {}-map.png -A -B 120 -L 600 -e MSA-precip {}.wav {}.MSA-precip.png".format(outfile, outfile, outfile).split(" ")])
+    subprocess.call("/usr/local/bin/wxtoimg -m {}-map.png -A -B 120 -L 600 -e MSA-precip {}.wav {}.MSA-precip.png".format(outfile, outfile, outfile).split(" "))
 
     #create raw image
-    subprocess.call(["/usr/local/bin/wxtoimg -m {}-map.png -A -B 120 -L 600 {}.wav {}.raw.png".format(outfile, outfile, outfile).split(" ")])
+    subprocess.call("/usr/local/bin/wxtoimg -m {}-map.png -A -B 120 -L 600 {}.wav {}.raw.png".format(outfile, outfile, outfile).split(" "))
 
     #get imgur credentials from secrets.json
     f = open("/home/pi/website/weather/scripts/secrets.json")
@@ -179,9 +179,9 @@ if __name__ == "__main__":
     html.write(str(soup))
 
     #commit changes to git repository
-    subprocess.call(["git -C /home/pi/website/ pull origin master".split(" ")])
-    subprocess.call(["git -C /home/pi/website/ add --all".split(" ")])
-    subprocess.call(["git -C /home/pi/website/ commit -m \"weather auto commit\"".split(" ")])
-    subprocess.call(["git -C /home/pi/website/ push origin master".split(" ")])
+    subprocess.call("git -C /home/pi/website/ pull origin master".split(" "))
+    subprocess.call("git -C /home/pi/website/ add --all".split(" "))
+    subprocess.call("git -C /home/pi/website/ commit -m \"weather auto commit\"".split(" "))
+    subprocess.call("git -C /home/pi/website/ push origin master".split(" "))
 
     print("done processing")
