@@ -1,13 +1,11 @@
-import requests
-from orbit_predictor.sources import EtcTLESource, get_predictor_from_tle_lines
-from orbit_predictor.locations import Location
 import json
 from datetime import datetime
 from datetime import timedelta
-import sched
-import time
-from process import process
 import subprocess
+import requests
+from orbit_predictor.sources import get_predictor_from_tle_lines
+from orbit_predictor.locations import Location
+from tzwhere import tzwhere
 
 #get lat and lon from private file
 f = open("/home/pi/website/weather/scripts/secrets.json")
@@ -79,10 +77,17 @@ for p in passes:
 with open("/home/pi/website/weather/scripts/daily_passes.json", "w") as outfile:
     json.dump(data, outfile, indent=4, sort_keys=True)
 
+#get timezone of groundstation
+tzwhere = tzwhere.tzwhere()
+timezone_str = tzwhere.tzNameAt(lat, lon)
+
 #schedule the passes for the day
 i = 0
 for p in data:
-    delta = datetime.strptime(p["aos"], "%Y-%m-%d %H:%M:%S.%f %Z") - datetime.utcnow()
+    #convert to local time
+    local = datetime.strptime(p["aos"], "%Y-%m-%d %H:%M:%S.%f %Z").astimezone(timezone_str)
+    #calculate minutes until start of each pass
+    delta =  local - datetime.now()
     delta_min = round(delta.total_seconds() / 60)
     ps = subprocess.Popen(('echo', 'python3 /home/pi/website/weather/scripts/process.py {}'.format(i)), stdout=subprocess.PIPE)
     subprocess.check_output(('at', 'now + {} minutes'.format(delta_min)), stdin=ps.stdout)
