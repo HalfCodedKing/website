@@ -1,6 +1,5 @@
 import json
-from datetime import datetime
-from datetime import timedelta
+from datetime import datetime, timedelta, date
 import subprocess
 import requests
 from orbit_predictor.sources import get_predictor_from_tle_lines
@@ -30,15 +29,15 @@ loc = Location("ground station", lat, lon, 5)
 
 #get the next passes of NOAA 15 within the next 24 hours
 NOAA15_predictor = get_predictor_from_tle_lines((tle[NOAA15+1], tle[NOAA15+2]))
-NOAA15_passes = NOAA15_predictor.passes_over(location=loc, when_utc=datetime.utcnow(), limit_date=datetime.utcnow() + timedelta(hours=24), max_elevation_gt=20)
+NOAA15_passes = NOAA15_predictor.passes_over(location=loc, when_utc=datetime.utcnow(), limit_date=date.today() + datetime.timedelta(days=1), max_elevation_gt=20)
 
 #get the next passes of NOAA 18 within the next 24 hours
 NOAA18_predictor = get_predictor_from_tle_lines((tle[NOAA18+1], tle[NOAA18+2]))
-NOAA18_passes = NOAA18_predictor.passes_over(location=loc, when_utc=datetime.utcnow(), limit_date=datetime.utcnow() + timedelta(hours=24), max_elevation_gt=20)
+NOAA18_passes = NOAA18_predictor.passes_over(location=loc, when_utc=datetime.utcnow(), limit_date=date.today() + datetime.timedelta(days=1), max_elevation_gt=20)
 
 #get the next passes of NOAA 19 within the next 24 hours
 NOAA19_predictor = get_predictor_from_tle_lines((tle[NOAA19+1], tle[NOAA19+2]))
-NOAA19_passes = NOAA19_predictor.passes_over(location=loc, when_utc=datetime.utcnow(), limit_date=datetime.utcnow() + timedelta(hours=24), max_elevation_gt=20)
+NOAA19_passes = NOAA19_predictor.passes_over(location=loc, when_utc=datetime.utcnow(), limit_date=date.today() + datetime.timedelta(days=1), max_elevation_gt=20)
 
 #create one big list of all the passes
 passes = []
