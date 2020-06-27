@@ -5,7 +5,6 @@ import requests
 from orbit_predictor.sources import get_predictor_from_tle_lines
 from orbit_predictor.locations import Location
 from tzwhere import tzwhere
-from pytz import timezone
 
 #get lat and lon from private file
 f = open("/home/pi/website/weather/scripts/secrets.json")
@@ -18,6 +17,11 @@ f.close()
 url = "https://www.celestrak.com/NORAD/elements/weather.txt"
 r = requests.get(url)
 tle = r.content.decode("utf-8").replace("\r\n", "newline").split("newline")
+
+#write tle to file for use with wxmap
+f = open("/home/pi/website/weather/scripts/weather.tle" "w+")
+f.write(r.text.replace("\r", ""))
+f.close()
 
 #find the satellites in the tle
 NOAA15 = tle.index("NOAA 15                 ")
@@ -52,9 +56,9 @@ for p in NOAA19_passes:
 passes.sort(key=lambda x: x[1].aos)
 
 freqs = {
-    'NOAA15': 137.6200,
-    'NOAA18': 137.9125,
-    'NOAA19': 137.1000
+    'NOAA15': 137000000,
+    'NOAA18': 137912500,
+    'NOAA19': 137100000
 }
 
 #turn the info into json data
