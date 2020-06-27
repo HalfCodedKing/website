@@ -1,3 +1,5 @@
+#made by Felix (Blobtoe)
+
 import json
 from datetime import datetime, timedelta
 import subprocess
@@ -78,7 +80,7 @@ for p in passes:
         #time the sat passes below the horizon 
         'los': str(info.los) + " UTC",
         #maximum degrees of elevation
-        'max_elevation': info.max_elevation_deg,
+        'max_elevation': round(info.max_elevation_deg, 1),
         #duration of the pass in seconds
         'duration': info.duration_s,
         #status INCOMING, CURRENT or PASSED

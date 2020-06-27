@@ -1,4 +1,3 @@
-from string import Template
 import sys
 from datetime import datetime
 from imgurpython import ImgurClient
