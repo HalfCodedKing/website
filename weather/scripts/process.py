@@ -26,8 +26,7 @@ if __name__ == "__main__":
     duration = p['duration']
     max_elevation = p['max_elevation']
     #string used for naming the files  (aos in %Y-%m-%d %H:%M:%S format)
-    local_time = str(datetime.strptime(p['aos'], "%Y-%m-%d %H:%M:%S.%f %Z").replace(tzinfo=timezone.utc).astimezone(tz=None))[:-13]
-    local_time.replace(" ", "_")
+    local_time = str(datetime.strptime(p['aos'], "%Y-%m-%d %H:%M:%S.%f %Z").replace(tzinfo=timezone.utc).astimezone(tz=None))[:-13].replace(" ", "_")
     #the name of the folder containing all the passes for the day (aos in %Y-%m-%d format)
     day = str(local_time)[:10]
     outfile = "home/pi/drive/weather/images/{}/{}/{}".format(day, local_time, local_time)
