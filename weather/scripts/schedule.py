@@ -86,7 +86,7 @@ timezone_str = tzwhere.tzNameAt(lat, lon)
 i = 0
 for p in data:
     #convert to local time
-    local = datetime.strptime(p["aos"], "%Y-%m-%d %H:%M:%S.%f %Z").astimezone(tz=None)
+    local = datetime.strptime(p["aos"], "%Y-%m-%d %H:%M:%S.%f %Z").astimezone(tz=None).replace(tzinfo=None)
     #calculate minutes until start of each pass
     delta = local - datetime.now()
     delta_min = round(delta.total_seconds() / 60)
