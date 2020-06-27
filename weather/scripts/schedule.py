@@ -19,7 +19,7 @@ r = requests.get(url)
 tle = r.content.decode("utf-8").replace("\r\n", "newline").split("newline")
 
 #write tle to file for use with wxmap
-f = open("/home/pi/website/weather/scripts/weather.tle" "w+")
+f = open("/home/pi/website/weather/scripts/weather.tle", "w+")
 f.write(r.text.replace("\r", ""))
 f.close()
 
