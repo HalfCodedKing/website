@@ -52,6 +52,12 @@ for p in NOAA19_passes:
 #sort them by their date
 passes.sort(key=lambda x: x[1].aos)
 
+freqs = {
+    'NOAA15': 137.6200,
+    'NOAA18': 137.9125,
+    'NOAA19': 137.1000
+}
+
 #turn the info into json data
 data = []
 for p in passes:
@@ -60,6 +66,8 @@ for p in passes:
     data.append({
         #name of the sat
         'satellite': sat,
+        #the frequency in MHz the satellite transmits
+        'frequency': freqs[sat],
         #time the sat rises above the horizon
         'aos': str(info.aos) + " UTC",
         #time the sat reaches its max elevation
@@ -85,10 +93,8 @@ timezone_str = tzwhere.tzNameAt(lat, lon)
 #schedule the passes for the day
 i = 0
 for p in data:
-    #convert to local time
-    local = datetime.strptime(p["aos"], "%Y-%m-%d %H:%M:%S.%f %Z")#.astimezone(tz=None).replace(tzinfo=None)
     #calculate minutes until start of each pass
-    delta = local - datetime.utcnow()
+    delta = datetime.strptime(p["aos"], "%Y-%m-%d %H:%M:%S.%f %Z") - datetime.utcnow()
     delta_min = round(delta.total_seconds() / 60)
     #create an 'at' job
     ps = subprocess.Popen(('echo', 'python3 /home/pi/website/weather/scripts/process.py {}'.format(i)), stdout=subprocess.PIPE)
