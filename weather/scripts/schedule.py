@@ -6,6 +6,7 @@ import requests
 from orbit_predictor.sources import get_predictor_from_tle_lines
 from orbit_predictor.locations import Location
 from tzwhere import tzwhere
+from pytz import timezone
 
 #get lat and lon from private file
 f = open("/home/pi/website/weather/scripts/secrets.json")
@@ -85,10 +86,11 @@ timezone_str = tzwhere.tzNameAt(lat, lon)
 i = 0
 for p in data:
     #convert to local time
-    local = datetime.strptime(p["aos"], "%Y-%m-%d %H:%M:%S.%f %Z").astimezone(timezone_str)
+    local = datetime.strptime(p["aos"], "%Y-%m-%d %H:%M:%S.%f %Z").astimezone(timezone(timezone_str))
     #calculate minutes until start of each pass
     delta =  local - datetime.now()
     delta_min = round(delta.total_seconds() / 60)
+    #create an 'at' job
     ps = subprocess.Popen(('echo', 'python3 /home/pi/website/weather/scripts/process.py {}'.format(i)), stdout=subprocess.PIPE)
     subprocess.check_output(('at', 'now + {} minutes'.format(delta_min)), stdin=ps.stdout)
     i += 1
