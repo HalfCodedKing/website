@@ -29,7 +29,7 @@ if __name__ == "__main__":
     local_time = str(datetime.strptime(p['aos'], "%Y-%m-%d %H:%M:%S.%f %Z").replace(tzinfo=timezone.utc).astimezone(tz=None))[:-13]
     #the name of the folder containing all the passes for the day (aos in %Y-%m-%d format)
     day = str(local_time)[:10]
-    outfile = "home/pi/drive/weather/images/{}/{}/{}".format(day, local_time, local_time)
+    outfile = "\"home/pi/drive/weather/images/{}/{}/{}\"".format(day, local_time, local_time)
 
     #if this is the first pass of the day, create a new folder for all the images of the day
     if not os.path.exists("/home/pi/drive/weather/images/{}".format(day)):
@@ -61,22 +61,28 @@ if __name__ == "__main__":
         json.dump(data, f, indent=4, sort_keys=True)
 
     #create map overlay
+    print("creating map")
     epoch = (datetime.strptime(p['aos'], "%Y-%m-%d %H:%M:%S.%f %Z") - datetime.utcfromtimestamp(0)).total_seconds()
     subprocess.call("/usr/local/bin/wxmap -T \"{}\" -H /home/pi/website/weather/scripts/weather.tle -p 0 -l 0 -o {} {}-map.png".format(sat, epoch, outfile).split(" "))
 
     #create image from channel a
+    print("create image from channel a")
     subprocess.call("/usr/local/bin/wxtoimg -m {}-map.png -A -a -B 120 -L 600 {}.wav {}.a.png".format(outfile, outfile, outfile).split(" "))
 
     #create image from channel b
+    print("creating image from channel b")
     subprocess.call("/usr/local/bin/wxtoimg -m {}-map.png -A -b -B 120 -L 600 {}.wav {}.b.png".format(outfile, outfile, outfile).split(" "))
 
     #create image with MSA enhancement from channel a
+    print("creating MSA image")
     subprocess.call("/usr/local/bin/wxtoimg -m {}-map.png -A -B 120 -L 600 -e MSA {}.wav {}.MSA.png".format(outfile, outfile, outfile).split(" "))
     
     #create image with MSA-precip enhancement from channel a
+    print("creagin MSA-precip image")
     subprocess.call("/usr/local/bin/wxtoimg -m {}-map.png -A -B 120 -L 600 -e MSA-precip {}.wav {}.MSA-precip.png".format(outfile, outfile, outfile).split(" "))
 
     #create raw image
+    print("creating raw image")
     subprocess.call("/usr/local/bin/wxtoimg -m {}-map.png -A -B 120 -L 600 {}.wav {}.raw.png".format(outfile, outfile, outfile).split(" "))
 
     #get imgur credentials from secrets.json
@@ -96,6 +102,7 @@ if __name__ == "__main__":
     links = {}
     
     #upload channel a image
+    print("uploading images to imgur")
     while True:
         try:
             img = client.upload_from_path("{}.a.png".format(outfile), config=config)
