@@ -173,3 +173,11 @@ if __name__ == "__main__":
     #write the code index.html
     html = open("/home/pi/website/weather/index.html", "w")
     html.write(str(soup))
+
+    #commit changes to git repository
+    subprocess.call(["git -C /home/pi/website/ pull origin master".split(" ")])
+    subprocess.call(["git -C /home/pi/website/ add --all".split(" ")])
+    subprocess.call(["git -C /home/pi/website/ commit -m \"weather auto commit\"".split(" ")])
+    subprocess.call(["git -C /home/pi/website/ push origin master".split(" ")])
+
+    print("done processing")
