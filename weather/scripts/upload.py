@@ -20,7 +20,7 @@ if __name__ == "__main__":
     raw = sys.argv[7]
 
     #get secrets from file
-    f = open("/home/pi/website/secrets.json")
+    f = open("/home/pi/website/weather/scripts/secrets.json")
     data = json.load(f)
     client_id = data["id"]
     client_secret = data["secret"]
@@ -30,7 +30,7 @@ if __name__ == "__main__":
 
     #upload the images to imgur
     client = ImgurClient(client_id, client_secret)
-    counter=1
+    
     while True:
         try:
             a = client.upload_from_path(a)
@@ -38,10 +38,7 @@ if __name__ == "__main__":
             break
         except:
             print("failed")
-            sleep(counter)
-            counter+=1
             continue
-    counter=1
     while True:
         try:
             b = client.upload_from_path(b)
@@ -49,10 +46,7 @@ if __name__ == "__main__":
             break
         except:
             print("failed")
-            sleep(counter)
-            counter+=1
             continue
-    counter=1
     while True:
         try:
             msa = client.upload_from_path(msa)
@@ -60,10 +54,7 @@ if __name__ == "__main__":
             break
         except:
             print("failed")
-            sleep(counter)
-            counter+=1
             continue
-    counter=1
     while True:
         try:
             raw = client.upload_from_path(raw)
@@ -71,8 +62,6 @@ if __name__ == "__main__":
             break
         except:
             print("failed")
-            sleep(counter)
-            counter+=1
             continue
 
 
