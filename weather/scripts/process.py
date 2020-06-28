@@ -21,6 +21,12 @@ if __name__ == "__main__":
     f.close()
 
     #assign variables
+    with open("/home/pi/website/weather/scripts/secrets.json") as f:
+        data = json.load(f)
+        lat = data['lat']
+        lon = data['lon']
+        elev = data['elev']
+
     sat = p['satellite']
     frequency = p['frequency']
     duration = p['duration']
@@ -63,8 +69,8 @@ if __name__ == "__main__":
 
     #create map overlay
     print("creating map")
-    epoch = (datetime.strptime(p['aos'], "%Y-%m-%d %H:%M:%S.%f %Z") - datetime.utcfromtimestamp(0)).total_seconds()
-    subprocess.call("/usr/local/bin/wxmap -T \"{}\" -H /home/pi/website/weather/scripts/weather.tle -p 0 -l 0 -o {} {}-map.png".format(sat, epoch, outfile).split(" "))
+    date = datetime.strptime(p['aos'], "%Y-%m-%d %H:%M:%S.%f %Z").strftime("%d %b %Y %H:%M:%S")
+    subprocess.call("/usr/local/bin/wxmap -T \"{}\" -L \"{}/{}/{}\" -H /home/pi/website/weather/scripts/weather.tle -p 0 -l 0 -o \"{}\" {}-map.png".format(sat, lat, lon, elev, date, outfile).split(" "))
 
     #create image from channel a
     print("create image from channel a")
