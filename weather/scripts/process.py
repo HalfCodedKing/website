@@ -74,7 +74,7 @@ if __name__ == "__main__":
 
     #create image from channel a
     print("create image from channel a")
-    subprocess.call("/usr/local/bin/wxtoimg -m {}-map.png -A -a {}.wav {}.a.png".format(outfile, outfile, outfile).split(" "))
+    subprocess.call("/usr/local/bin/wxtoimg -m {}-map.png {}.wav {}.a.png".format(outfile, outfile, outfile).split(" "))
 
     #create image from channel b
     print("creating image from channel b")
