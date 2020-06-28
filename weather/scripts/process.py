@@ -71,7 +71,9 @@ if __name__ == "__main__":
     print("creating map")
     date = datetime.strptime(p['aos'], "%Y-%m-%d %H:%M:%S.%f %Z").strftime("%d %b %Y %H:%M:%S")
     subprocess.call("/usr/local/bin/wxmap -T \"{}\" -L \"{}/{}/{}\" -H /home/pi/website/weather/scripts/weather.tle -p 0 -l 0 -o \"{}\" {}-map.png".format(sat, lat, lon, elev, date, outfile).split(" "))
+    print("/usr/local/bin/wxmap -T \"{}\" -L \"{}/{}/{}\" -H /home/pi/website/weather/scripts/weather.tle -p 0 -l 0 -o \"{}\" {}-map.png".format(sat, lat, lon, elev, date, outfile).split(" "))
 
+'''
     #create image from channel a
     print("create image from channel a")
     subprocess.call("/usr/local/bin/wxtoimg -m {}-map.png -A -a -B 120 -L 600 {}.wav {}.a.png".format(outfile, outfile, outfile).split(" "))
@@ -199,3 +201,5 @@ if __name__ == "__main__":
     subprocess.call("git -C /home/pi/website/ push origin master".split(" "))
 
     print("done processing")
+
+    '''
