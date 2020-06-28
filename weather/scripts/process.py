@@ -71,10 +71,7 @@ if __name__ == "__main__":
     print("creating map")
     date = (datetime.strptime(p['aos'], "%Y-%m-%d %H:%M:%S.%f %Z")+timedelta(0, 90)).strftime("%d %b %Y %H:%M:%S")
     subprocess.call(["/usr/local/bin/wxmap", "-T", "{}".format(sat), "-H", "/home/pi/website/weather/scripts/weather.tle", "-p", "0", "-o", "{}".format(date), "{}-map.png".format(outfile)])
-    #print(" ".join(["/usr/local/bin/wxmap", "-T", "\"{}\"".format(sat), "-L", "\"{}/{}/{}\"".format(lat, lon, elev), "-H", "/home/pi/website/weather/scripts/weather.tle", "-p", "0", "-l", "0", "-o", "\"{}\"".format(date), "{}-map.png".format(outfile)]))
-    print(["/usr/local/bin/wxmap", "-T", "\"{}\"".format(sat), "-H", "/home/pi/website/weather/scripts/weather.tle", "-p", "0", "-l", "0", "-o", "\"{}\"".format(date), "{}-map.png".format(outfile)])
 
-'''
     #create image from channel a
     print("create image from channel a")
     subprocess.call("/usr/local/bin/wxtoimg -m {}-map.png -A -a -B 120 -L 600 {}.wav {}.a.png".format(outfile, outfile, outfile).split(" "))
@@ -95,6 +92,7 @@ if __name__ == "__main__":
     print("creating raw image")
     subprocess.call("/usr/local/bin/wxtoimg -m {}-map.png -A -B 120 -L 600 {}.wav {}.raw.png".format(outfile, outfile, outfile).split(" "))
 
+'''
     #get imgur credentials from secrets.json
     f = open("/home/pi/website/weather/scripts/secrets.json")
     data = json.load(f)
