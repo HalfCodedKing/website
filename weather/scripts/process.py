@@ -87,7 +87,7 @@ if __name__ == "__main__":
     #create raw image
     print("creating raw image")
     os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -B 120 -L 600 {}.wav {}.raw.png".format(outfile, outfile, outfile))
-'''
+
     #get imgur credentials from secrets.json
     f = open("/home/pi/website/weather/scripts/secrets.json")
     data = json.load(f)
@@ -199,10 +199,9 @@ if __name__ == "__main__":
     html.write(str(soup))
 
     #commit changes to git repository
-    subprocess.call("git -C /home/pi/website/ pull origin master".split(" "))
-    subprocess.call("git -C /home/pi/website/ add --all".split(" "))
-    subprocess.call("git -C /home/pi/website/ commit -m \"weather auto commit\"".split(" "))
-    subprocess.call("git -C /home/pi/website/ push origin master".split(" "))
+    os.system("git -C /home/pi/website/ pull origin master")
+    os.system("git -C /home/pi/website/ add --all")
+    os.system("git -C /home/pi/website/ commit -m \"weather auto commit\"")
+    os.system("git -C /home/pi/website/ push origin master")
 
     print("done processing")
-'''
