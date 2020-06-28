@@ -74,7 +74,7 @@ if __name__ == "__main__":
 
     #create image from channel a
     print("create image from channel a")
-    subprocess.call("/usr/local/bin/wxtoimg -m {}-map.png {}.wav {}.a.png".format(outfile, outfile, outfile).split(" "))
+    subprocess.call("/usr/local/bin/wxtoimg -m {}-map.png -A -a -B 120 -L 600 {}.wav {}.a.png".format(outfile, outfile, outfile).split(" "))
 
     #create image from channel b
     print("creating image from channel b")
@@ -92,7 +92,6 @@ if __name__ == "__main__":
     print("creating raw image")
     subprocess.call("/usr/local/bin/wxtoimg -m {}-map.png -A -B 120 -L 600 {}.wav {}.raw.png".format(outfile, outfile, outfile).split(" "))
 
-'''
     #get imgur credentials from secrets.json
     f = open("/home/pi/website/weather/scripts/secrets.json")
     data = json.load(f)
@@ -111,7 +110,8 @@ if __name__ == "__main__":
     
     #upload channel a image
     print("uploading images to imgur")
-    while True:
+    count = 0
+    while count<10:
         try:
             img = client.upload_from_path("{}.a.png".format(outfile), config=config)
             links["a"] = img["link"]
@@ -119,10 +119,12 @@ if __name__ == "__main__":
             break
         except:
             print("failed to upload image... trying again")
+            count += 1
             continue
 
     #upload channel b image
-    while True:
+    count = 0
+    while count<10:
         try:
             img = client.upload_from_path("{}.b.png".format(outfile), config=config)
             links["b"] = img["link"]
@@ -130,10 +132,12 @@ if __name__ == "__main__":
             break
         except:
             print("failed to upload image... trying again")
+            count += 1
             continue
 
     #upload channel MSA image
-    while True:
+    count = 0
+    while count<10:
         try:
             img = client.upload_from_path("{}.MSA.png".format(outfile), config=config)
             links["MSA"] = img["link"]
@@ -141,10 +145,12 @@ if __name__ == "__main__":
             break
         except:
             print("failed to upload image... trying again")
+            count += 1
             continue
 
     #upload channel MSA-precip image
-    while True:
+    count = 0
+    while count<10:
         try:
             img = client.upload_from_path("{}.MSA-precip.png".format(outfile), config=config)
             links["MSA-precip"] = img["link"]
@@ -152,10 +158,12 @@ if __name__ == "__main__":
             break
         except:
             print("failed to upload image... trying again")
+            count += 1
             continue
 
     #upload channel raw image
-    while True:
+    count = 0
+    while count<10:
         try:
             img = client.upload_from_path("{}.raw.png".format(outfile), config=config)
             links["raw"] = img["link"]
@@ -163,6 +171,7 @@ if __name__ == "__main__":
             break
         except:
             print("failed to upload image... trying again")
+            count += 1
             continue
 
     #read the pass.html template file
