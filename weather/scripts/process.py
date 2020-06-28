@@ -59,6 +59,7 @@ if __name__ == "__main__":
     ps = subprocess.Popen(command1.split(" "), stdout=subprocess.PIPE)
     sleep(duration+5)
     subprocess.check_output(command2.split(" "), stdin=ps.stdout)
+    print(command1.format(duration, frequency) + " | " + command2.format(outfile))
 
     #update the status in daily_passes.json
     with open("/home/pi/website/weather/scripts/daily_passes.json", "r") as f:
@@ -91,7 +92,7 @@ if __name__ == "__main__":
     #create raw image
     print("creating raw image")
     subprocess.call("/usr/local/bin/wxtoimg -m {}-map.png -A -B 120 -L 600 {}.wav {}.raw.png".format(outfile, outfile, outfile).split(" "))
-
+'''
     #get imgur credentials from secrets.json
     f = open("/home/pi/website/weather/scripts/secrets.json")
     data = json.load(f)
@@ -209,3 +210,4 @@ if __name__ == "__main__":
     subprocess.call("git -C /home/pi/website/ push origin master".split(" "))
 
     print("done processing")
+'''
