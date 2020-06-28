@@ -71,7 +71,7 @@ if __name__ == "__main__":
     print("creating map")
     date = datetime.strptime(p['aos'], "%Y-%m-%d %H:%M:%S.%f %Z").strftime("%d %b %Y %H:%M:%S")
     subprocess.call(["/usr/local/bin/wxmap", "-T", "\"{}\"".format(sat), "-L", "\"{}/{}/{}\"".format(lat, lon, elev), "-H", "/home/pi/website/weather/scripts/weather.tle", "-p", "0", "-l", "0", "-o", "\"{}\"".format(date), "{}-map.png".format(outfile)])
-    print(["/usr/local/bin/wxmap", "-T", "\"{}\"".format(sat), "-L", "\"{}/{}/{}\"".format(lat, lon, elev), "-H", "/home/pi/website/weather/scripts/weather.tle", "-p", "0", "-l", "0", "-o", "\"{}\"".format(date), "{}-map.png".format(outfile)])
+    print(" ".join({"/usr/local/bin/wxmap", "-T", "\"{}\"".format(sat), "-L", "\"{}/{}/{}\"".format(lat, lon, elev), "-H", "/home/pi/website/weather/scripts/weather.tle", "-p", "0", "-l", "0", "-o", "\"{}\"".format(date), "{}-map.png".format(outfile)}))
 
 '''
     #create image from channel a
