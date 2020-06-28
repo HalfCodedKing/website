@@ -66,7 +66,7 @@ if __name__ == "__main__":
     #create map overlay
     print("creating map")
     date = (datetime.strptime(p['aos'], "%Y-%m-%d %H:%M:%S.%f %Z")+timedelta(0, 90)).strftime("%d %b %Y %H:%M:%S")
-    os.system("/usr/local/bin/wxmap -T \"{}\" -H /home/pi/website/weather/scripts/weather.tle -p 0 -o {} {}-map.png".format(sat, date, outfile))
+    os.system("/usr/local/bin/wxmap -T \"{}\" -H /home/pi/website/weather/scripts/weather.tle -p 0 -o \"{}\" {}-map.png".format(sat, date, outfile))
 
     #create image from channel a
     print("create image from channel a")
