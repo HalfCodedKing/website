@@ -54,12 +54,14 @@ if __name__ == "__main__":
         json.dump(data, f, indent=4, sort_keys=True)
 
     #record the pass with rtl_fm
+    command = "timeout {} rtl_fm -d 0 -f {} -g 37.2 -s 37000 -E deemp -F 9 - | sox -traw -esigned -c1 -b16 -r37000 - {}.wav rate 11025".format(duration, frequency, outfile)
     command1 = "timeout {} rtl_fm -d 0 -f {} -g 37.2 -s 37000 -E deemp -F 9 -".format(duration, frequency)
     command2 = "sox -traw -esigned -c1 -b16 -r37000 - {}.wav rate 11025".format(outfile)
-    ps = subprocess.Popen(command1.split(" "), stdout=subprocess.PIPE)
-    sleep(duration+5)
-    subprocess.check_output(command2.split(" "), stdin=ps.stdout)
-    print(command1.format(duration, frequency) + " | " + command2.format(outfile))
+    os.system(command)
+    #ps = subprocess.Popen(command1.split(" "), stdout=subprocess.PIPE)
+    #sleep(duration+5)
+    #subprocess.check_output(command2.split(" "), stdin=ps.stdout)
+    #print(command1.format(duration, frequency) + " | " + command2.format(outfile))
 
     #update the status in daily_passes.json
     with open("/home/pi/website/weather/scripts/daily_passes.json", "r") as f:
