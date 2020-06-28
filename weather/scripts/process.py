@@ -209,5 +209,3 @@ if __name__ == "__main__":
     subprocess.call("git -C /home/pi/website/ push origin master".split(" "))
 
     print("done processing")
-
-    '''
