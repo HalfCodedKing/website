@@ -36,7 +36,7 @@
         "los": "2020-06-29 03:36:05.972732 UTC",
         "max_elevation": 25.0,
         "satellite": "NOAA 18",
-        "status": "INCOMING",
+        "status": "CURRENT",
         "tca": "2020-06-29 03:28:55.664655 UTC"
     },
     {
@@ -56,7 +56,7 @@
         "los": "2020-06-29 05:17:07.619874 UTC",
         "max_elevation": 65.3,
         "satellite": "NOAA 18",
-        "status": "INCOMING",
+        "status": "PASSED",
         "tca": "2020-06-29 05:09:10.627430 UTC"
     },
     {
