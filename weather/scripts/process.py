@@ -32,7 +32,7 @@ if __name__ == "__main__":
     duration = p['duration']
     max_elevation = p['max_elevation']
     #string used for naming the files  (aos in %Y-%m-%d %H.%M.%S format)
-    local_time = str(datetime.strptime(p['aos'], "%Y-%m-%d %H.%M.%S.%f %Z").replace(tzinfo=timezone.utc).astimezone(tz=None))[:-13].replace(" ", "_")
+    local_time = str(datetime.strptime(p['aos'], "%Y-%m-%d %H:%M:%S.%f %Z").replace(tzinfo=timezone.utc).astimezone(tz=None))[:-13].replace(" ", "_").replace(":", ".")
     #the name of the folder containing all the passes for the day (aos in %Y-%m-%d format)
     day = str(local_time)[:10]
     outfile = "/home/pi/drive/weather/images/{}/{}/{}".format(day, local_time, local_time)
@@ -66,7 +66,7 @@ if __name__ == "__main__":
 
     #create map overlay
     print("creating map")
-    date = (datetime.strptime(p['aos'], "%Y-%m-%d %H.%M.%S.%f %Z")+timedelta(0, 90)).strftime("%d %b %Y %H.%M.%S")
+    date = (datetime.strptime(p['aos'], "%Y-%m-%d %H:%M:%S:%f %Z")+timedelta(0, 90)).strftime("%d %b %Y %H:%M:%S")
     os.system("/usr/local/bin/wxmap -T \"{}\" -H /home/pi/website/weather/scripts/weather.tle -p 0 -o \"{}\" {}-map.png".format(sat, date, outfile))
 
     #create image from channel a
@@ -172,7 +172,9 @@ if __name__ == "__main__":
             continue
 
     with open("/home/pi/website/weather/images/{}/{}/{}.json".format(day, local_time, local_time), "w") as f:
-        json.dump(links, f, indent=4, sort_keys=True)
+        pass_info = p
+        pass_info['links'] = links
+        json.dump(pass_info, f, indent=4, sort_keys=True)
 
     #read the pass.html template file
     html = open("/home/pi/website/media/pass.html")
@@ -194,7 +196,7 @@ if __name__ == "__main__":
     #find the spot to add the next pass time
     with open("/home/pi/website/weather/scripts/daily_passes.json", "r") as f:
         data = json.load(f)
-        soup.find(id="countdown")["next_pass"] = data[pass_index+1]
+        soup.find(id="countdown")["next_pass"] = data[pass_index+1]['los']
 
     #write the code index.html
     html = open("/home/pi/website/weather/index.html", "w")
