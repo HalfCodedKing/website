@@ -1,7 +1,23 @@
-
 $(document).ready(function () {
+    //document.getElementById("main_content").innerHTML = ""
+
+    $.getJSON("/weather/scripts/showing_passes.json", function(result) {
+        $.each(result, function (i, field) {
+            ShowPass("/weather/images/2020-06-28/2020-06-28_19.05.07/2020-06-28_19.05.07.json")
+        })
+    })
+
+    //start the countdown timer until the next pass
     CountDownTimer(document.getElementById("countdown").getAttribute("next_pass"), 'countdown');
 })
+
+function ShowPass(path) {
+    $.getJSON(path, function(result) {
+        var temp = document.getElementsByTagName("template")[0]
+        var clone = temp.content.cloneNode(true)
+        console.log(clone.getElementById("main_image"))
+    })
+}
 
 function CountDownTimer(dt, id)
 {
@@ -20,7 +36,7 @@ function CountDownTimer(dt, id)
         if (distance < 0) {
 
             clearInterval(timer);
-            document.getElementById(id).innerHTML = 'Time until next image: Any minute now!';
+            document.getElementById(id).innerHTML = 'Processing images...';
 
             return;
         }

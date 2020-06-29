@@ -171,10 +171,18 @@ if __name__ == "__main__":
             count += 1
             continue
 
+    #write pass info to json file
     with open("/home/pi/website/weather/images/{}/{}/{}.json".format(day, local_time, local_time), "w") as f:
         pass_info = p
         pass_info['links'] = links
         json.dump(pass_info, f, indent=4, sort_keys=True)
+
+    #add the pass to the top of showing_passes.json
+    with open("/home/pi/website/weather/scripts/showing_passes.json" "r") as f:
+        showing_passes = json.load(f)
+    with open("/home/pi/website/weather/scripts/showing_passes.json" "w") as f:
+        showing_passes = showing_passes[-1:] + showing_passes[:-1]
+        showing_passes[0] = "/weather/images/{}/{}/{}.json".format(day, local_time, local_time)
 
     #read the pass.html template file
     html = open("/home/pi/website/media/pass.html")
