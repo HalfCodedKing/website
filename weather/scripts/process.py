@@ -45,6 +45,7 @@ if __name__ == "__main__":
     #create new directory for this pass
     if not os.path.exists("/home/pi/drive/weather/images/{}/{}".format(day, local_time)):
         os.makedirs("/home/pi/drive/weather/images/{}/{}".format(day, local_time))
+        os.makedirs("/home/pi/website/weather/images/{}/{}".format(day, local_time))
 
     #update the status in daily_passes.json
     with open("/home/pi/website/weather/scripts/daily_passes.json", "r") as f:
@@ -170,6 +171,9 @@ if __name__ == "__main__":
             count += 1
             continue
 
+    with open("/home/pi/website/weather/images/{}/{}/{}.json".format(day, local_time, local_time), "w") as f:
+        json.dump(links, f, indent=4, sort_keys=True)
+
     #read the pass.html template file
     html = open("/home/pi/website/media/pass.html")
     src = Template(html.read())
@@ -189,16 +193,15 @@ if __name__ == "__main__":
 
     #find the spot to add the next pass time
     with open("/home/pi/website/weather/scripts/daily_passes.json", "r") as f:
-        for d in data:
-            if d['status'] == "INCOMING":
-                soup.find(id="countdown")["next_pass"] = d['los']
-                break
+        data = json.load(f)
+        soup.find(id="countdown")["next_pass"] = data[pass_index+1]
 
     #write the code index.html
     html = open("/home/pi/website/weather/index.html", "w")
     html.write(str(soup))
 
     #commit changes to git repository
+    print("commiting to github")
     os.system("git -C /home/pi/website/ pull origin master")
     os.system("git -C /home/pi/website/ add --all")
     os.system("git -C /home/pi/website/ commit -m \"weather auto commit\"")
