@@ -1,9 +1,9 @@
 $(document).ready(function () {
-    //document.getElementById("main_content").innerHTML = ""
+    document.getElementById("main_content").innerHTML = ""
 
     $.getJSON("/weather/scripts/showing_passes.json", function(result) {
         $.each(result, function (i, field) {
-            ShowPass("/weather/images/2020-06-28/2020-06-28_19.05.07/2020-06-28_19.05.07.json")
+            ShowPass("/weather/images/2020-06-29/2020-06-29_10.18.36/2020-06-29_10.18.36.json")
         })
     })
 
@@ -13,9 +13,17 @@ $(document).ready(function () {
 
 function ShowPass(path) {
     $.getJSON(path, function(result) {
-        var temp = document.getElementsByTagName("template")[0]
-        var clone = temp.content.cloneNode(true)
-        console.log(clone.getElementById("main_image"))
+        let clone = $("#template").clone(true).html()
+        $("#main_image_id").attr("src", result.links.a)
+        $(".pass_title").text(result.aos)
+        $(".sat").text("Satellite: " + result.satellite)
+        $(".max_elev").text("Max Elevation: " + result.max_elevation + "°")
+        $(".a").attr("href", result.links.a)
+        $(".b").attr("href", result.links.b)
+        $(".msa").attr("href", result.links.MSA)
+        $(".msa_precip").attr("href", result.links["MSA-precip"])
+        $(".raw").attr("href", result.links.raw)
+        $("#main_content").append(clone)
     })
 }
 

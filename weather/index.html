@@ -32,21 +32,27 @@
 <div id="header">
 </div>
 <div id="countdown" next_pass="2020-06-29 14:16:38.013982 UTC"></div>
-<div id="main_content"><html><body><div class="pass">
 
-<template>
+<template id="template">
     <div class="pass">
         <div class="main_image">
-            <img id="main_image" src="" alt="" srcset="">
+            <img id="main_image_id" src="" alt="" srcset="">
         </div>
         <div class="container">
-            <h1 class="pass_title">$title</h1>
-            <div class="side_links">
+            <h1 class="pass_title"></h1>
+            <div class="pass_info">
                 <ul>
-                    <li><a id="a" href="">Channel A</a></li>
-                    <li><a id="b" href="">Channel B</a></li>
-                    <li><a id="msa" href="">MSA Enhanced</a></li>
-                    <li><a id="raw" href="">Raw Image</a></li>
+                    <h2>Pass Information</h2>
+                    <li class="sat"></li>
+                    <li class="max_elev"></li>
+                    <h2>Image Links</h2>
+                    <ul class="links">
+                        <li><a class="a" href="">Channel A</a></li>
+                        <li><a class="b" href="">Channel B</a></li>
+                        <li><a class="msa" href="">MSA enhanced</a></li>
+                        <li><a class="msa_precip" href="">MSA enhanced with precipitation</a></li>
+                        <li><a class="raw" href="">Raw image</a></li>
+                    </ul>
                 </ul>
             </div>
         </div>
@@ -54,6 +60,8 @@
     
     <div class="seperator"></div>
 </template>
+
+<div id="main_content"><html><body><div class="pass">
 
 <div class="main_image">
 <img alt="" src="https://i.imgur.com/6CdG0J7.jpg" srcset=""/>
