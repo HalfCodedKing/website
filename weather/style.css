@@ -33,22 +33,20 @@ body {
     margin-left: 20px;
 }
 
-.pass_info {
+.side_links {
     margin-left: 3vw;
 }
 
-.pass_info ul {
+.side_links ul {
     list-style-type: none;
     padding: 0;
 }
 
-.pass_info ul li {
+.side_links ul li {
     padding-top: 1vh;
-    font-size: 2vw;
-    color: black;
 }
 
-.pass_info ul li a {
+.side_links ul li a {
     font-size: 2vw;
     color: black;
 }
