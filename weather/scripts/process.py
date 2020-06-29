@@ -55,7 +55,8 @@ if __name__ == "__main__":
         json.dump(data, f, indent=4, sort_keys=True)
 
     #record the pass with rtl_fm
-    os.system("timeout {} rtl_fm -d 0 -f {} -g 37.2 -s 37000 -E deemp -F 9 - | sox -traw -esigned -c1 -b16 -r37000 - {}.wav rate 11025".format(duration, frequency, outfile))
+    print("writing to file: {}.wav".format(outfile))
+    os.system("timeout {} /usr/local/bin/rtl_fm -d 0 -f {} -g 37.2 -s 37000 -E deemp -F 9 - | sox -traw -esigned -c1 -b16 -r37000 - {}.wav rate 11025".format(duration, frequency, outfile))
 
     #update the status in daily_passes.json
     with open("/home/pi/website/weather/scripts/daily_passes.json", "r") as f:
@@ -178,9 +179,9 @@ if __name__ == "__main__":
         json.dump(pass_info, f, indent=4, sort_keys=True)
 
     #add the pass to the top of showing_passes.json
-    with open("/home/pi/website/weather/scripts/showing_passes.json" "r") as f:
+    with open("/home/pi/website/weather/scripts/showing_passes.json", "r") as f:
         showing_passes = json.load(f)
-    with open("/home/pi/website/weather/scripts/showing_passes.json" "w") as f:
+    with open("/home/pi/website/weather/scripts/showing_passes.json", "w") as f:
         showing_passes = showing_passes[-1:] + showing_passes[:-1]
         showing_passes[0] = "/weather/images/{}/{}/{}.json".format(day, local_time, local_time)
 
