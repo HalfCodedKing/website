@@ -184,6 +184,7 @@ if __name__ == "__main__":
     with open("/home/pi/website/weather/scripts/showing_passes.json", "w") as f:
         showing_passes = showing_passes[-1:] + showing_passes[:-1]
         showing_passes[0] = "/weather/images/{}/{}/{}.json".format(day, local_time, local_time)
+        json.dump(showing_passes, f, indent=4, sort_keys=True)
 
     #read the pass.html template file
     html = open("/home/pi/website/media/pass.html")
