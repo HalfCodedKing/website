@@ -29,6 +29,7 @@ f.close()
 NOAA15 = tle.index("NOAA 15                 ")
 NOAA18 = tle.index("NOAA 18                 ")
 NOAA19 = tle.index("NOAA 19                 ")
+METEOR = tle.index("METEOR-M 2              ")
 
 #set the ground station location
 loc = Location("ground station", lat, lon, 5)
@@ -45,6 +46,10 @@ NOAA18_passes = NOAA18_predictor.passes_over(location=loc, when_utc=datetime.utc
 NOAA19_predictor = get_predictor_from_tle_lines((tle[NOAA19+1], tle[NOAA19+2]))
 NOAA19_passes = NOAA19_predictor.passes_over(location=loc, when_utc=datetime.utcnow(), limit_date=datetime.utcnow() + timedelta(hours=24), max_elevation_gt=20)
 
+#get the next passes of METEOR-M 2 within the next 24 hours
+METEOR_predictor = get_predictor_from_tle_lines((tle[METEOR+1], tle[METEOR+2]))
+METEOR_passes = METEOR_predictor.passes_over(location=loc, when_utc=datetime.utcnow(), limit_date=datetime.utcnow() + timedelta(hours=24), max_elevation_gt=20)
+
 #create one big list of all the passes
 passes = []
 for p in NOAA15_passes:
@@ -53,6 +58,8 @@ for p in NOAA18_passes:
     passes.append(["NOAA 18", p])
 for p in NOAA19_passes:
     passes.append(["NOAA 19", p])
+for p in METEOR_passes:
+    passes.append(["METEOR-M 2", p])
 
 #sort them by their date
 passes.sort(key=lambda x: x[1].aos)
@@ -60,7 +67,8 @@ passes.sort(key=lambda x: x[1].aos)
 freqs = {
     'NOAA 15': 137620000,
     'NOAA 18': 137912500,
-    'NOAA 19': 137100000
+    'NOAA 19': 137100000,
+    'METEOR-M 2': 137100000,
 }
 
 #turn the info into json data
