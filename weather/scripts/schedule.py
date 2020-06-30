@@ -7,6 +7,7 @@ import requests
 from orbit_predictor.sources import get_predictor_from_tle_lines
 from orbit_predictor.locations import Location
 from tzwhere import tzwhere
+import os
 
 #get lat and lon from private file
 f = open("/home/pi/website/weather/scripts/secrets.json")
