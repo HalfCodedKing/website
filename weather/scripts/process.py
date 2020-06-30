@@ -11,52 +11,16 @@ from time import sleep
 from string import Template
 import shlex
 
-if __name__ == "__main__":
-    #get the index of the pass in daily_passes.json
-    pass_index = int(sys.argv[1])
+def process_METEOR():
+    os.system("rtl_fm -Mraw -s140000 -f137.1M -Edc -g37.2 /tmp/meteor_iq")
+    os.system("timeout {} meteor_demod -s 140000 -o {}.s tmp/meteor_iq".format(duration, outfile))
+    sleep(duration)
 
-    #get info about the pass from the daily_passes.json
-    f = open("/home/pi/website/weather/scripts/daily_passes.json")
-    p = json.load(f)[pass_index]
-    f.close()
-
-    #assign variables
-    with open("/home/pi/website/weather/scripts/secrets.json") as f:
-        data = json.load(f)
-        lat = data['lat']
-        lon = data['lon']
-        elev = data['elev']
-
-    sat = p['satellite']
-    frequency = p['frequency']
-    duration = p['duration']
-    max_elevation = p['max_elevation']
-    #string used for naming the files  (aos in %Y-%m-%d %H.%M.%S format)
-    local_time = datetime.strptime(p['aos'], "%Y-%m-%d %H:%M:%S.%f %Z").replace(tzinfo=timezone.utc).astimezone(tz=None).strftime("%Y-%m-%d_%H.%M.%S")#[:-13].replace(" ", "_").replace(":", ".")
-    #the name of the folder containing all the passes for the day (aos in %Y-%m-%d format)
-    day = str(local_time)[:10]
-    outfile = "/home/pi/drive/weather/images/{}/{}/{}".format(day, local_time, local_time)
-
-    #if this is the first pass of the day, create a new folder for all the images of the day
-    if not os.path.exists("/home/pi/drive/weather/images/{}".format(day)):
-        os.makedirs("/home/pi/website/weather/images/{}".format(day))
-        os.makedirs("/home/pi/drive/weather/images/{}".format(day))
-
-    #create new directory for this pass
-    if not os.path.exists("/home/pi/drive/weather/images/{}/{}".format(day, local_time)):
-        os.makedirs("/home/pi/drive/weather/images/{}/{}".format(day, local_time))
-        os.makedirs("/home/pi/website/weather/images/{}/{}".format(day, local_time))
-
-    #update the status in daily_passes.json
-    with open("/home/pi/website/weather/scripts/daily_passes.json", "r") as f:
-        data = json.load(f)
-    with open("/home/pi/website/weather/scripts/daily_passes.json", "w") as f:
-        data[pass_index]["status"] = "CURRENT"
-        json.dump(data, f, indent=4, sort_keys=True)
-
+def process_NOAA():
     #record the pass with rtl_fm
     print("writing to file: {}.wav".format(outfile))
     os.system("timeout {} /usr/local/bin/rtl_fm -d 0 -f {} -g 37.2 -s 37000 -E deemp -F 9 - | sox -traw -esigned -c1 -b16 -r37000 - {}.wav rate 11025".format(duration, frequency, outfile))
+    sleep(duration)
 
     #update the status in daily_passes.json
     with open("/home/pi/website/weather/scripts/daily_passes.json", "r") as f:
@@ -223,3 +187,53 @@ if __name__ == "__main__":
     os.system("git -C /home/pi/website/ push origin master")
 
     print("done processing")
+
+
+
+if __name__ == "__main__":
+    #get the index of the pass in daily_passes.json
+    pass_index = int(sys.argv[1])
+
+    #get info about the pass from the daily_passes.json
+    f = open("/home/pi/website/weather/scripts/daily_passes.json")
+    p = json.load(f)[pass_index]
+    f.close()
+
+    #assign variables
+    with open("/home/pi/website/weather/scripts/secrets.json") as f:
+        data = json.load(f)
+        lat = data['lat']
+        lon = data['lon']
+        elev = data['elev']
+
+    sat = p['satellite']
+    frequency = p['frequency']
+    duration = p['duration']
+    max_elevation = p['max_elevation']
+    #string used for naming the files  (aos in %Y-%m-%d %H.%M.%S format)
+    local_time = datetime.strptime(p['aos'], "%Y-%m-%d %H:%M:%S.%f %Z").replace(tzinfo=timezone.utc).astimezone(tz=None).strftime("%Y-%m-%d_%H.%M.%S")#[:-13].replace(" ", "_").replace(":", ".")
+    #the name of the folder containing all the passes for the day (aos in %Y-%m-%d format)
+    day = str(local_time)[:10]
+    outfile = "/home/pi/drive/weather/images/{}/{}/{}".format(day, local_time, local_time)
+
+    #if this is the first pass of the day, create a new folder for all the images of the day
+    if not os.path.exists("/home/pi/drive/weather/images/{}".format(day)):
+        os.makedirs("/home/pi/website/weather/images/{}".format(day))
+        os.makedirs("/home/pi/drive/weather/images/{}".format(day))
+
+    #create new directory for this pass
+    if not os.path.exists("/home/pi/drive/weather/images/{}/{}".format(day, local_time)):
+        os.makedirs("/home/pi/drive/weather/images/{}/{}".format(day, local_time))
+        os.makedirs("/home/pi/website/weather/images/{}/{}".format(day, local_time))
+
+    #update the status in daily_passes.json
+    with open("/home/pi/website/weather/scripts/daily_passes.json", "r") as f:
+        data = json.load(f)
+    with open("/home/pi/website/weather/scripts/daily_passes.json", "w") as f:
+        data[pass_index]["status"] = "CURRENT"
+        json.dump(data, f, indent=4, sort_keys=True)
+
+    if sat[:4] == "NOAA":
+        process_NOAA()
+    elif sat == "METEOR-M 2":
+        process_METEOR()
