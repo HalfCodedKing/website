@@ -18,7 +18,7 @@ function ShowPass(path, pass_index) {
         date = new Date(result.aos).toLocaleString("en-US", {timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone});
         date = new Date(date)
 
-        document.getElementById("main_content").innerHTML = document.getElementById("main_content").innerHTML + clone.innerHTML
+        document.getElementById("main_content").innerHTML = document.getElementById("main_content").innerHTML + clone.innerHTML;
         document.getElementsByClassName("main_image")[document.getElementsByClassName("main_image").length - 1].setAttribute("src", result.links.a);
         document.getElementsByClassName("pass_title")[document.getElementsByClassName("pass_title").length - 1].innerHTML = date;
         document.getElementsByClassName("sat")[document.getElementsByClassName("sat").length - 1].innerHTML = "Satellite: " + result.satellite;
