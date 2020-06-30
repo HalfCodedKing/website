@@ -1,30 +1,30 @@
 $(document).ready(function () {
-    document.getElementById("main_content").innerHTML = ""
+    document.getElementById("main_content").innerHTML = "";
 
     $.getJSON("/weather/scripts/showing_passes.json", function(result) {
         $.each(result, function (i, field) {
-            ShowPass("/weather/images/2020-06-29/2020-06-29_10.18.36/2020-06-29_10.18.36.json")
+            ShowPass("/weather/images/2020-06-29/2020-06-29_11.59.23/2020-06-29_11.59.23.json");
         })
-    })
+    });
 
     //start the countdown timer until the next pass
     CountDownTimer(document.getElementById("countdown").getAttribute("next_pass"), 'countdown');
-})
+});
 
 function ShowPass(path) {
     $.getJSON(path, function(result) {
-        let clone = $("#template").clone(true).html()
-        $("#main_image_id").attr("src", result.links.a)
-        $(".pass_title").text(result.aos)
-        $(".sat").text("Satellite: " + result.satellite)
-        $(".max_elev").text("Max Elevation: " + result.max_elevation + "°")
-        $(".a").attr("href", result.links.a)
-        $(".b").attr("href", result.links.b)
-        $(".msa").attr("href", result.links.MSA)
-        $(".msa_precip").attr("href", result.links["MSA-precip"])
-        $(".raw").attr("href", result.links.raw)
-        $("#main_content").append(clone)
-    })
+        var clone = $("#template").clone(true).html();
+        //clone.find("#main_image_id").attr("src", result.links.a);
+        $(".pass_title").text(result.aos);
+        $(".sat").text("Satellite: " + result.satellite);
+        $(".max_elev").text("Max Elevation: " + result.max_elevation + "°");
+        $(".a").attr("href", result.links.a);
+        $(".b").attr("href", result.links.b);
+        $(".msa").attr("href", result.links.MSA);
+        $(".msa_precip").attr("href", result.links["MSA-precip"]);
+        $(".raw").attr("href", result.links.raw);
+        $("#main_content").append(clone);
+    });
 }
 
 function CountDownTimer(dt, id)
