@@ -179,15 +179,6 @@ def process_NOAA():
     html = open("/home/pi/website/weather/index.html", "w")
     html.write(str(soup))
 
-    #commit changes to git repository
-    print("commiting to github")
-    os.system("git -C /home/pi/website/ pull origin master")
-    os.system("git -C /home/pi/website/ add --all")
-    os.system("git -C /home/pi/website/ commit -m \"weather auto commit\"")
-    os.system("git -C /home/pi/website/ push origin master")
-
-    print("done processing")
-
 
 
 if __name__ == "__main__":
@@ -237,3 +228,9 @@ if __name__ == "__main__":
         process_NOAA()
     elif sat == "METEOR-M 2":
         process_METEOR()
+
+    #commit changes to git repository
+    print("commiting to github")
+    os.system("/home/pi/website/weather/scripts/commit.sh")
+
+    print("done processing")

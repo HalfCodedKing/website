@@ -114,4 +114,8 @@ for p in data:
     subprocess.check_output(('at', 'now + {} minutes'.format(delta_min)), stdin=ps.stdout)
     i += 1
 
+#commit changes to git repository
+print("commiting to github")
+os.system("/home/pi/website/weather/scripts/commit.sh")
+
 print("done scheduling")
