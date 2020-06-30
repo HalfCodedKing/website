@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     $.getJSON("/weather/scripts/showing_passes.json", function(result) {
         $.each(result, function (i, field) {
-            ShowPass("/weather/images/2020-06-29/2020-06-29_11.59.23/2020-06-29_11.59.23.json");
+            ShowPass(field);
         })
     });
 
@@ -11,19 +11,23 @@ $(document).ready(function () {
     CountDownTimer(document.getElementById("countdown").getAttribute("next_pass"), 'countdown');
 });
 
-function ShowPass(path) {
+function ShowPass(path, pass_index) {
     $.getJSON(path, function(result) {
-        var clone = $("#template").clone(true).html();
-        //clone.find("#main_image_id").attr("src", result.links.a);
-        $(".pass_title").text(result.aos);
-        $(".sat").text("Satellite: " + result.satellite);
-        $(".max_elev").text("Max Elevation: " + result.max_elevation + "°");
-        $(".a").attr("href", result.links.a);
-        $(".b").attr("href", result.links.b);
-        $(".msa").attr("href", result.links.MSA);
-        $(".msa_precip").attr("href", result.links["MSA-precip"]);
-        $(".raw").attr("href", result.links.raw);
-        $("#main_content").append(clone);
+        var clone = document.getElementById("template").cloneNode(true);
+
+        date = new Date(result.aos).toLocaleString("en-US", {timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone});
+        date = new Date(date)
+
+        document.getElementById("main_content").innerHTML = document.getElementById("main_content").innerHTML + clone.innerHTML
+        document.getElementsByClassName("main_image")[document.getElementsByClassName("main_image").length - 1].setAttribute("src", result.links.a);
+        document.getElementsByClassName("pass_title")[document.getElementsByClassName("pass_title").length - 1].innerHTML = date;
+        document.getElementsByClassName("sat")[document.getElementsByClassName("sat").length - 1].innerHTML = "Satellite: " + result.satellite;
+        document.getElementsByClassName("max_elev")[document.getElementsByClassName("max_elev").length - 1].innerHTML = "Max elevation: " + result.max_elevation + "°";
+        document.getElementsByClassName("a")[document.getElementsByClassName("a").length - 1].setAttribute("href", result.links.a);
+        document.getElementsByClassName("b")[document.getElementsByClassName("b").length - 1].setAttribute("href", result.links.b);
+        document.getElementsByClassName("msa")[document.getElementsByClassName("msa").length - 1].setAttribute("href", result.links.MSA);
+        document.getElementsByClassName("msa_precip")[document.getElementsByClassName("msa_precip").length - 1].setAttribute("href", result.links['MSA-precip']);
+        document.getElementsByClassName("raw")[document.getElementsByClassName("raw").length - 1].setAttribute("href", result.links.raw);
     });
 }
 
