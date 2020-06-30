@@ -58,7 +58,7 @@ for p in NOAA19_passes:
 passes.sort(key=lambda x: x[1].aos)
 
 freqs = {
-    'NOAA 15': 137000000,
+    'NOAA 15': 137620000,
     'NOAA 18': 137912500,
     'NOAA 19': 137100000
 }
