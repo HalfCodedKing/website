@@ -8,7 +8,11 @@ $(document).ready(function () {
     });
 
     //start the countdown timer until the next pass
-    CountDownTimer(document.getElementById("countdown").getAttribute("next_pass"), 'countdown');
+    if (document.getElementById("countdown").getAttribute("next_pass") == "unavailable") {
+        document.getElementById("countdown").innerHTML = "Time until next image: unavailable"
+    } else {
+        CountDownTimer(document.getElementById("countdown").getAttribute("next_pass"), 'countdown');
+    }
 });
 
 function ShowPass(path, pass_index) {

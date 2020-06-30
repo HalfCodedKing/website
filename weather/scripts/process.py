@@ -206,7 +206,10 @@ if __name__ == "__main__":
     #find the spot to add the next pass time
     with open("/home/pi/website/weather/scripts/daily_passes.json", "r") as f:
         data = json.load(f)
-        soup.find(id="countdown")["next_pass"] = data[pass_index+1]['los']
+        if pass_index == len(data) - 1:
+            soup.find(id="countdown")["next_pass"] = "unavailable"
+        else:
+            soup.find(id="countdown")["next_pass"] = data[pass_index+1]['los']
 
     #write the code index.html
     html = open("/home/pi/website/weather/index.html", "w")
