@@ -1,4 +1,4 @@
-#made by Felix (Blobtoe)
+#Made by Felix (Blobtoe)
 
 import sys
 import json

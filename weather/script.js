@@ -1,10 +1,22 @@
+//Made by Felix (Blobtoe)
+
 $(document).ready(function () {
     document.getElementById("main_content").innerHTML = "";
 
+    //only get the passed that need to be shown
     $.getJSON("/weather/scripts/showing_passes.json", function(result) {
+        //add a template html block to the page for every pass
         $.each(result, function (i, field) {
-            ShowPass(field);
-        })
+            var clone = document.getElementById("template").cloneNode(true);
+            document.getElementById("main_content").innerHTML = document.getElementById("main_content").innerHTML + clone.innerHTML;
+        });
+        //edit the html blocks to show individual passes
+        //editing the blocks after they were created makes the order of the passes correctly consistent
+        var i = 0;
+        $.each(result, function (i, field) {
+            ShowPass(field, i);
+            i++;
+        });
     });
 
     //start the countdown timer until the next pass
@@ -15,23 +27,23 @@ $(document).ready(function () {
     }
 });
 
-function ShowPass(path, pass_index) {
+function ShowPass(path, i) {
+    //get info about the specific pass
     $.getJSON(path, function(result) {
-        var clone = document.getElementById("template").cloneNode(true);
-
+        //change the UTC date to local time
         date = new Date(result.aos).toLocaleString("en-US", {timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone});
         date = new Date(date)
 
-        document.getElementById("main_content").innerHTML = document.getElementById("main_content").innerHTML + clone.innerHTML;
-        document.getElementsByClassName("main_image")[document.getElementsByClassName("main_image").length - 1].setAttribute("src", result.links.a);
-        document.getElementsByClassName("pass_title")[document.getElementsByClassName("pass_title").length - 1].innerHTML = date;
-        document.getElementsByClassName("sat")[document.getElementsByClassName("sat").length - 1].innerHTML = "Satellite: " + result.satellite;
-        document.getElementsByClassName("max_elev")[document.getElementsByClassName("max_elev").length - 1].innerHTML = "Max elevation: " + result.max_elevation + "°";
-        document.getElementsByClassName("a")[document.getElementsByClassName("a").length - 1].setAttribute("href", result.links.a);
-        document.getElementsByClassName("b")[document.getElementsByClassName("b").length - 1].setAttribute("href", result.links.b);
-        document.getElementsByClassName("msa")[document.getElementsByClassName("msa").length - 1].setAttribute("href", result.links.msa);
-        document.getElementsByClassName("msa_precip")[document.getElementsByClassName("msa_precip").length - 1].setAttribute("href", result.links['msa-precip']);
-        document.getElementsByClassName("raw")[document.getElementsByClassName("raw").length - 1].setAttribute("href", result.links.raw);
+        //add all the info to the html
+        document.getElementsByClassName("main_image")[i].setAttribute("src", result.links.a);
+        document.getElementsByClassName("pass_title")[i].innerHTML = date;
+        document.getElementsByClassName("sat")[i].innerHTML = "Satellite: " + result.satellite;
+        document.getElementsByClassName("max_elev")[i].innerHTML = "Max elevation: " + result.max_elevation + "°";
+        document.getElementsByClassName("a")[i].setAttribute("href", result.links.a);
+        document.getElementsByClassName("b")[i].setAttribute("href", result.links.b);
+        document.getElementsByClassName("msa")[i].setAttribute("href", result.links.msa);
+        document.getElementsByClassName("msa_precip")[i].setAttribute("href", result.links['msa-precip']);
+        document.getElementsByClassName("raw")[i].setAttribute("href", result.links.raw);
     });
 }
 
