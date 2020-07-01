@@ -10,11 +10,65 @@ from bs4 import BeautifulSoup
 from time import sleep
 from string import Template
 import shlex
+from PIL import Image
+import threading
+
+def upload(path, title):
+    #get imgur credentials from secrets.json
+    f = open("/home/pi/website/weather/scripts/secrets.json")
+    data = json.load(f)
+    client_id = data["id"]
+    client_secret = data["secret"]
+    f.close()
+
+    #upload the images to imgur
+    client = ImgurClient(client_id, client_secret)
+    config = {
+        'name': title,
+        'title': title
+    }
+
+    #upload the image
+    print("uploading images to imgur")
+    link = ""
+    count = 0
+    while count<10:
+        try:
+            img = client.upload_from_path(path, config=config)
+            link = img["link"]
+            print("uploaded image")
+            break
+        except:
+            print("failed to upload image... trying again")
+            count += 1
+            continue
+    
+    #return the link of the uploaded image
+    return link
 
 def process_METEOR():
-    os.system("rtl_fm -Mraw -s140000 -f137.1M -Edc -g37.2 /tmp/meteor_iq")
-    os.system("timeout {} meteor_demod -s 140000 -o {}.s tmp/meteor_iq".format(duration, outfile))
+    #receive meteor signal and demodulate it
+    print("demodulating meteor signal...")
+    t = threading.Thread(target=os.system, args=("timeout {} /usr/local/bin/rtl_fm -Mraw -s140000 -f137.1M -Edc -g37.2 /tmp/meteor_iq".format(duration),))
+    t.start()
+    os.system("timeout {} /usr/bin/meteor_demod -s 140000 -o {}.s tmp/meteor_iq".format(duration, outfile))
     sleep(duration)
+
+    #decode the signal into an image
+    os.system("/usr/local/bin/medet_arm {}.s {}".format(outfile, outfile))
+    
+    #convert bmp to png
+    img = Image.open("{}.bmp".format(outfile))
+    img.save("{}.png".format(outfile), "png")
+
+    #upload image
+    link = upload("{}.png".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
+
+    #write pass info to json file
+    with open("/home/pi/website/weather/images/{}/{}/{}.json".format(day, local_time, local_time), "w") as f:
+        pass_info = p
+        pass_info['link'] = link
+        json.dump(pass_info, f, indent=4, sort_keys=True)
 
 def process_NOAA():
     #record the pass with rtl_fm
@@ -54,87 +108,22 @@ def process_NOAA():
     print("creating raw image")
     os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -B 120 -L 600 {}.wav {}.raw.png".format(outfile, outfile, outfile))
 
-    #get imgur credentials from secrets.json
-    f = open("/home/pi/website/weather/scripts/secrets.json")
-    data = json.load(f)
-    client_id = data["id"]
-    client_secret = data["secret"]
-    f.close()
-
-    #upload the images to imgur
-    client = ImgurClient(client_id, client_secret)
-    config = {
-        'name': "{} at {} at {}".format(sat, max_elevation, local_time),
-        'title': "{} at {} at {}".format(sat, max_elevation, local_time)
-    }
-
     links = {}
     
     #upload channel a image
-    print("uploading images to imgur")
-    count = 0
-    while count<10:
-        try:
-            img = client.upload_from_path("{}.a.png".format(outfile), config=config)
-            links["a"] = img["link"]
-            print("uploaded image")
-            break
-        except:
-            print("failed to upload image... trying again")
-            count += 1
-            continue
+    links["a"] = upload("{}.a.png".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
 
     #upload channel b image
-    count = 0
-    while count<10:
-        try:
-            img = client.upload_from_path("{}.b.png".format(outfile), config=config)
-            links["b"] = img["link"]
-            print("uploaded image")
-            break
-        except:
-            print("failed to upload image... trying again")
-            count += 1
-            continue
+    links["b"] = upload("{}.b.png".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
 
     #upload channel MSA image
-    count = 0
-    while count<10:
-        try:
-            img = client.upload_from_path("{}.MSA.png".format(outfile), config=config)
-            links["MSA"] = img["link"]
-            print("uploaded image")
-            break
-        except:
-            print("failed to upload image... trying again")
-            count += 1
-            continue
-
+    links["msa"] = upload("{}.msa.png".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
+    
     #upload channel MSA-precip image
-    count = 0
-    while count<10:
-        try:
-            img = client.upload_from_path("{}.MSA-precip.png".format(outfile), config=config)
-            links["MSA-precip"] = img["link"]
-            print("uploaded image")
-            break
-        except:
-            print("failed to upload image... trying again")
-            count += 1
-            continue
+    links["msa-precip"] = upload("{}.msa-precip.png".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
 
     #upload channel raw image
-    count = 0
-    while count<10:
-        try:
-            img = client.upload_from_path("{}.raw.png".format(outfile), config=config)
-            links["raw"] = img["link"]
-            print("uploaded image")
-            break
-        except:
-            print("failed to upload image... trying again")
-            count += 1
-            continue
+    links["raw"] = upload("{}.raw.png".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
 
     #write pass info to json file
     with open("/home/pi/website/weather/images/{}/{}/{}.json".format(day, local_time, local_time), "w") as f:
@@ -142,13 +131,8 @@ def process_NOAA():
         pass_info['links'] = links
         json.dump(pass_info, f, indent=4, sort_keys=True)
 
-    #add the pass to the top of showing_passes.json
-    with open("/home/pi/website/weather/scripts/showing_passes.json", "r") as f:
-        showing_passes = json.load(f)
-    with open("/home/pi/website/weather/scripts/showing_passes.json", "w") as f:
-        showing_passes = showing_passes[-1:] + showing_passes[:-1]
-        showing_passes[0] = "/weather/images/{}/{}/{}.json".format(day, local_time, local_time)
-        json.dump(showing_passes, f, indent=4, sort_keys=True)
+
+    #will probably delete this soon
 
     #read the pass.html template file
     html = open("/home/pi/website/media/pass.html")
@@ -228,6 +212,14 @@ if __name__ == "__main__":
         process_NOAA()
     elif sat == "METEOR-M 2":
         process_METEOR()
+
+    #add the pass to the top of showing_passes.json
+    with open("/home/pi/website/weather/scripts/showing_passes.json", "r") as f:
+        showing_passes = json.load(f)
+    with open("/home/pi/website/weather/scripts/showing_passes.json", "w") as f:
+        showing_passes = showing_passes[-1:] + showing_passes[:-1]
+        showing_passes[0] = "/weather/images/{}/{}/{}.json".format(day, local_time, local_time)
+        json.dump(showing_passes, f, indent=4, sort_keys=True)
 
     #commit changes to git repository
     print("commiting to github")

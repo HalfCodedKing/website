@@ -36,22 +36,27 @@ METEOR = tle.index("METEOR-M 2              ")
 loc = Location("ground station", lat, lon, 5)
 
 #get the next passes of NOAA 15 within the next 24 hours
+print("getting NOAA 15 passes")
 NOAA15_predictor = get_predictor_from_tle_lines((tle[NOAA15+1], tle[NOAA15+2]))
 NOAA15_passes = NOAA15_predictor.passes_over(location=loc, when_utc=datetime.utcnow(), limit_date=datetime.utcnow() + timedelta(hours=24), max_elevation_gt=20)
 
 #get the next passes of NOAA 18 within the next 24 hours
+print("getting NOAA 18 passes")
 NOAA18_predictor = get_predictor_from_tle_lines((tle[NOAA18+1], tle[NOAA18+2]))
 NOAA18_passes = NOAA18_predictor.passes_over(location=loc, when_utc=datetime.utcnow(), limit_date=datetime.utcnow() + timedelta(hours=24), max_elevation_gt=20)
 
 #get the next passes of NOAA 19 within the next 24 hours
+print("getting NOAA 19 passes")
 NOAA19_predictor = get_predictor_from_tle_lines((tle[NOAA19+1], tle[NOAA19+2]))
 NOAA19_passes = NOAA19_predictor.passes_over(location=loc, when_utc=datetime.utcnow(), limit_date=datetime.utcnow() + timedelta(hours=24), max_elevation_gt=20)
 
 #get the next passes of METEOR-M 2 within the next 24 hours
+print("getting METEOR-M 2 passes")
 METEOR_predictor = get_predictor_from_tle_lines((tle[METEOR+1], tle[METEOR+2]))
 METEOR_passes = METEOR_predictor.passes_over(location=loc, when_utc=datetime.utcnow(), limit_date=datetime.utcnow() + timedelta(hours=24), max_elevation_gt=20)
 
 #create one big list of all the passes
+print("sorting passes by time")
 passes = []
 for p in NOAA15_passes:
     passes.append(["NOAA 15", p])
@@ -73,6 +78,7 @@ freqs = {
 }
 
 #turn the info into json data
+print("writing to file: /home/pi/website/weather/scripts/daily_passes.json")
 data = []
 for p in passes:
     sat = p[0]
@@ -105,6 +111,7 @@ tzwhere = tzwhere.tzwhere()
 timezone_str = tzwhere.tzNameAt(lat, lon)
 
 #schedule the passes for the day
+print("scheduling at jobs")
 i = 0
 for p in data:
     #calculate minutes until start of each pass
