@@ -22,7 +22,7 @@ r = requests.get(url)
 tle = r.content.decode("utf-8").replace("\r\n", "newline").split("newline")
 
 #write tle to file for use with wxmap
-f = open("/home/pi/website/weather/scripts/weather.tle", "w+")
+# = open("/home/pi/website/weather/scripts/weather.tle", "w+")
 f.write(r.text.replace("\r", ""))
 f.close()
 
@@ -120,9 +120,9 @@ while i < len(data) - 2:
 
         #keep the pass with higher priority
         if priority1 >= priority2:
-            data.pop(data[i+1])
+            data.pop(i+1)
         elif priority2 > priority1:
-            data.pop(data[i])
+            data.pop(i)
     else:
         i += 1
 
