@@ -34,16 +34,26 @@ function ShowPass(path, i) {
         date = new Date(result.aos).toLocaleString("en-US", {timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone});
         date = new Date(date)
 
-        //add all the info to the html
-        document.getElementsByClassName("main_image")[i].setAttribute("src", result.links.a);
+        //add info that is present on all passes
         document.getElementsByClassName("pass_title")[i].innerHTML = date;
         document.getElementsByClassName("sat")[i].innerHTML = "Satellite: " + result.satellite;
         document.getElementsByClassName("max_elev")[i].innerHTML = "Max elevation: " + result.max_elevation + "°";
-        document.getElementsByClassName("a")[i].setAttribute("href", result.links.a);
-        document.getElementsByClassName("b")[i].setAttribute("href", result.links.b);
-        document.getElementsByClassName("msa")[i].setAttribute("href", result.links.msa);
-        document.getElementsByClassName("msa_precip")[i].setAttribute("href", result.links['msa-precip']);
-        document.getElementsByClassName("raw")[i].setAttribute("href", result.links.raw);
+
+        //if the pass if from a NOAA satellite
+        if (result.satellite.substring(0, 4) == "NOAA") {
+            //add the info to the html
+            document.getElementsByClassName("main_image")[i].setAttribute("src", result.links.a);
+            document.getElementsByClassName("a")[i].setAttribute("href", result.links.a);
+            document.getElementsByClassName("b")[i].setAttribute("href", result.links.b);
+            document.getElementsByClassName("msa")[i].setAttribute("href", result.links.msa);
+            document.getElementsByClassName("msa_precip")[i].setAttribute("href", result.links['msa-precip']);
+            document.getElementsByClassName("raw")[i].setAttribute("href", result.links.raw);
+        }
+        //if the pass is from METEOR-M 2
+        else if (result.satellite == "METEOR-M 2") {
+            //add the info to the html
+            document.getElementsByClassName("main_image")[i].setAttribute("src", result.link);
+        }
     });
 }
 
@@ -65,7 +75,6 @@ function CountDownTimer(dt, id)
 
             clearInterval(timer);
             document.getElementById(id).innerHTML = 'Processing images...';
-
             return;
         }
         var days = Math.floor(distance / _day);
