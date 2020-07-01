@@ -1,132 +1,122 @@
 [
     {
-        "aos": "2020-07-01 01:15:57.951702 UTC",
-        "duration": 820.317363,
-        "frequency": 137620000,
-        "los": "2020-07-01 01:29:38.269065 UTC",
-        "max_elevation": 23.1,
-        "satellite": "NOAA 15",
-        "status": "INCOMING",
-        "tca": "2020-07-01 01:22:46.602447 UTC"
-    },
-    {
-        "aos": "2020-07-01 01:20:32.648335 UTC",
-        "duration": 939.846556,
+        "aos": "2020-07-01 13:37:54.742473 UTC",
+        "duration": 887.068939,
         "frequency": 137100000,
-        "los": "2020-07-01 01:36:12.494891 UTC",
-        "max_elevation": 86.2,
-        "satellite": "NOAA 19",
-        "status": "PASSED",
-        "tca": "2020-07-01 01:28:19.019277 UTC"
-    },
-    {
-        "aos": "2020-07-01 02:54:29.808679 UTC",
-        "duration": 918.333224,
-        "frequency": 137620000,
-        "los": "2020-07-01 03:09:48.141903 UTC",
-        "max_elevation": 67.2,
-        "satellite": "NOAA 15",
-        "status": "PASSED",
-        "tca": "2020-07-01 03:02:06.210741 UTC"
-    },
-    {
-        "aos": "2020-07-01 03:22:35.575831 UTC",
-        "duration": 929.833849,
-        "frequency": 137100000,
-        "los": "2020-07-01 03:38:05.409680 UTC",
-        "max_elevation": 84.7,
-        "satellite": "METEOR-M 2",
-        "status": "CURRENT",
-        "tca": "2020-07-01 03:30:17.717885 UTC"
-    },
-    {
-        "aos": "2020-07-01 04:37:37.728283 UTC",
-        "duration": 950.939865,
-        "frequency": 137912500,
-        "los": "2020-07-01 04:53:28.668148 UTC",
-        "max_elevation": 84.5,
-        "satellite": "NOAA 18",
-        "status": "PASSED",
-        "tca": "2020-07-01 04:45:31.168462 UTC"
-    },
-    {
-        "aos": "2020-07-01 13:37:54.415977 UTC",
-        "duration": 887.576474,
-        "frequency": 137100000,
-        "los": "2020-07-01 13:52:41.992451 UTC",
+        "los": "2020-07-01 13:52:41.811412 UTC",
         "max_elevation": 28.0,
         "satellite": "NOAA 19",
         "status": "INCOMING",
-        "tca": "2020-07-01 13:45:18.457952 UTC"
+        "tca": "2020-07-01 13:45:18.276943 UTC"
     },
     {
-        "aos": "2020-07-01 15:04:56.078314 UTC",
-        "duration": 876.111007,
-        "frequency": 137620000,
-        "los": "2020-07-01 15:19:32.189321 UTC",
-        "max_elevation": 33.0,
-        "satellite": "NOAA 15",
-        "status": "INCOMING",
-        "tca": "2020-07-01 15:12:16.395722 UTC"
-    },
-    {
-        "aos": "2020-07-01 15:18:31.177816 UTC",
-        "duration": 927.667119,
+        "aos": "2020-07-01 15:18:30.996445 UTC",
+        "duration": 928.174538,
         "frequency": 137100000,
-        "los": "2020-07-01 15:33:58.844935 UTC",
+        "los": "2020-07-01 15:33:59.170983 UTC",
         "max_elevation": 52.4,
         "satellite": "NOAA 19",
         "status": "INCOMING",
-        "tca": "2020-07-01 15:26:14.503899 UTC"
+        "tca": "2020-07-01 15:26:14.322500 UTC"
     },
     {
-        "aos": "2020-07-01 15:35:48.334193 UTC",
-        "duration": 859.200783,
+        "aos": "2020-07-01 15:35:48.491841 UTC",
+        "duration": 858.696284,
         "frequency": 137100000,
-        "los": "2020-07-01 15:50:07.534976 UTC",
+        "los": "2020-07-01 15:50:07.188125 UTC",
         "max_elevation": 25.3,
         "satellite": "METEOR-M 2",
         "status": "INCOMING",
-        "tca": "2020-07-01 15:42:59.700412 UTC"
+        "tca": "2020-07-01 15:42:59.858070 UTC"
     },
     {
-        "aos": "2020-07-01 16:44:45.601404 UTC",
-        "duration": 883.650689,
+        "aos": "2020-07-01 16:44:45.713078 UTC",
+        "duration": 883.650638,
         "frequency": 137620000,
-        "los": "2020-07-01 16:59:29.252093 UTC",
+        "los": "2020-07-01 16:59:29.363716 UTC",
         "max_elevation": 41.9,
         "satellite": "NOAA 15",
         "status": "INCOMING",
-        "tca": "2020-07-01 16:52:08.934685 UTC"
+        "tca": "2020-07-01 16:52:08.543688 UTC"
     },
     {
-        "aos": "2020-07-01 16:55:07.161802 UTC",
-        "duration": 870.764571,
-        "frequency": 137912500,
-        "los": "2020-07-01 17:09:37.926373 UTC",
-        "max_elevation": 25.3,
-        "satellite": "NOAA 18",
-        "status": "INCOMING",
-        "tca": "2020-07-01 17:02:25.081281 UTC"
-    },
-    {
-        "aos": "2020-07-01 17:15:51.425028 UTC",
-        "duration": 914.19367,
+        "aos": "2020-07-01 17:15:51.352825 UTC",
+        "duration": 914.193693,
         "frequency": 137100000,
-        "los": "2020-07-01 17:31:05.618698 UTC",
+        "los": "2020-07-01 17:31:05.546518 UTC",
         "max_elevation": 55.6,
         "satellite": "METEOR-M 2",
         "status": "INCOMING",
-        "tca": "2020-07-01 17:23:30.035429 UTC"
+        "tca": "2020-07-01 17:23:29.458715 UTC"
     },
     {
-        "aos": "2020-07-01 18:35:40.248098 UTC",
-        "duration": 929.120007,
+        "aos": "2020-07-01 18:35:40.091453 UTC",
+        "duration": 929.119936,
         "frequency": 137912500,
-        "los": "2020-07-01 18:51:09.368105 UTC",
+        "los": "2020-07-01 18:51:09.211389 UTC",
         "max_elevation": 57.2,
         "satellite": "NOAA 18",
         "status": "INCOMING",
-        "tca": "2020-07-01 18:43:26.584137 UTC"
+        "tca": "2020-07-01 18:43:26.427456 UTC"
+    },
+    {
+        "aos": "2020-07-02 01:08:50.804521 UTC",
+        "duration": 937.309114,
+        "frequency": 137100000,
+        "los": "2020-07-02 01:24:28.113635 UTC",
+        "max_elevation": 78.1,
+        "satellite": "NOAA 19",
+        "status": "INCOMING",
+        "tca": "2020-07-02 01:16:36.667958 UTC"
+    },
+    {
+        "aos": "2020-07-02 02:29:21.662785 UTC",
+        "duration": 918.333172,
+        "frequency": 137620000,
+        "los": "2020-07-02 02:44:39.995957 UTC",
+        "max_elevation": 79.0,
+        "satellite": "NOAA 15",
+        "status": "INCOMING",
+        "tca": "2020-07-02 02:36:58.064821 UTC"
+    },
+    {
+        "aos": "2020-07-02 03:02:48.473115 UTC",
+        "duration": 919.743434,
+        "frequency": 137100000,
+        "los": "2020-07-02 03:18:08.216549 UTC",
+        "max_elevation": 60.5,
+        "satellite": "METEOR-M 2",
+        "status": "INCOMING",
+        "tca": "2020-07-02 03:10:25.569961 UTC"
+    },
+    {
+        "aos": "2020-07-02 04:25:51.755952 UTC",
+        "duration": 945.865407,
+        "frequency": 137912500,
+        "los": "2020-07-02 04:41:37.621359 UTC",
+        "max_elevation": 69.8,
+        "satellite": "NOAA 18",
+        "status": "INCOMING",
+        "tca": "2020-07-02 04:33:43.166340 UTC"
+    },
+    {
+        "aos": "2020-07-02 04:43:58.027443 UTC",
+        "duration": 850.11941,
+        "frequency": 137100000,
+        "los": "2020-07-02 04:58:08.146853 UTC",
+        "max_elevation": 23.4,
+        "satellite": "METEOR-M 2",
+        "status": "INCOMING",
+        "tca": "2020-07-02 04:51:00.312277 UTC"
+    },
+    {
+        "aos": "2020-07-02 06:07:51.069038 UTC",
+        "duration": 851.989279,
+        "frequency": 137912500,
+        "los": "2020-07-02 06:22:03.058317 UTC",
+        "max_elevation": 21.1,
+        "satellite": "NOAA 18",
+        "status": "INCOMING",
+        "tca": "2020-07-02 06:14:54.272765 UTC"
     }
 ]
