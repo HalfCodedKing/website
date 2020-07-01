@@ -29,8 +29,8 @@ function ShowPass(path, pass_index) {
         document.getElementsByClassName("max_elev")[document.getElementsByClassName("max_elev").length - 1].innerHTML = "Max elevation: " + result.max_elevation + "°";
         document.getElementsByClassName("a")[document.getElementsByClassName("a").length - 1].setAttribute("href", result.links.a);
         document.getElementsByClassName("b")[document.getElementsByClassName("b").length - 1].setAttribute("href", result.links.b);
-        document.getElementsByClassName("msa")[document.getElementsByClassName("msa").length - 1].setAttribute("href", result.links.MSA);
-        document.getElementsByClassName("msa_precip")[document.getElementsByClassName("msa_precip").length - 1].setAttribute("href", result.links['MSA-precip']);
+        document.getElementsByClassName("msa")[document.getElementsByClassName("msa").length - 1].setAttribute("href", result.links.msa);
+        document.getElementsByClassName("msa_precip")[document.getElementsByClassName("msa_precip").length - 1].setAttribute("href", result.links['msa-precip']);
         document.getElementsByClassName("raw")[document.getElementsByClassName("raw").length - 1].setAttribute("href", result.links.raw);
     });
 }
