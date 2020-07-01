@@ -7,7 +7,7 @@ import os
 from datetime import datetime, timezone, timedelta
 from imgurpython import ImgurClient
 from bs4 import BeautifulSoup
-from time import sleep
+import time
 from string import Template
 import shlex
 from PIL import Image
@@ -52,7 +52,7 @@ def process_METEOR():
     t = threading.Thread(target=os.system, args=("timeout {} /usr/local/bin/rtl_fm -Mraw -s140000 -f137.1M -Edc -g37.2 /tmp/meteor_iq".format(duration),))
     t.start()
     os.system("timeout {} /usr/bin/meteor_demod -s 140000 -o {}.s tmp/meteor_iq".format(duration, outfile))
-    sleep(duration)
+    time.sleep(duration)
 
     #decode the signal into an image
     os.system("/usr/local/bin/medet_arm {}.s {}".format(outfile, outfile))
@@ -74,7 +74,7 @@ def process_NOAA():
     #record the pass with rtl_fm
     print("writing to file: {}.wav".format(outfile))
     os.system("timeout {} /usr/local/bin/rtl_fm -d 0 -f {} -g 37.2 -s 37000 -E deemp -F 9 - | sox -traw -esigned -c1 -b16 -r37000 - {}.wav rate 11025".format(duration, frequency, outfile))
-    sleep(duration)
+    time.sleep(duration)
 
     #update the status in daily_passes.json
     with open("/home/pi/website/weather/scripts/daily_passes.json", "r") as f:
@@ -133,7 +133,7 @@ def process_NOAA():
 
 
     #will probably delete this soon
-
+    '''
     #read the pass.html template file
     html = open("/home/pi/website/media/pass.html")
     src = Template(html.read())
@@ -162,7 +162,7 @@ def process_NOAA():
     #write the code index.html
     html = open("/home/pi/website/weather/index.html", "w")
     html.write(str(soup))
-
+    '''
 
 
 if __name__ == "__main__":
