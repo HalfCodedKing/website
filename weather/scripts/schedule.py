@@ -77,6 +77,8 @@ freqs = {
     'METEOR-M 2': 137100000,
 }
 
+
+
 #turn the info into json data
 print("writing to file: /home/pi/website/weather/scripts/daily_passes.json")
 data = []
@@ -101,6 +103,28 @@ for p in passes:
         #status INCOMING, CURRENT or PASSED
         'status': "INCOMING"
     })
+
+#check if passes overlap and choose which one to prioritize
+i = 0
+while i < len(data) - 2:
+    if datetime.strptime(data[i]["los"], "%Y-%m-%d %H:%M:%S.%f %Z") > datetime.strptime(data[i+1]["aos"], "%Y-%m-%d %H:%M:%S.%f %Z"):
+        #prioritize higher elevation passes
+        priority1 = data[i]['max_elevation']
+        priority2 = data[i+1]['max_elevation']
+
+        #meteor gets more priority
+        if data[i]['satellite'] == "METEOR-M 2":
+            priority1 += 30
+        elif data[i+1]['satellite'] == "METEOR-M 2":
+            priority2 += 30
+
+        #keep the pass with higher priority
+        if priority1 >= priority2:
+            data.pop(data[i+1])
+        elif priority2 > priority1:
+            data.pop(data[i])
+    else:
+        i += 1
 
 #write to the json file
 with open("/home/pi/website/weather/scripts/daily_passes.json", "w") as outfile:
