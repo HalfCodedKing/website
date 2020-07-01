@@ -49,9 +49,9 @@ def upload(path, title):
 def process_METEOR():
     #receive meteor signal and demodulate it
     print("demodulating meteor signal...")
-    t = threading.Thread(target=os.system, args=("timeout {} /usr/local/bin/rtl_fm -Mraw -s140000 -f137.1M -Edc -g37.2 /tmp/meteor_iq".format(duration),))
+    t = threading.Thread(target=os.system, args=("timeout {} /usr/local/bin/rtl_fm -Mraw -s140000 -f137.1M -Edc -g37.2 /home/pi/meteor_iq_pipe".format(duration),))
     t.start()
-    os.system("timeout {} /usr/bin/meteor_demod -s 140000 -o {}.s /tmp/meteor_iq".format(duration, outfile))
+    os.system("timeout {} /usr/bin/meteor_demod -s 140000 -o {}.s /home/pi/meteor_iq_pipe".format(duration, outfile))
     time.sleep(duration)
 
     #decode the signal into an image
