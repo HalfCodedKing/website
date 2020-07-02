@@ -11,7 +11,6 @@ import time
 from string import Template
 import shlex
 from PIL import Image
-import threading
 
 def upload(path, title):
     #get imgur credentials from secrets.json
@@ -48,14 +47,16 @@ def upload(path, title):
 
 def process_METEOR():
     #record pass
-    print("recording pass")
+    print("recording pass...")
     os.system("timeout {} /usr/local/bin/rtl_fm -Mraw -s768k -f {} -g37.2 -p 0 | sox -t raw -r 768k -c 2 -b 16 -e s - -t wav {}.iq.wav rate 192k".format(duration, frequency, outfile))
-    
+    time.sleep(duration)
+
     #demodulate the signal
     print("demodulating meteor signal...")
     os.system("echo d | /usr/bin/meteor_demod -s 140000 -o {}.qpsk {}.iq.wav".format(outfile, outfile))
 
     #decode the signal into an image
+    print("decoding image...")
     os.system("/usr/local/bin/medet_arm {}.qpsk {}".format(outfile, outfile))
     
     #convert bmp to png
