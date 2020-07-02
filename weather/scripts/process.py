@@ -47,15 +47,16 @@ def upload(path, title):
     return link
 
 def process_METEOR():
-    #receive meteor signal and demodulate it
+    #record pass
+    print("recording pass")
+    os.system("timeout {} /usr/local/bin/rtl_fm -Mraw -s768k -f {} -g37.2 -p 0 | sox -t raw -r 768k -c 2 -b 16 -e s - -t wav {}.iq.wav rate 192k".format(duration, frequency, outfile))
+    
+    #demodulate the signal
     print("demodulating meteor signal...")
-    t = threading.Thread(target=os.system, args=("timeout {} /usr/local/bin/rtl_fm -Mraw -s140000 -f137.1M -Edc -g37.2 /home/pi/meteor_iq_pipe".format(duration),))
-    t.start()
-    os.system("timeout {} /usr/bin/meteor_demod -s 140000 -o {}.s /home/pi/meteor_iq_pipe".format(duration, outfile))
-    time.sleep(duration)
+    os.system("echo d | /usr/bin/meteor_demod -s 140000 -o {}.qpsk {}.iq.wav".format(outfile, outfile))
 
     #decode the signal into an image
-    os.system("/usr/local/bin/medet_arm {}.s {}".format(outfile, outfile))
+    os.system("/usr/local/bin/medet_arm {}.qpsk {}".format(outfile, outfile))
     
     #convert bmp to png
     img = Image.open("{}.bmp".format(outfile))

@@ -23,7 +23,6 @@ $(document).ready(function () {
     $.getJSON("/weather/scripts/daily_passes.json", function(result) {
         $.each(result, function (i, field) {
             if (field.status == "INCOMING") {
-                console.log(field)
                 CountDownTimer(field.los, 'countdown')
                 return false;
             }
