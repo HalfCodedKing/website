@@ -49,7 +49,6 @@ def process_METEOR():
     #record pass
     print("recording pass...")
     os.system("timeout {} /usr/local/bin/rtl_fm -Mraw -s768k -f {} -g37.2 -p 0 | sox -t raw -r 768k -c 2 -b 16 -e s - -t wav {}.iq.wav rate 192k".format(duration, frequency, outfile))
-    time.sleep(duration)
 
     #demodulate the signal
     print("demodulating meteor signal...")
