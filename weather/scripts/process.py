@@ -75,7 +75,6 @@ def process_NOAA():
     #record the pass with rtl_fm
     print("writing to file: {}.wav".format(outfile))
     os.system("timeout {} /usr/local/bin/rtl_fm -d 0 -f {} -g 37.2 -s 37000 -E deemp -F 9 - | sox -traw -esigned -c1 -b16 -r37000 - {}.wav rate 11025".format(duration, frequency, outfile))
-    time.sleep(duration)
 
     #update the status in daily_passes.json
     with open("/home/pi/website/weather/scripts/daily_passes.json", "r") as f:
