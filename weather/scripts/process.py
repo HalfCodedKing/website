@@ -117,10 +117,10 @@ def process_NOAA():
     links["b"] = upload("{}.b.png".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
 
     #upload channel MSA image
-    links["msa"] = upload("{}.msa.png".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
+    links["msa"] = upload("{}.MSA.png".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
     
     #upload channel MSA-precip image
-    links["msa-precip"] = upload("{}.msa-precip.png".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
+    links["msa-precip"] = upload("{}.MSA-precip.png".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
 
     #upload channel raw image
     links["raw"] = upload("{}.raw.png".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
