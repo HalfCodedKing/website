@@ -4,15 +4,15 @@
     "duration_old": 916.501025,
     "frequency": 137100000,
     "links": {
-        "a": "https://i.imgur.com/xDEF1AG.png",
-        "b": "https://i.imgur.com/T8kuAI4.png",
-        "msa": "",
-        "msa-precip": "",
-        "raw": "https://i.imgur.com/zFMqx8s.png"
+        "a": "https://i.imgur.com/oQBc33F.png",
+        "b": "https://i.imgur.com/WKmtG5D.png",
+        "msa": "https://i.imgur.com/NTHgtGP.png",
+        "msa-precip": "https://i.imgur.com/XEJy5Di.png",
+        "raw": "https://i.imgur.com/a6ArKyw.png"
     },
     "los": "2020-07-13 00:56:09.821125 UTC",
     "max_elevation": 47.1,
     "satellite": "NOAA 19",
-    "status": "INCOMING",
+    "status": "PASSED",
     "tca": "2020-07-13 00:48:28.525758 UTC"
 }
