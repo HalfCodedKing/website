@@ -1,18 +1,17 @@
 {
-    "aos": "2020-07-13 00:40:53.320100 UTC",
-    "duration": 20,
-    "duration_old": 916.501025,
+    "aos": "2020-07-13 00:40:53.385487 UTC",
+    "duration": 916.501026,
     "frequency": 137100000,
     "links": {
-        "a": "https://i.imgur.com/qHot0tp.png",
-        "b": "https://i.imgur.com/vPAr3dC.png",
-        "msa": "https://i.imgur.com/EzXreXv.png",
-        "msa-precip": "https://i.imgur.com/5gFsiMD.png",
-        "raw": "https://i.imgur.com/jg33aSr.png"
+        "a": "https://i.imgur.com/WJSN8nl.png",
+        "b": "https://i.imgur.com/RwD0joH.png",
+        "msa": "https://i.imgur.com/8gWnNVf.png",
+        "msa-precip": "https://i.imgur.com/WB2wU9y.png",
+        "raw": "https://i.imgur.com/RtdZZuU.png"
     },
-    "los": "2020-07-13 00:56:09.821125 UTC",
+    "los": "2020-07-13 00:56:09.886513 UTC",
     "max_elevation": 47.1,
     "satellite": "NOAA 19",
-    "status": "PASSED",
-    "tca": "2020-07-13 00:48:28.525758 UTC"
+    "status": "INCOMING",
+    "tca": "2020-07-13 00:48:28.083670 UTC"
 }
