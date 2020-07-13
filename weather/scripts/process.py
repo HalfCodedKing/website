@@ -90,23 +90,23 @@ def process_NOAA():
 
     #create image from channel a
     print("create image from channel a")
-    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -a -B 120 -L 600 {}.wav {}.a.png".format(outfile, outfile, outfile))
+    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -a {}.wav {}.a.png".format(outfile, outfile, outfile))
 
     #create image from channel b
     print("creating image from channel b")
-    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -b -B 120 -L 600 {}.wav {}.b.png".format(outfile, outfile, outfile))
+    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -b {}.wav {}.b.png".format(outfile, outfile, outfile))
 
     #create image with MSA enhancement from channel a
     print("creating MSA image")
-    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -B 120 -L 600 -e MSA {}.wav {}.MSA.png".format(outfile, outfile, outfile))
+    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -e MSA {}.wav {}.MSA.png".format(outfile, outfile, outfile))
     
     #create image with MSA-precip enhancement from channel a
     print("creagin MSA-precip image")
-    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -B 120 -L 600 -e MSA-precip {}.wav {}.MSA-precip.png".format(outfile, outfile, outfile))
+    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -e MSA-precip {}.wav {}.MSA-precip.png".format(outfile, outfile, outfile))
 
     #create raw image
     print("creating raw image")
-    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -B 120 -L 600 {}.wav {}.raw.png".format(outfile, outfile, outfile))
+    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A {}.wav {}.raw.png".format(outfile, outfile, outfile))
 
     links = {}
     
