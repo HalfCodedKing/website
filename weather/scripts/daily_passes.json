@@ -21,12 +21,12 @@
     },
     {
         "aos": "2020-07-15 05:13:41.631138 UTC",
-        "duration": 938.759174,
+        "duration": 10,
         "frequency": 137912500,
         "los": "2020-07-15 05:29:20.390312 UTC",
         "max_elevation": 53.8,
         "satellite": "NOAA 18",
-        "status": "INCOMING",
+        "status": "PASSED",
         "tca": "2020-07-15 05:21:28.980976 UTC"
     },
     {
