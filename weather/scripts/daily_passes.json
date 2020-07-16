@@ -6,7 +6,7 @@
         "los": "2020-07-15 02:19:26.497557 UTC",
         "max_elevation": 24.0,
         "satellite": "METEOR-M 2",
-        "status": "INCOMING",
+        "status": "PASSED",
         "tca": "2020-07-15 02:12:27.744452 UTC"
     },
     {
@@ -16,7 +16,7 @@
         "los": "2020-07-15 03:59:58.716166 UTC",
         "max_elevation": 64.9,
         "satellite": "METEOR-M 2",
-        "status": "INCOMING",
+        "status": "PASSED",
         "tca": "2020-07-15 03:52:12.538011 UTC"
     },
     {
@@ -26,7 +26,7 @@
         "los": "2020-07-15 05:29:20.662927 UTC",
         "max_elevation": 53.8,
         "satellite": "NOAA 18",
-        "status": "INCOMING",
+        "status": "PASSED",
         "tca": "2020-07-15 05:21:29.253591 UTC"
     },
     {
@@ -36,7 +36,7 @@
         "los": "2020-07-15 14:30:42.564755 UTC",
         "max_elevation": 51.8,
         "satellite": "NOAA 19",
-        "status": "INCOMING",
+        "status": "PASSED",
         "tca": "2020-07-15 14:22:52.134973 UTC"
     },
     {
@@ -46,7 +46,7 @@
         "los": "2020-07-15 16:07:34.824346 UTC",
         "max_elevation": 78.1,
         "satellite": "NOAA 15",
-        "status": "INCOMING",
+        "status": "PASSED",
         "tca": "2020-07-15 16:00:00.936530 UTC"
     },
     {
@@ -56,7 +56,7 @@
         "los": "2020-07-15 17:52:36.020975 UTC",
         "max_elevation": 37.5,
         "satellite": "METEOR-M 2",
-        "status": "INCOMING",
+        "status": "PASSED",
         "tca": "2020-07-15 17:45:14.564389 UTC"
     },
     {
@@ -66,17 +66,17 @@
         "los": "2020-07-15 19:26:25.800991 UTC",
         "max_elevation": 32.6,
         "satellite": "NOAA 18",
-        "status": "INCOMING",
+        "status": "PASSED",
         "tca": "2020-07-15 19:19:05.345336 UTC"
     },
     {
-        "aos": "2020-07-16 00:06:28.033471 UTC",
+        "aos": "2020-07-17 00:06:28.033471 UTC",
         "duration": 861.693385,
         "frequency": 137100000,
-        "los": "2020-07-16 00:20:49.726856 UTC",
+        "los": "2020-07-17 00:20:49.726856 UTC",
         "max_elevation": 27.1,
         "satellite": "NOAA 19",
         "status": "INCOMING",
-        "tca": "2020-07-16 00:13:35.835309 UTC"
+        "tca": "2020-07-17 00:13:35.835309 UTC"
     }
 ]

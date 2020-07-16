@@ -1,8 +1,6 @@
 //Made by Felix (Blobtoe)
 
 $(document).ready(function () {
-    document.getElementById("main_content").innerHTML = "";
-
     //only get the passed that need to be shown
     $.getJSON("/weather/scripts/showing_passes.json", function(result) {
         //add a template html block to the page for every pass
@@ -22,13 +20,24 @@ $(document).ready(function () {
     //read all the passes of the day
     $.getJSON("/weather/scripts/daily_passes.json", function(result) {
         $.each(result, function (i, field) {
+            //get the first pass with status INCOMING
             if (field.status == "INCOMING") {
-                CountDownTimer(field.los, 'countdown')
+                //start the countdown to the start of the next pass
+                CountDownTimer(field.aos, 'countdown')
+                //fill in info about the next pass
+                document.getElementById("next_pass_sat").innerHTML = "Satellite: " + field.satellite;
+                document.getElementById("next_pass_max_elev").innerHTML = "Max Elevation: " + field.max_elevation + "°";
+                document.getElementById("next_pass_frequency").innerHTML = "Frequency: " + field.frequency + " Hz";
+                document.getElementById("next_pass_aos").innerHTML = "AOS: " + field.aos;
+                document.getElementById("next_pass_los").innerHTML = "LOS: " + field.los;
                 return false;
             }
         })
-        document.getElementById("countdown").innerHTML = "Time until next image: unavailable";
+        //if no passes are incoming (last pass of the day)
+        document.getElementById("countdown").innerHTML += "Next pass unavailable";
     })
+
+    document.getElementById("next_pass").getElementsByTagName("input")[0].addEventListener("click", ShowNextPassInfo);
 });
 
 function ShowPass(path, i) {
@@ -42,6 +51,7 @@ function ShowPass(path, i) {
         document.getElementsByClassName("pass_title")[i].innerHTML = date;
         document.getElementsByClassName("sat")[i].innerHTML = "Satellite: " + result.satellite;
         document.getElementsByClassName("max_elev")[i].innerHTML = "Max elevation: " + result.max_elevation + "°";
+        document.getElementsByClassName("frequency")[i].innerHTML = "Frequency: " + result.frequency + " Hz";
 
         //if the pass if from a NOAA satellite
         if (result.satellite.substring(0, 4) == "NOAA") {
@@ -61,6 +71,8 @@ function ShowPass(path, i) {
     });
 }
 
+
+//copied from stack overflow or something lol
 function CountDownTimer(dt, id)
 {
     var end = new Date(dt).toLocaleString("en-US", {timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone});
@@ -78,7 +90,7 @@ function CountDownTimer(dt, id)
         if (distance < 0) {
 
             clearInterval(timer);
-            document.getElementById(id).innerHTML = 'Processing images...';
+            document.getElementById(id).innerHTML = 'Recording Pass...';
             return;
         }
         var days = Math.floor(distance / _day);
@@ -86,11 +98,24 @@ function CountDownTimer(dt, id)
         var minutes = Math.floor((distance % _hour) / _minute);
         var seconds = Math.floor((distance % _minute) / _second);
 
-        document.getElementById(id).innerHTML = "Time until next image: about " + days + 'days ';
+        document.getElementById(id).innerHTML = " Next pass in about " + days + 'days ';
         document.getElementById(id).innerHTML += hours + 'hrs ';
         document.getElementById(id).innerHTML += minutes + 'mins ';
         document.getElementById(id).innerHTML += seconds + 'secs';
     }
 
     timer = setInterval(showRemaining, 1000);
+}
+
+//toggle the visibility of the next pass info
+function ShowNextPassInfo () {
+    var button = document.getElementById("next_pass").getElementsByTagName("input")[0];
+    var info = document.getElementById("next_pass_info");
+    if (button.value == "More Info") {
+        button.value = "Less Info";
+        info.style.display = "block"
+    } else {
+        button.value = "More Info";
+        info.style.display = "none"
+    }
 }
