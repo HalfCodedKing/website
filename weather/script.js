@@ -39,7 +39,7 @@ $(document).ready(function () {
     })
 
     //hande clicks on the next pass more info button
-    document.getElementById("next_pass").getElementsByTagName("input")[0].addEventListener("click", ShowNextPassInfo);
+    document.getElementById("next_pass_more_info_button").addEventListener("click", ShowNextPassInfo);
 
     //show everything once everything is loaded
     document.getElementById("loading").style.display = "none";
@@ -118,7 +118,7 @@ function CountDownTimer(dt, id)
 
 //toggle the visibility of the next pass info
 function ShowNextPassInfo () {
-    var button = document.getElementById("next_pass").getElementsByTagName("input")[0];
+    var button = document.getElementById("next_pass_more_info_button");
     var info = document.getElementById("next_pass_info");
     if (button.value == "More Info") {
         button.value = "Less Info";

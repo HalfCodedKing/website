@@ -42,6 +42,9 @@
     </div>
     <div id="next_pass" style="display: none;">
         <h2 id="countdown"></h2>
+        <div>
+            <a id="all_passes_button" href="scripts/daily_passes.json">Today's Passes</a>
+        </div>
         <div id="next_pass_info" style="display: none;">
             <ul>
                 <li id="next_pass_sat"></li>
@@ -51,7 +54,7 @@
                 <li id="next_pass_los"></li>
             </ul>
         </div>
-        <input type="button" value="More Info" onclick="ShowNextPassInfo">
+        <input type="button" value="More Info" id="next_pass_more_info_button">
     </div>
     <div class="seperator" style="display:  none;"></div>
     <template id="template">
