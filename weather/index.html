@@ -37,7 +37,10 @@
     </script>
     <div id="header">
     </div>
-    <div id="next_pass">
+    <div id="loading">
+        <h2>Loading...</h2>
+    </div>
+    <div id="next_pass" style="display: none;">
         <h2 id="countdown"></h2>
         <div id="next_pass_info" style="display: none;">
             <ul>
@@ -50,7 +53,7 @@
         </div>
         <input type="button" value="More Info" onclick="ShowNextPassInfo">
     </div>
-    <div class="seperator"></div>
+    <div class="seperator" style="display:  none;"></div>
     <template id="template">
         <div class="pass">
             <div class="main_image_div">
@@ -78,7 +81,7 @@
         </div>
         <div class="seperator"></div>
     </template>
-    <div id="main_content"></div>
+    <div id="main_content" style="display: none;"></div>
     <div id="footer_div"></div>
 </body>
 

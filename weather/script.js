@@ -1,5 +1,6 @@
 //Made by Felix (Blobtoe)
 
+//everything is 'display: none' until everything is loaded
 $(document).ready(function () {
     //only get the passed that need to be shown
     $.getJSON("/weather/scripts/showing_passes.json", function(result) {
@@ -37,7 +38,14 @@ $(document).ready(function () {
         document.getElementById("countdown").innerHTML += "Next pass unavailable";
     })
 
+    //hande clicks on the next pass more info button
     document.getElementById("next_pass").getElementsByTagName("input")[0].addEventListener("click", ShowNextPassInfo);
+
+    //show everything once everything is loaded
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("next_pass").style.display = "block";
+    document.getElementsByClassName("seperator")[0].style.display = "block";
+    document.getElementById("main_content").style.display = "block";
 });
 
 function ShowPass(path, i) {
