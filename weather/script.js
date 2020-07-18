@@ -46,6 +46,7 @@ $(document).ready(function () {
     document.getElementById("next_pass").style.display = "block";
     document.getElementsByClassName("seperator")[0].style.display = "block";
     document.getElementById("main_content").style.display = "block";
+    document.getElementById("footer_div").style.display = "block";
 });
 
 function ShowPass(path, i) {
