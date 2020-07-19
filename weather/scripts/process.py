@@ -12,7 +12,7 @@ from string import Template
 import shlex
 from PIL import Image
 
-def upload(path, title):
+def upload_imgur(path, title):
     #get imgur credentials from secrets.json
     f = open("/home/pi/website/weather/scripts/secrets.json")
     data = json.load(f)
@@ -64,7 +64,7 @@ def process_METEOR():
     img.save("{}.png".format(outfile), "png")
 
     #upload image
-    link = upload("{}.png".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
+    link = upload_imgur("{}.png".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
 
     #write pass info to json file
     with open("/home/pi/website/weather/images/{}/{}/{}.json".format(day, local_time, local_time), "w") as f:
@@ -76,7 +76,7 @@ def process_NOAA():
     #record the pass with rtl_fm
     print("writing to file: {}.wav".format(outfile))
     
-    #os.system("timeout {} /usr/bin/rtl_fm -d 0 -f {} -g 49.6 -s 37000 -E deemp -F 9 - | sox -traw -esigned -c1 -b16 -r37000 - {}.wav rate 11025".format(duration, frequency, outfile))
+    os.system("timeout {} /usr/bin/rtl_fm -d 0 -f {} -g 49.6 -s 37000 -E deemp -F 9 - | sox -traw -esigned -c1 -b16 -r37000 - {}.wav rate 11025".format(duration, frequency, outfile))
 
     #update the status in daily_passes.json
     with open("/home/pi/website/weather/scripts/daily_passes.json", "r") as f:
@@ -113,19 +113,19 @@ def process_NOAA():
     links = {}
     
     #upload channel a image
-    links["a"] = upload("{}.a.png".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
+    links["a"] = upload_imgur("{}.a.png".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
 
     #upload channel b image
-    links["b"] = upload("{}.b.png".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
+    links["b"] = upload_imgur("{}.b.png".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
 
     #upload channel MSA image
-    links["msa"] = upload("{}.MSA.png".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
+    links["msa"] = upload_imgur("{}.MSA.png".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
     
     #upload channel MSA-precip image
-    links["msa-precip"] = upload("{}.MSA-precip.png".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
+    links["msa-precip"] = upload_imgur("{}.MSA-precip.png".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
 
     #upload channel raw image
-    links["raw"] = upload("{}.raw.png".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
+    links["raw"] = upload_imgur("{}.raw.png".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
 
     #write pass info to json file
     with open("/home/pi/website/weather/images/{}/{}/{}.json".format(day, local_time, local_time), "w") as f:
