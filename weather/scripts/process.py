@@ -28,19 +28,19 @@ def upload(path, title):
     }
 
     #upload the image
-    print("uploading images to imgur")
+    print("uploading {} to imgur".format(path))
     link = ""
     count = 0
     while count<10:
         try:
             img = client.upload_from_path(path, config=config)
             link = img["link"]
-            print("uploaded image")
             break
         except:
-            print("failed to upload image... trying again")
             count += 1
+            print("failed to upload image... trying again  {}/10".format(count))
             continue
+    print("done")
     
     #return the link of the uploaded image
     return link
@@ -131,40 +131,6 @@ def process_NOAA():
         pass_info['links'] = links
         json.dump(pass_info, f, indent=4, sort_keys=True)
 
-
-    #will probably delete this soon
-    '''
-    #read the pass.html template file
-    html = open("/home/pi/website/media/pass.html")
-    src = Template(html.read())
-
-    #substitute arguments into the template
-    d = {"title":local_time, "main":links['a'], "a":links['a'], "b":links['b'], "msa":links['MSA'], "raw":links['raw']}
-    result = src.substitute(d)
-    result = BeautifulSoup(result)
-
-    #read the index.html file for the weather page
-    html = open("/home/pi/website/weather/index.html", "r")
-    src = html.read()
-    soup = BeautifulSoup(src)
-
-    #find the right spot in the page to insert the new code
-    soup.find(id="main_content").insert(0, result)
-
-    #find the spot to add the next pass time
-    with open("/home/pi/website/weather/scripts/daily_passes.json", "r") as f:
-        data = json.load(f)
-        if pass_index == len(data) - 1:
-            soup.find(id="countdown")["next_pass"] = "unavailable"
-        else:
-            soup.find(id="countdown")["next_pass"] = data[pass_index+1]['los']
-
-    #write the code index.html
-    html = open("/home/pi/website/weather/index.html", "w")
-    html.write(str(soup))
-    '''
-
-
 if __name__ == "__main__":
     #get the index of the pass in daily_passes.json
     pass_index = int(sys.argv[1])
@@ -208,6 +174,7 @@ if __name__ == "__main__":
         data[pass_index]["status"] = "CURRENT"
         json.dump(data, f, indent=4, sort_keys=True)
 
+    #process depending on the satellite
     if sat[:4] == "NOAA":
         process_NOAA()
     elif sat == "METEOR-M 2":
