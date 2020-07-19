@@ -48,7 +48,8 @@ def upload(path, title):
 def process_METEOR():
     #record pass
     print("recording pass...")
-    os.system("timeout {} /usr/bin/rtl_fm -Mraw -s768k -f {} -g49.6 -p 0 -F 9 | sox -t raw -r 768k -c 2 -b 16 -e s - -t wav {}.iq.wav rate 192k".format(duration, frequency, outfile))
+    os.system("timeout {} /usr/bin/rtl_fm -M raw -s 140000 -f {} -E dc -g 49.6 -p 0 - | sox -t raw -r 140000 -c 2 -b 16 -e s - -t wav {}.iq.wav rate 192k".format(duration, frequency, outfile))
+    #os.system("timeout {} /usr/bin/rtl_fm -Mraw -s768k -f {} -g49.6 -p 0 -F 9 | sox -t raw -r 768k -c 2 -b 16 -e s - -t wav {}.iq.wav rate 192k".format(duration, frequency, outfile))
 
     #demodulate the signal
     print("demodulating meteor signal...")
@@ -74,7 +75,8 @@ def process_METEOR():
 def process_NOAA():
     #record the pass with rtl_fm
     print("writing to file: {}.wav".format(outfile))
-    os.system("timeout {} /usr/bin/rtl_fm -d 0 -f {} -g 49.6 -s 37000 -E deemp -F 9 - | sox -traw -esigned -c1 -b16 -r37000 - {}.wav rate 11025".format(duration, frequency, outfile))
+    
+    #os.system("timeout {} /usr/bin/rtl_fm -d 0 -f {} -g 49.6 -s 37000 -E deemp -F 9 - | sox -traw -esigned -c1 -b16 -r37000 - {}.wav rate 11025".format(duration, frequency, outfile))
 
     #update the status in daily_passes.json
     with open("/home/pi/website/weather/scripts/daily_passes.json", "r") as f:
