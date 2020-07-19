@@ -6,7 +6,7 @@
         "los": "2020-07-19 13:42:48.216274 UTC",
         "max_elevation": 22.8,
         "satellite": "NOAA 19",
-        "status": "INCOMING",
+        "status": "PASSED",
         "tca": "2020-07-19 13:35:36.862420 UTC"
     },
     {
@@ -16,7 +16,7 @@
         "los": "2020-07-19 15:24:35.186814 UTC",
         "max_elevation": 64.8,
         "satellite": "NOAA 19",
-        "status": "INCOMING",
+        "status": "PASSED",
         "tca": "2020-07-19 15:16:43.234950 UTC"
     },
     {
@@ -26,7 +26,7 @@
         "los": "2020-07-19 16:06:53.285425 UTC",
         "max_elevation": 77.0,
         "satellite": "NOAA 15",
-        "status": "INCOMING",
+        "status": "PASSED",
         "tca": "2020-07-19 15:59:19.900540 UTC"
     },
     {
@@ -36,7 +36,7 @@
         "los": "2020-07-19 16:33:22.521369 UTC",
         "max_elevation": 55.6,
         "satellite": "METEOR-M 2",
-        "status": "INCOMING",
+        "status": "CURRENT",
         "tca": "2020-07-19 16:25:44.920092 UTC"
     },
     {
@@ -46,7 +46,7 @@
         "los": "2020-07-19 16:57:44.733535 UTC",
         "max_elevation": 20.0,
         "satellite": "NOAA 18",
-        "status": "INCOMING",
+        "status": "PASSED",
         "tca": "2020-07-19 16:50:49.650063 UTC"
     },
     {
@@ -56,7 +56,7 @@
         "los": "2020-07-19 17:45:08.759898 UTC",
         "max_elevation": 20.2,
         "satellite": "NOAA 15",
-        "status": "INCOMING",
+        "status": "PASSED",
         "tca": "2020-07-19 17:38:32.173785 UTC"
     },
     {
@@ -76,7 +76,7 @@
         "los": "2020-07-19 18:39:49.289288 UTC",
         "max_elevation": 71.4,
         "satellite": "NOAA 18",
-        "status": "INCOMING",
+        "status": "PASSED",
         "tca": "2020-07-19 18:32:02.954677 UTC"
     },
     {
