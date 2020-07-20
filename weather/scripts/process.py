@@ -11,6 +11,30 @@ import time
 from string import Template
 import shlex
 from PIL import Image
+from discord_webhook import DiscordWebhook, DiscordEmbed
+
+def upload_discord(path):
+    print("sending webhook to discord...")
+    #load the json file from the pass
+    with open(path) as f:
+        data = json.load(f)
+
+        with open("secrets.json") as s:
+            secrets = json.load(s)
+            webhook_url = secrets["discord_webhook_url"]
+
+        #send a message with the discord webhook
+        webhook = DiscordWebhook(url=webhook_url, username="Blobtoe's Kinda Crappy Images")
+        embed = DiscordEmbed(title=data["satellite"], description="Pass over Vancouver, Canada", color=242424)
+        embed.set_image(url=data["links"]["a"], width='1000')
+        embed.add_embed_field(name='Max Elevation', value=str(data["max_elevation"]) + "°")
+        embed.add_embed_field(name='Frequency', value=str(data["frequency"]) + " Hz")
+        embed.add_embed_field(name="Duration", value=str(round(data["duration"])) + " seconds")
+        embed.add_embed_field(name='Pass Start', value=data["aos"])
+        embed.add_embed_field(name='Other Image Links', value="[Channel A]({})\n[Channel B]({})\n[MSA Enhanced]({})\n[Raw]({})".format(data["links"]["a"], data["links"]["b"], data["links"]["msa"], data["links"]["raw"]))
+        webhook.add_embed(embed)
+        response = webhook.execute()
+        print("done")
 
 def upload_imgur(path, title):
     #get imgur credentials from secrets.json
@@ -75,7 +99,6 @@ def process_METEOR():
 def process_NOAA():
     #record the pass with rtl_fm
     print("writing to file: {}.wav".format(outfile))
-    
     os.system("timeout {} /usr/bin/rtl_fm -d 0 -f {} -g 49.6 -s 37000 -E deemp -F 9 - | sox -traw -esigned -c1 -b16 -r37000 - {}.wav rate 11025".format(duration, frequency, outfile))
 
     #update the status in daily_passes.json
@@ -132,6 +155,8 @@ def process_NOAA():
         pass_info = p
         pass_info['links'] = links
         json.dump(pass_info, f, indent=4, sort_keys=True)
+
+    upload_discord("/home/pi/website/weather/images/{}/{}/{}.json".format(day, local_time, local_time))
 
 if __name__ == "__main__":
     #get the index of the pass in daily_passes.json
