@@ -237,6 +237,6 @@ if __name__ == "__main__":
 
     #commit changes to git repository
     print("commiting to github")
-    os.system("/home/pi/website/weather/scripts/commit.sh")
+    os.system("/home/pi/website/weather/scripts/commit.sh 'auto commit for pass'")
 
     print("done processing")
