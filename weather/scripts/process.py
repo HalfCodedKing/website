@@ -37,6 +37,11 @@ def upload_discord(path):
         print("done")
 
 def upload_imgur(path, title):
+    #check if the file exists
+    if os.path.isfile(path) == False:
+        print("Error: Image does not exists.")
+        return
+
     #get imgur credentials from secrets.json
     f = open("/home/pi/website/weather/scripts/secrets.json")
     data = json.load(f)
@@ -101,6 +106,13 @@ def process_NOAA():
     print("writing to file: {}.wav".format(outfile))
     os.system("timeout {} /usr/bin/rtl_fm -d 0 -f {} -g 49.6 -s 37000 -E deemp -F 9 - | sox -traw -esigned -c1 -b16 -r37000 - {}.wav rate 11025".format(duration, frequency, outfile))
 
+    #check if the wav file was properly created
+    if os.path.isfile(outfile + ".wav") == True and os.stat(outfile + ".wav").st_size > 10:
+        pass
+    else:
+        print("wav file was not created correctly. Aborting")
+        exit()
+
     #update the status in daily_passes.json
     with open("/home/pi/website/weather/scripts/daily_passes.json", "r") as f:
         data = json.load(f)
@@ -162,17 +174,28 @@ if __name__ == "__main__":
     #get the index of the pass in daily_passes.json
     pass_index = int(sys.argv[1])
 
+    #update the status in daily_passes.json
+    with open("/home/pi/website/weather/scripts/daily_passes.json", "r") as f:
+        data = json.load(f)
+    with open("/home/pi/website/weather/scripts/daily_passes.json", "w") as f:
+        data[pass_index]["status"] = "CURRENT"
+        json.dump(data, f, indent=4, sort_keys=True)
+
     #get info about the pass from the daily_passes.json
     f = open("/home/pi/website/weather/scripts/daily_passes.json")
     p = json.load(f)[pass_index]
     f.close()
 
     #assign variables
-    with open("/home/pi/website/weather/scripts/secrets.json") as f:
-        data = json.load(f)
-        lat = data['lat']
-        lon = data['lon']
-        elev = data['elev']
+    try:
+        with open("/home/pi/website/weather/scripts/secrets.json") as f:
+            data = json.load(f)
+            lat = data['lat']
+            lon = data['lon']
+            elev = data['elev']
+    except:
+        print("Failed to open secrets.json. Aborting")
+        exit()
 
     sat = p['satellite']
     frequency = p['frequency']
@@ -184,22 +207,19 @@ if __name__ == "__main__":
     day = str(local_time)[:10]
     outfile = "/home/pi/drive/weather/images/{}/{}/{}".format(day, local_time, local_time)
 
-    #if this is the first pass of the day, create a new folder for all the images of the day
-    if not os.path.exists("/home/pi/drive/weather/images/{}".format(day)):
-        os.makedirs("/home/pi/website/weather/images/{}".format(day))
-        os.makedirs("/home/pi/drive/weather/images/{}".format(day))
+    try:
+        #if this is the first pass of the day, create a new folder for all the images of the day
+        if not os.path.exists("/home/pi/drive/weather/images/{}".format(day)):
+            os.makedirs("/home/pi/website/weather/images/{}".format(day))
+            os.makedirs("/home/pi/drive/weather/images/{}".format(day))
 
-    #create new directory for this pass
-    if not os.path.exists("/home/pi/drive/weather/images/{}/{}".format(day, local_time)):
-        os.makedirs("/home/pi/drive/weather/images/{}/{}".format(day, local_time))
-        os.makedirs("/home/pi/website/weather/images/{}/{}".format(day, local_time))
-
-    #update the status in daily_passes.json
-    with open("/home/pi/website/weather/scripts/daily_passes.json", "r") as f:
-        data = json.load(f)
-    with open("/home/pi/website/weather/scripts/daily_passes.json", "w") as f:
-        data[pass_index]["status"] = "CURRENT"
-        json.dump(data, f, indent=4, sort_keys=True)
+        #create new directory for this pass
+        if not os.path.exists("/home/pi/drive/weather/images/{}/{}".format(day, local_time)):
+            os.makedirs("/home/pi/drive/weather/images/{}/{}".format(day, local_time))
+            os.makedirs("/home/pi/website/weather/images/{}/{}".format(day, local_time))
+    except:
+        print("Failed creating new directories for the pass. Aborting")
+        exit()
 
     #process depending on the satellite
     if sat[:4] == "NOAA":
