@@ -1,0 +1,17 @@
+{
+    "aos": "2020-07-22 05:31:52.944483 UTC",
+    "duration": 918.968012,
+    "frequency": 137912500,
+    "links": {
+        "a": "",
+        "b": "",
+        "msa": "",
+        "msa-precip": "",
+        "raw": ""
+    },
+    "los": "2020-07-22 05:47:11.912495 UTC",
+    "max_elevation": 39.5,
+    "satellite": "NOAA 18",
+    "status": "INCOMING",
+    "tca": "2020-07-22 05:39:31.159898 UTC"
+}
