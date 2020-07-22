@@ -16,7 +16,7 @@
         "los": "2020-07-21 04:18:16.473702 UTC",
         "max_elevation": 45.7,
         "satellite": "NOAA 18",
-        "status": "INCOMING",
+        "status": "PASSED",
         "tca": "2020-07-21 04:10:36.735892 UTC"
     },
     {
@@ -36,7 +36,7 @@
         "los": "2020-07-21 15:01:14.720373 UTC",
         "max_elevation": 85.7,
         "satellite": "NOAA 19",
-        "status": "INCOMING",
+        "status": "PASSED",
         "tca": "2020-07-21 14:53:19.216296 UTC"
     },
     {
@@ -96,7 +96,7 @@
         "los": "2020-07-21 19:55:21.696075 UTC",
         "max_elevation": 21.2,
         "satellite": "NOAA 18",
-        "status": "INCOMING",
+        "status": "PASSED",
         "tca": "2020-07-21 19:48:30.672205 UTC"
     },
     {
