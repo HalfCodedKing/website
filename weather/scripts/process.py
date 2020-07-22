@@ -19,7 +19,7 @@ def upload_discord(path):
     with open(path) as f:
         data = json.load(f)
 
-        with open("secrets.json") as s:
+        with open("/home/pi/website/weather/scripts/secrets.json") as s:
             secrets = json.load(s)
             webhook_url = secrets["discord_webhook_url"]
 
