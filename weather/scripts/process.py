@@ -89,15 +89,29 @@ def process_METEOR():
     #decode the signal into an image
     print("decoding image...")
     os.system("/usr/local/bin/medet_arm {}.qpsk {} -cd".format(outfile, outfile))
-    os.system("/usr/local/bin/medet_arm {}.dec {}.r66g65b64 -r 66 -g 65 -b 64 -d".format(outfile, outfile))
+    #os.system("/usr/local/bin/medet_arm {}.dec {}.r66g65b64 -r 66 -g 65 -b 64 -d".format(outfile, outfile))
     #os.system("/usr/local/bin/medet_arm {}.qpsk {} -cd".format(outfile, outfile))
     
-    #convert bmp to png
+    #convert bmp to jpg
     img = Image.open("{}.bmp".format(outfile))
-    img.save("{}.png".format(outfile), "png")
+    img.save("{}.jpg".format(outfile), "jpg")
 
-    #upload image
-    link = upload_imgur("{}.png".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
+    #get rid of the blue tint in the image (thanks to PotatoSalad for the code)
+    img = Image.open(outfile + ".jpg")
+    pix = img.load()
+
+    for y in range(img.size[1]):
+        for x in range(img.size[0]):
+            if pix[x, y][2] > 140 and pix[x, y][0] < pix[x, y][2]:
+                pix[x, y] = (pix[x, y][2], pix[x, y][1], pix[x, y][2])
+
+    img.save(outfile + ".equalized.jpg")
+
+    #rectify image
+    os.system("/usr/local/bin/rectify-jpg {}.equalized.jpg".format(outfile))
+
+    #upload image to imgur
+    link = upload_imgur("{}.equalized-rectified.jpg".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
 
     #write pass info to json file
     with open("/home/pi/website/weather/images/{}/{}/{}.json".format(day, local_time, local_time), "w") as f:
