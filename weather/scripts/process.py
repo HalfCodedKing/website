@@ -31,7 +31,8 @@ def upload_discord(path):
         embed.add_embed_field(name='Frequency', value=str(data["frequency"]) + " Hz")
         embed.add_embed_field(name="Duration", value=str(round(data["duration"])) + " seconds")
         embed.add_embed_field(name='Pass Start', value=data["aos"])
-        embed.add_embed_field(name='Other Image Links', value="[Channel A]({})\n[Channel B]({})\n[MSA Enhanced]({})\n[Raw]({})".format(data["links"]["a"], data["links"]["b"], data["links"]["msa"], data["links"]["raw"]))
+        if data["satellite"][:4] == "NOAA":
+            embed.add_embed_field(name='Other Image Links', value="[Channel A]({})\n[Channel B]({})\n[MSA Enhanced]({})\n[Raw]({})".format(data["links"]["a"], data["links"]["b"], data["links"]["msa"], data["links"]["raw"]))
         webhook.add_embed(embed)
         response = webhook.execute()
         print("done")
@@ -82,11 +83,13 @@ def process_METEOR():
 
     #demodulate the signal
     print("demodulating meteor signal...")
-    os.system("/usr/bin/meteor_demod -B -s 140000 -o {}.qpsk {}.iq.wav".format(outfile, outfile))
+    os.system("/use/bin/meteor_demod -B -r 72000 -m qpsk -o {}.qpsk {}.iq.wav".format(outfile, outfile))
+    #os.system("/usr/bin/meteor_demod -B -s 140000 -o {}.qpsk {}.iq.wav".format(outfile, outfile))
 
     #decode the signal into an image
     print("decoding image...")
-    os.system("/usr/local/bin/medet_arm {}.qpsk {} -cd".format(outfile, outfile))
+    os.system("/usr/local/bin/medet_arm {}.qpsk {} -cd -cn".format(outfile, outfile))
+    #os.system("/usr/local/bin/medet_arm {}.qpsk {} -cd".format(outfile, outfile))
     
     #convert bmp to png
     img = Image.open("{}.bmp".format(outfile))
@@ -100,6 +103,9 @@ def process_METEOR():
         pass_info = p
         pass_info['link'] = link
         json.dump(pass_info, f, indent=4, sort_keys=True)
+
+    #send to discord webhook
+    upload_discord("/home/pi/website/weather/images/{}/{}/{}.json".format(day, local_time, local_time))
 
 def process_NOAA():
     #record the pass with rtl_fm
@@ -168,6 +174,7 @@ def process_NOAA():
         pass_info['links'] = links
         json.dump(pass_info, f, indent=4, sort_keys=True)
 
+    #send to discord webhook
     upload_discord("/home/pi/website/weather/images/{}/{}/{}.json".format(day, local_time, local_time))
 
 if __name__ == "__main__":

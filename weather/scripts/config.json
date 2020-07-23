@@ -1,0 +1,18 @@
+{
+    "general": {
+        "active_sats": ["NOAA", "METEOR-M 2"],
+        "output_dir": "/home/pi/drive/"
+    },
+    "NOAA": {
+        "priority": 0,
+        "active_sats": ["NOAA 15", "NOAA 18", "NOAA 19"],
+        "create_images": ["a", "b", "MSA", "MSA-precip", "raw"],
+        "upload_to": ["imgur", "discord"],
+        "min_elevation": 20
+    },
+    "METEOR": {
+        "priority": 30,
+        "upload_to": ["imgur", "discord"],
+        "min_elevation": 30
+    }
+}
