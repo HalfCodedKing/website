@@ -1,0 +1,17 @@
+{
+    "aos": "2020-07-23 05:19:53.065294 UTC",
+    "duration": 931.653931,
+    "frequency": 137912500,
+    "links": {
+        "a": "https://i.imgur.com/9CFK09W.jpeg",
+        "b": "https://i.imgur.com/GlREhGA.jpeg",
+        "msa": "https://i.imgur.com/IixUOuu.jpg",
+        "msa-precip": "https://i.imgur.com/QEIox6a.jpeg",
+        "raw": "https://i.imgur.com/Sm8tASh.jpeg"
+    },
+    "los": "2020-07-23 05:35:24.719225 UTC",
+    "max_elevation": 48.8,
+    "satellite": "NOAA 18",
+    "status": "CURRENT",
+    "tca": "2020-07-23 05:27:37.369950 UTC"
+}
