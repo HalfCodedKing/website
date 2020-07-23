@@ -26,13 +26,15 @@ def upload_discord(path):
         #send a message with the discord webhook
         webhook = DiscordWebhook(url=webhook_url, username="Blobtoe's Kinda Crappy Images")
         embed = DiscordEmbed(title=data["satellite"], description="Pass over Vancouver, Canada", color=242424)
-        embed.set_image(url=data["links"]["a"], width='1000')
         embed.add_embed_field(name='Max Elevation', value=str(data["max_elevation"]) + "°")
         embed.add_embed_field(name='Frequency', value=str(data["frequency"]) + " Hz")
         embed.add_embed_field(name="Duration", value=str(round(data["duration"])) + " seconds")
         embed.add_embed_field(name='Pass Start', value=data["aos"])
         if data["satellite"][:4] == "NOAA":
+            embed.set_image(url=data["links"]["a"])
             embed.add_embed_field(name='Other Image Links', value="[Channel A]({})\n[Channel B]({})\n[MSA Enhanced]({})\n[Raw]({})".format(data["links"]["a"], data["links"]["b"], data["links"]["msa"], data["links"]["raw"]))
+        elif data["satellite"] == "METEOR-M 2":
+            embed.set_image(url=data["link"])
         webhook.add_embed(embed)
         response = webhook.execute()
         print("done")
