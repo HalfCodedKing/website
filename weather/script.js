@@ -75,7 +75,11 @@ function ShowPass(path, i) {
         //if the pass is from METEOR-M 2
         else if (result.satellite == "METEOR-M 2") {
             //add the info to the html
-            document.getElementsByClassName("main_image")[i].setAttribute("src", result.link);
+            document.getElementsByClassName("a")[i].style.display = "none";
+            document.getElementsByClassName("b")[i].style.display = "none";
+            document.getElementsByClassName("msa")[i].style.display = "none";
+            document.getElementsByClassName("msa_precip")[i].style.display = "none";
+            document.getElementsByClassName("raw")[i].style.display = "none";
         }
     });
 }
