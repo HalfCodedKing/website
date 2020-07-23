@@ -89,6 +89,7 @@ def process_METEOR():
     #decode the signal into an image
     print("decoding image...")
     os.system("/usr/local/bin/medet_arm {}.qpsk {} -cd -cn".format(outfile, outfile))
+    os.system("/usr/local/bin/medet_arm {}.dec {}.r66g65b64.bmp -r 66 -g 65 -b 64 -d".format(outfile, outfile))
     #os.system("/usr/local/bin/medet_arm {}.qpsk {} -cd".format(outfile, outfile))
     
     #convert bmp to png
