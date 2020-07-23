@@ -83,13 +83,13 @@ def process_METEOR():
 
     #demodulate the signal
     print("demodulating meteor signal...")
-    os.system("/use/bin/meteor_demod -B -r 72000 -m qpsk -o {}.qpsk {}.iq.wav".format(outfile, outfile))
+    os.system("/usr/bin/meteor_demod -B -r 72000 -m qpsk -o {}.qpsk {}.iq.wav".format(outfile, outfile))
     #os.system("/usr/bin/meteor_demod -B -s 140000 -o {}.qpsk {}.iq.wav".format(outfile, outfile))
 
     #decode the signal into an image
     print("decoding image...")
-    os.system("/usr/local/bin/medet_arm {}.qpsk {} -cd -cn".format(outfile, outfile))
-    os.system("/usr/local/bin/medet_arm {}.dec {}.r66g65b64.bmp -r 66 -g 65 -b 64 -d".format(outfile, outfile))
+    os.system("/usr/local/bin/medet_arm {}.qpsk {} -cd".format(outfile, outfile))
+    os.system("/usr/local/bin/medet_arm {}.dec {}.r66g65b64 -r 66 -g 65 -b 64 -d".format(outfile, outfile))
     #os.system("/usr/local/bin/medet_arm {}.qpsk {} -cd".format(outfile, outfile))
     
     #convert bmp to png
