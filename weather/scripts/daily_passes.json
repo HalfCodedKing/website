@@ -6,7 +6,7 @@
         "los": "2020-07-24 14:25:50.278991 UTC",
         "max_elevation": 46.5,
         "satellite": "NOAA 19",
-        "status": "INCOMING",
+        "status": "PASSED",
         "tca": "2020-07-24 14:18:03.402140 UTC"
     },
     {
@@ -16,7 +16,7 @@
         "los": "2020-07-24 15:40:52.129572 UTC",
         "max_elevation": 47.5,
         "satellite": "NOAA 15",
-        "status": "INCOMING",
+        "status": "PASSED",
         "tca": "2020-07-24 15:33:25.782049 UTC"
     },
     {
@@ -26,7 +26,7 @@
         "los": "2020-07-24 16:06:02.176671 UTC",
         "max_elevation": 33.4,
         "satellite": "NOAA 19",
-        "status": "INCOMING",
+        "status": "PASSED",
         "tca": "2020-07-24 15:58:33.568914 UTC"
     },
     {
@@ -36,7 +36,7 @@
         "los": "2020-07-24 16:34:02.346799 UTC",
         "max_elevation": 56.7,
         "satellite": "METEOR-M 2",
-        "status": "INCOMING",
+        "status": "CURRENT",
         "tca": "2020-07-24 16:26:24.241086 UTC"
     },
     {
@@ -46,7 +46,7 @@
         "los": "2020-07-24 17:20:03.962080 UTC",
         "max_elevation": 30.0,
         "satellite": "NOAA 15",
-        "status": "INCOMING",
+        "status": "PASSED",
         "tca": "2020-07-24 17:13:00.736163 UTC"
     },
     {
@@ -56,7 +56,7 @@
         "los": "2020-07-24 17:40:23.841002 UTC",
         "max_elevation": 41.0,
         "satellite": "NOAA 18",
-        "status": "INCOMING",
+        "status": "PASSED",
         "tca": "2020-07-24 17:32:47.148042 UTC"
     },
     {
@@ -66,7 +66,7 @@
         "los": "2020-07-24 18:13:17.194286 UTC",
         "max_elevation": 26.6,
         "satellite": "METEOR-M 2",
-        "status": "INCOMING",
+        "status": "CURRENT",
         "tca": "2020-07-24 18:06:14.909614 UTC"
     },
     {
@@ -76,7 +76,7 @@
         "los": "2020-07-24 19:20:50.285185 UTC",
         "max_elevation": 36.0,
         "satellite": "NOAA 18",
-        "status": "INCOMING",
+        "status": "PASSED",
         "tca": "2020-07-24 19:13:24.248394 UTC"
     },
     {
