@@ -103,7 +103,7 @@ def process_METEOR():
 
     bmp = Image.open("{}.r66g66b65.bmp".format(outfile))
     bmp = bmp.rotate(180)
-    bmp.save("{}.jpg".format(outfile))
+    bmp.save("{}.r66g66b65.jpg".format(outfile))
 
     #get rid of the blue tint in the image (thanks to PotatoSalad for the code)
     img = Image.open(outfile + ".jpg")
@@ -116,10 +116,11 @@ def process_METEOR():
 
     img.save(outfile + ".equalized.jpg")
 
-    #rectify image
+    #rectify images
     os.system("/usr/local/bin/rectify-jpg {}.equalized.jpg".format(outfile))
+    os.system("/usr/local/bin/rectify-jpg {}.r66g66b65.jpg".format(outfile))
 
-    #upload image to imgur
+    #upload images to imgur
     link = upload_imgur("{}.equalized-rectified.jpg".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
 
     #write pass info to json file
