@@ -32,7 +32,7 @@ def upload_discord(path):
         embed.add_embed_field(name='Pass Start', value=data["aos"])
         if data["satellite"][:4] == "NOAA":
             embed.set_image(url=data["links"]["a"])
-            embed.add_embed_field(name='Other Image Links', value="[Channel A]({})\n[Channel B]({})\n[MSA Enhanced]({})\n[Raw]({})".format(data["links"]["a"], data["links"]["b"], data["links"]["msa"], data["links"]["raw"]))
+            embed.add_embed_field(name='Other Image Links', value="[Channel A]({})\n[Channel B]({})\n[HVCT Enhanced]({})\n[MSA Enhanced]({})\n[Raw]({})".format(data["links"]["a"], data["links"]["b"], data["links"]["hvct"], data["links"]["msa"], data["links"]["raw"]))
         elif data["satellite"] == "METEOR-M 2":
             embed.set_image(url=data["link"])
         webhook.add_embed(embed)
@@ -151,15 +151,19 @@ def process_NOAA():
     #create map overlay
     print("creating map")
     date = (datetime.strptime(p['aos'], "%Y-%m-%d %H:%M:%S.%f %Z")+timedelta(0, 90)).strftime("%d %b %Y %H:%M:%S")
-    os.system("/usr/local/bin/wxmap -T \"{}\" -H /home/pi/website/weather/scripts/weather.tle -p 0 -l 0 -o \"{}\" {}-map.png".format(sat, date, outfile))
+    os.system("/usr/local/bin/wxmap -T \"{}\" -H /home/pi/website/weather/scripts/weather.tle -p 0 -l 0 -g 0 -o \"{}\" {}-map.png".format(sat, date, outfile))
 
     #create image from channel a
     print("create image from channel a")
-    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -a {}.wav {}.a.png".format(outfile, outfile, outfile))
+    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -a -e contrast {}.wav {}.a.png".format(outfile, outfile, outfile))
 
     #create image from channel b
     print("creating image from channel b")
-    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -b {}.wav {}.b.png".format(outfile, outfile, outfile))
+    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -b -e contrast {}.wav {}.b.png".format(outfile, outfile, outfile))
+
+    #create image with HVCT enhancement from channel a
+    print("creating HVCT image")
+    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -e HVCT {}.wav {}.HVCT.png".format(outfile, outfile, outfile))
 
     #create image with MSA enhancement from channel a
     print("creating MSA image")
@@ -175,19 +179,12 @@ def process_NOAA():
 
     links = {}
     
-    #upload channel a image
+    #upload the images to imgur
     links["a"] = upload_imgur("{}.a.png".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
-
-    #upload channel b image
     links["b"] = upload_imgur("{}.b.png".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
-
-    #upload channel MSA image
+    links["hvct"] = upload_imgur("{}.HVCT.png".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
     links["msa"] = upload_imgur("{}.MSA.png".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
-    
-    #upload channel MSA-precip image
     links["msa-precip"] = upload_imgur("{}.MSA-precip.png".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
-
-    #upload channel raw image
     links["raw"] = upload_imgur("{}.raw.png".format(outfile), "{} at {}° at {}".format(sat, max_elevation, local_time))
 
     #write pass info to json file

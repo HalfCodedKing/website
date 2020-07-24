@@ -68,6 +68,7 @@ function ShowPass(path, i) {
             document.getElementsByClassName("main_image")[i].setAttribute("src", result.links.a);
             document.getElementsByClassName("a")[i].setAttribute("href", result.links.a);
             document.getElementsByClassName("b")[i].setAttribute("href", result.links.b);
+            document.getElementsByClassName("hvct")[i].setAttribute("href", result.links.hvct)
             document.getElementsByClassName("msa")[i].setAttribute("href", result.links.msa);
             document.getElementsByClassName("msa_precip")[i].setAttribute("href", result.links['msa-precip']);
             document.getElementsByClassName("raw")[i].setAttribute("href", result.links.raw);
@@ -78,6 +79,7 @@ function ShowPass(path, i) {
             document.getElementsByClassName("main_image")[i].setAttribute("src", result.link);
             document.getElementsByClassName("a")[i].style.display = "none";
             document.getElementsByClassName("b")[i].style.display = "none";
+            document.getElementsByClassName("hvct")[i].style.display = "none"
             document.getElementsByClassName("msa")[i].style.display = "none";
             document.getElementsByClassName("msa_precip")[i].style.display = "none";
             document.getElementsByClassName("raw")[i].style.display = "none";
