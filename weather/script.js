@@ -61,6 +61,7 @@ function ShowPass(path, i) {
         document.getElementsByClassName("sat")[i].innerHTML = "Satellite: " + result.satellite;
         document.getElementsByClassName("max_elev")[i].innerHTML = "Max elevation: " + result.max_elevation + "°";
         document.getElementsByClassName("frequency")[i].innerHTML = "Frequency: " + result.frequency + " Hz";
+        document.getElementsByClassName("sun_elev")[i].innerHTML = "Sun Elevation: " + result["sun_elev"];
 
         //if the pass if from a NOAA satellite
         if (result.satellite.substring(0, 4) == "NOAA") {

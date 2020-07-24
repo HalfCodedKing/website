@@ -12,6 +12,7 @@ from string import Template
 import shlex
 from PIL import Image
 from discord_webhook import DiscordWebhook, DiscordEmbed
+import ephem
 
 def upload_discord(path):
     print("sending webhook to discord...")
@@ -30,6 +31,7 @@ def upload_discord(path):
         embed.add_embed_field(name='Frequency', value=str(data["frequency"]) + " Hz")
         embed.add_embed_field(name="Duration", value=str(round(data["duration"])) + " seconds")
         embed.add_embed_field(name='Pass Start', value=data["aos"])
+        embed.add_embed_field(name='Sun Elevation', value=sun_elev)
         if data["satellite"][:4] == "NOAA":
             embed.set_image(url=data["links"]["a"])
             embed.add_embed_field(name='Other Image Links', value="[Channel A]({})\n[Channel B]({})\n[HVCT Enhanced]({})\n[MSA Enhanced]({})\n[Raw]({})".format(data["links"]["a"], data["links"]["b"], data["links"]["hvct"], data["links"]["msa"], data["links"]["raw"]))
@@ -124,6 +126,7 @@ def process_METEOR():
     with open("/home/pi/website/weather/images/{}/{}/{}.json".format(day, local_time, local_time), "w") as f:
         pass_info = p
         pass_info['link'] = link
+        pass_info["sun_elev"] = sun_elev
         json.dump(pass_info, f, indent=4, sort_keys=True)
 
     #send to discord webhook
@@ -191,6 +194,7 @@ def process_NOAA():
     with open("/home/pi/website/weather/images/{}/{}/{}.json".format(day, local_time, local_time), "w") as f:
         pass_info = p
         pass_info['links'] = links
+        pass_info["sun_elev"] = sun_elev
         json.dump(pass_info, f, indent=4, sort_keys=True)
 
     #send to discord webhook
@@ -246,6 +250,16 @@ if __name__ == "__main__":
     except:
         print("Failed creating new directories for the pass. Aborting")
         exit()
+
+    #compute sun elevation
+    obs = ephem.Observer()
+    obs.lat = lat
+    obs.long = lon
+    obs.date = datetime.strptime(p['tca'], "%Y-%m-%d %H:%M:%S.%f %Z")
+
+    sun = ephem.Sun(obs)
+    sun.compute(obs)
+    sun_elev = round(float(sun.alt) * 57.2957795, 1) #convert to degrees from radians
 
     #process depending on the satellite
     if sat[:4] == "NOAA":
