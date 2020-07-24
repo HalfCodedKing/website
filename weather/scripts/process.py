@@ -96,7 +96,7 @@ def process_METEOR():
     
     #convert bmp to jpg
     img = Image.open("{}.bmp".format(outfile))
-    img.save("{}.jpg".format(outfile), "jpg")
+    img.save("{}.jpg".format(outfile))
 
     #get rid of the blue tint in the image (thanks to PotatoSalad for the code)
     img = Image.open(outfile + ".jpg")
