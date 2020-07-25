@@ -29,7 +29,6 @@ def METEOR(path, outfile):
     
     #convert bmp to jpg
     bmp = Image.open("{}.bmp".format(outfile))
-    bmp = bmp.rotate(180)
     bmp.save("{}.jpg".format(outfile))
 
     #get rid of the blue tint in the image (thanks to PotatoSalad for the code)
@@ -48,7 +47,7 @@ def METEOR(path, outfile):
     os.rename("{}.equalized-rectified.jpg".format(outfile), "{}.rgb123.jpg".format(outfile))
 
     #return the image's file path
-    return ["{}.equalized-rectified.jpg".format(outfile)]
+    return ["{}.rgb123.jpg".format(outfile)]
 
 
 #######################################

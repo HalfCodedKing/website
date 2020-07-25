@@ -94,6 +94,12 @@ if __name__ == "__main__":
             pass_info['links'] = links
             json.dump(pass_info, fw, indent=4, sort_keys=True)
 
+    #send discord webhook
+    with open("/home/pi/website/weather/scripts/secrets.json") as f:
+        data = json.load(f)
+        result = share.discord_webhook(pass_file, data["discord_webhook_url"])
+        print(result)
+
     #update the status in daily_passes.json
     with open("/home/pi/website/weather/scripts/daily_passes.json", "r") as f:
         data = json.load(f)
