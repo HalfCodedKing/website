@@ -1,0 +1,19 @@
+{
+    "aos": "2020-07-25 13:58:33.222932 UTC",
+    "duration": 922.589086,
+    "frequency": 137100000,
+    "links": {
+        "HVCT": "https://i.imgur.com/ppDlNRT.jpeg",
+        "MSA": "https://i.imgur.com/8uGoJfs.jpeg",
+        "MSA-precip": "https://i.imgur.com/uUcdInA.jpeg",
+        "a": "https://i.imgur.com/AIMZ4jM.jpeg",
+        "b": "https://i.imgur.com/zYkq9QP.jpeg",
+        "raw": "https://i.imgur.com/AwhoRe9.jpg"
+    },
+    "los": "2020-07-25 14:13:55.812018 UTC",
+    "max_elevation": 37.8,
+    "satellite": "NOAA 19",
+    "status": "CURRENT",
+    "sun_elev": 12.8,
+    "tca": "2020-07-25 14:06:15.532424 UTC"
+}
