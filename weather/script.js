@@ -66,18 +66,18 @@ function ShowPass(path, i) {
         //if the pass if from a NOAA satellite
         if (result.satellite.substring(0, 4) == "NOAA") {
             //add the info to the html
-            document.getElementsByClassName("main_image")[i].setAttribute("src", result.links.a);
-            document.getElementsByClassName("a")[i].setAttribute("href", result.links.a);
-            document.getElementsByClassName("b")[i].setAttribute("href", result.links.b);
-            document.getElementsByClassName("hvct")[i].setAttribute("href", result.links.hvct)
-            document.getElementsByClassName("msa")[i].setAttribute("href", result.links.msa);
-            document.getElementsByClassName("msa_precip")[i].setAttribute("href", result.links['msa-precip']);
-            document.getElementsByClassName("raw")[i].setAttribute("href", result.links.raw);
+            document.getElementsByClassName("main_image")[i].setAttribute("src", result.links["a"]);
+            document.getElementsByClassName("a")[i].setAttribute("href", result.links["a"]);
+            document.getElementsByClassName("b")[i].setAttribute("href", result.links["b"]);
+            document.getElementsByClassName("hvct")[i].setAttribute("href", result.links["HVCT"])
+            document.getElementsByClassName("msa")[i].setAttribute("href", result.links["MSA"]);
+            document.getElementsByClassName("msa_precip")[i].setAttribute("href", result.links['MSA-precip']);
+            document.getElementsByClassName("raw")[i].setAttribute("href", result.links["raw"]);
         }
         //if the pass is from METEOR-M 2
         else if (result.satellite == "METEOR-M 2") {
             //add the info to the html
-            document.getElementsByClassName("main_image")[i].setAttribute("src", result.link);
+            document.getElementsByClassName("main_image")[i].setAttribute("src", result.links["rgb123"]);
             document.getElementsByClassName("a")[i].style.display = "none";
             document.getElementsByClassName("b")[i].style.display = "none";
             document.getElementsByClassName("hvct")[i].style.display = "none"
