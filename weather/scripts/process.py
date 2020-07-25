@@ -254,8 +254,8 @@ if __name__ == "__main__":
 
     #compute sun elevation
     obs = ephem.Observer()
-    obs.lat = lat
-    obs.long = lon
+    obs.lat = str(lat)
+    obs.long = str(lon)
     obs.date = datetime.strptime(p['tca'], "%Y-%m-%d %H:%M:%S.%f %Z")
 
     sun = ephem.Sun(obs)
