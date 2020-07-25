@@ -96,7 +96,7 @@
         "los": "2020-07-25 01:25:29.764112 UTC",
         "max_elevation": 21.2,
         "satellite": "NOAA 15",
-        "status": "INCOMING",
+        "status": "PASSED",
         "tca": "2020-07-25 01:18:46.643939 UTC"
     },
     {
