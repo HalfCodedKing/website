@@ -31,7 +31,7 @@ def upload_discord(path):
         embed.add_embed_field(name='Frequency', value=str(data["frequency"]) + " Hz")
         embed.add_embed_field(name="Duration", value=str(round(data["duration"])) + " seconds")
         embed.add_embed_field(name='Pass Start', value=data["aos"])
-        embed.add_embed_field(name='Sun Elevation', value=sun_elev)
+        embed.add_embed_field(name='Sun Elevation', value=str(sun_elev))
         if data["satellite"][:4] == "NOAA":
             embed.set_image(url=data["links"]["a"])
             embed.add_embed_field(name='Other Image Links', value="[Channel A]({})\n[Channel B]({})\n[HVCT Enhanced]({})\n[MSA Enhanced]({})\n[Raw]({})".format(data["links"]["a"], data["links"]["b"], data["links"]["hvct"], data["links"]["msa"], data["links"]["raw"]))
@@ -92,8 +92,8 @@ def process_METEOR():
 
     #decode the signal into an image
     print("decoding image...")
-    os.system("/usr/local/bin/medet_arm {}.qpsk {} -cd".format(outfile, outfile))
-    os.system("/usr/local/bin/medet_arm {}.dec {}.r66g66b65 -r 66 -g 66 -b 65 -d".format(outfile, outfile))
+    os.system("/usr/local/bin/medet_arm {}.qpsk {} -q -cd".format(outfile, outfile))
+    os.system("/usr/local/bin/medet_arm {}.dec {}.r66g66b65 -q -r 66 -g 66 -b 65 -d".format(outfile, outfile))
     #os.system("/usr/local/bin/medet_arm {}.qpsk {} -cd".format(outfile, outfile))
     
     #convert bmp to jpg
