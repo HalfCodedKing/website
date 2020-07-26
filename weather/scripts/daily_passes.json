@@ -86,7 +86,7 @@
         "los": "2020-07-26 00:04:12.026702 UTC",
         "max_elevation": 21.0,
         "satellite": "NOAA 19",
-        "status": "INCOMING",
+        "status": "CURRENT",
         "tca": "2020-07-25 23:57:16.912360 UTC"
     },
     {
@@ -96,7 +96,7 @@
         "los": "2020-07-26 01:45:18.014124 UTC",
         "max_elevation": 79.7,
         "satellite": "NOAA 19",
-        "status": "INCOMING",
+        "status": "PASSED",
         "tca": "2020-07-26 01:37:20.480388 UTC"
     },
     {
