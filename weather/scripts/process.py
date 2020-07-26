@@ -95,9 +95,10 @@ if __name__ == "__main__":
 
             #upload image and get a link
             tag = image.split(".")[-2]
+            link = share.imgbb(image)
             if tag == "a" or tag == "rgb123":
-                main_image = image
-            links[tag] = share.imgbb(image)
+                main_image = link
+            links[key] = link
 
     #write pass info to json file
     with open(pass_file) as fr:
