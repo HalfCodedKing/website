@@ -85,6 +85,8 @@ if __name__ == "__main__":
     links = {}
     for image in images:
         tag = image.split(".")[-2]
+        if tag == "a" or tag == "rgb123":
+            main_image = image
         links[tag] = share.imgur(pass_file, image)
 
     #write pass info to json file
@@ -92,6 +94,7 @@ if __name__ == "__main__":
         pass_info = json.load(fr)
         with open(pass_file, "w") as fw:
             pass_info['links'] = links
+            pass_info["main_image"] = main_image
             json.dump(pass_info, fw, indent=4, sort_keys=True)
 
     #send discord webhook

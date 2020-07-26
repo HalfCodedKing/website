@@ -57,7 +57,8 @@ function ShowPass(path, i) {
         date = new Date(date)
 
         //add the name the title of the pass
-        document.getElementsByClassName("pass_title")[0].innerHTML = date;
+        document.getElementsByClassName("pass_title")[i].innerHTML = date;
+        document.getElementsByClassName("main_image")[i].setAttribute("src", result.main_image)
 
         //loop only show the div that matched the satellite's type
         var pass_info = document.getElementsByClassName("pass_info")[i]
@@ -71,7 +72,7 @@ function ShowPass(path, i) {
             
                 //add all the links
                 for (var key in result.links) {
-                    document.getElementsByClassName(key)[i].setAttribute("src", result.links[key])
+                    document.getElementsByClassName(key)[i].setAttribute("href", result.links[key])
                 }
             } else {
                 //hide divs of different types
