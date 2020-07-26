@@ -1,0 +1,19 @@
+{
+    "aos": "2020-07-26 01:29:32.588674 UTC",
+    "duration": 945.42545,
+    "frequency": 137100000,
+    "links": {
+        "HVCT": null,
+        "MSA": null,
+        "MSA-precip": "https://i.imgur.com/kPR4Bm8.jpeg",
+        "a": null,
+        "b": null,
+        "raw": "https://i.imgur.com/tKBlgXj.jpg"
+    },
+    "los": "2020-07-26 01:45:18.014124 UTC",
+    "max_elevation": 79.7,
+    "satellite": "NOAA 19",
+    "status": "CURRENT",
+    "sun_elev": 21.4,
+    "tca": "2020-07-26 01:37:20.480388 UTC"
+}
