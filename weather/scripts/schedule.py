@@ -59,13 +59,13 @@ METEOR_passes = METEOR_predictor.passes_over(location=loc, when_utc=datetime.utc
 print("sorting passes by time")
 passes = []
 for p in NOAA15_passes:
-    passes.append(["NOAA 15", p])
+    passes.append(["NOAA 15", "NOAA", p])
 for p in NOAA18_passes:
-    passes.append(["NOAA 18", p])
+    passes.append(["NOAA 18", "NOAA", p])
 for p in NOAA19_passes:
-    passes.append(["NOAA 19", p])
+    passes.append(["NOAA 19", "NOAA", p])
 for p in METEOR_passes:
-    passes.append(["METEOR-M 2", p])
+    passes.append(["METEOR-M 2", "METEOR", p])
 
 #sort them by their date
 passes.sort(key=lambda x: x[1].aos)
@@ -84,7 +84,8 @@ print("writing to file: /home/pi/website/weather/scripts/daily_passes.json")
 data = []
 for p in passes:
     sat = p[0]
-    info = p[1]
+    sat_type = p[1]
+    info = p[2]
     data.append({
         #name of the sat
         'satellite': sat,
@@ -101,7 +102,9 @@ for p in passes:
         #duration of the pass in seconds
         'duration': info.duration_s,
         #status INCOMING, CURRENT or PASSED
-        'status': "INCOMING"
+        'status': "INCOMING",
+        #type of satellite
+        'type': sat_type
     })
 
 #check if passes overlap and choose which one to prioritize

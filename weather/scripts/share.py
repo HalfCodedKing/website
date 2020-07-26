@@ -2,6 +2,7 @@
 
 import json
 import os
+import time
 from imgurpython import ImgurClient
 from discord_webhook import DiscordWebhook, DiscordEmbed
 
@@ -77,6 +78,7 @@ def imgur(path, image):
             count += 1
             print("failed to upload image... trying again  {}/10".format(count))
             print(e)
+            time.sleep(2)
 
             if count >= 10:
                 return None

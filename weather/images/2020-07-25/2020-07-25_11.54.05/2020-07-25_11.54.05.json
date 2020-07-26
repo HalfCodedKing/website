@@ -15,5 +15,6 @@
     "satellite": "NOAA 18",
     "status": "CURRENT",
     "sun_elev": 56.0,
-    "tca": "2020-07-25 19:01:39.384040 UTC"
+    "tca": "2020-07-25 19:01:39.384040 UTC",
+    "type": "NOAA"
 }

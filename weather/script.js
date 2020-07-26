@@ -56,34 +56,28 @@ function ShowPass(path, i) {
         date = new Date(result.aos).toLocaleString("en-US", {timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone});
         date = new Date(date)
 
-        //add info that is present on all passes
-        document.getElementsByClassName("pass_title")[i].innerHTML = date;
-        document.getElementsByClassName("sat")[i].innerHTML = "Satellite: " + result.satellite;
-        document.getElementsByClassName("max_elev")[i].innerHTML = "Max elevation: " + result.max_elevation + "°";
-        document.getElementsByClassName("frequency")[i].innerHTML = "Frequency: " + result.frequency + " Hz";
-        document.getElementsByClassName("sun_elev")[i].innerHTML = "Sun Elevation: " + result["sun_elev"];
+        //add the name the title of the pass
+        document.getElementsByClassName("pass_title")[0].innerHTML = date;
 
-        //if the pass if from a NOAA satellite
-        if (result.satellite.substring(0, 4) == "NOAA") {
-            //add the info to the html
-            document.getElementsByClassName("main_image")[i].setAttribute("src", result.links["a"]);
-            document.getElementsByClassName("a")[i].setAttribute("href", result.links["a"]);
-            document.getElementsByClassName("b")[i].setAttribute("href", result.links["b"]);
-            document.getElementsByClassName("hvct")[i].setAttribute("href", result.links["HVCT"])
-            document.getElementsByClassName("msa")[i].setAttribute("href", result.links["MSA"]);
-            document.getElementsByClassName("msa_precip")[i].setAttribute("href", result.links['MSA-precip']);
-            document.getElementsByClassName("raw")[i].setAttribute("href", result.links["raw"]);
-        }
-        //if the pass is from METEOR-M 2
-        else if (result.satellite == "METEOR-M 2") {
-            //add the info to the html
-            document.getElementsByClassName("main_image")[i].setAttribute("src", result.links["rgb123"]);
-            document.getElementsByClassName("a")[i].style.display = "none";
-            document.getElementsByClassName("b")[i].style.display = "none";
-            document.getElementsByClassName("hvct")[i].style.display = "none"
-            document.getElementsByClassName("msa")[i].style.display = "none";
-            document.getElementsByClassName("msa_precip")[i].style.display = "none";
-            document.getElementsByClassName("raw")[i].style.display = "none";
+        //loop only show the div that matched the satellite's type
+        var pass_info = document.getElementsByClassName("pass_info")[i]
+        for (var j = 0; j < pass_info.children.length; j++) {
+            if (pass_info.children[j].getAttribute("class") == result.type) {
+                //add general information
+                pass_info.children[j].getElementsByClassName("sat")[0].innerHTML = "Satellite: " + result.satellite;
+                pass_info.children[j].getElementsByClassName("max_elev")[0].innerHTML = "Max elevation: " + result.max_elevation + "°";
+                pass_info.children[j].getElementsByClassName("frequency")[0].innerHTML = "Frequency: " + result.frequency + " Hz";
+                pass_info.children[j].getElementsByClassName("sun_elev")[0].innerHTML = "Sun Elevation: " + result["sun_elev"]; 
+            
+                //add all the links
+                for (var key in result.links) {
+                    document.getElementsByClassName(key)[i].setAttribute("src", result.links[key])
+                }
+            } else {
+                //hide divs of different types
+                pass_info.children[j].style.display = "none";
+            }
+            
         }
     });
 }
