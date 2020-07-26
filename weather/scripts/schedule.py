@@ -68,7 +68,7 @@ for p in METEOR_passes:
     passes.append(["METEOR-M 2", "METEOR", p])
 
 #sort them by their date
-passes.sort(key=lambda x: x[1].aos)
+passes.sort(key=lambda x: x[2].aos)
 
 freqs = {
     'NOAA 15': 137620000,
