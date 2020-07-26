@@ -73,10 +73,12 @@ def imgur(path, image):
             link = img["link"]
             print("done")
             return link
-        except:
+        except Exception as e:
             count += 1
             print("failed to upload image... trying again  {}/10".format(count))
-            continue
+            print(e)
 
-        if count == 10:
-            return None
+            if count >= 10:
+                return None
+
+        
