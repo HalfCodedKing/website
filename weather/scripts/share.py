@@ -3,11 +3,10 @@
 import json
 import os
 import time
+import base64
 from imgurpython import ImgurClient
 from discord_webhook import DiscordWebhook, DiscordEmbed
 import requests
-import base64
-import piexif
 
 
 #######################################

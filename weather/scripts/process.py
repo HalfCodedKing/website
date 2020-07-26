@@ -98,7 +98,7 @@ if __name__ == "__main__":
             link = share.imgbb(image)
             if tag == "a" or tag == "rgb123":
                 main_image = link
-            links[key] = link
+            links[tag] = link
 
     #write pass info to json file
     with open(pass_file) as fr:
