@@ -29,6 +29,7 @@ def METEOR(path, outfile):
     
     #convert bmp to jpg
     bmp = Image.open("{}.bmp".format(outfile))
+    bmp = bmp.rotate(180)
     bmp.save("{}.jpg".format(outfile))
 
     #get rid of the blue tint in the image (thanks to PotatoSalad for the code)
@@ -78,18 +79,18 @@ def NOAA(path, outfile):
     os.system("/usr/local/bin/wxmap -T \"{}\" -H /home/pi/website/weather/scripts/weather.tle -p 0 -l 0 -g 0 -o \"{}\" {}-map.png".format(satellite, date, outfile))
 
     #create images
-    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -a -e contrast {}.wav {}.a.png".format(outfile, outfile, outfile))
-    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -b -e contrast {}.wav {}.b.png".format(outfile, outfile, outfile))
-    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -e HVCT {}.wav {}.HVCT.png".format(outfile, outfile, outfile))
-    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -e MSA {}.wav {}.MSA.png".format(outfile, outfile, outfile))
-    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -e MSA-precip {}.wav {}.MSA-precip.png".format(outfile, outfile, outfile))
-    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A {}.wav {}.raw.png".format(outfile, outfile, outfile))
+    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -i JPEG -a -e contrast {}.wav {}.a.jpg".format(outfile, outfile, outfile))
+    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -i JPEG -b -e contrast {}.wav {}.b.jpg".format(outfile, outfile, outfile))
+    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -i JPEG -e HVCT {}.wav {}.HVCT.jpg".format(outfile, outfile, outfile))
+    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -i JPEG -e MSA {}.wav {}.MSA.jpg".format(outfile, outfile, outfile))
+    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -i JPEG -e MSA-precip {}.wav {}.MSA-precip.jpg".format(outfile, outfile, outfile))
+    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -i JPEG {}.wav {}.raw.jpg".format(outfile, outfile, outfile))
 
     #return the images' file paths
     return [
-        "{}.a.png".format(outfile),
-        "{}.b.png".format(outfile),
-        "{}.HVCT.png".format(outfile),
-        "{}.MSA.png".format(outfile),
-        "{}.MSA-precip.png".format(outfile),
-        "{}.raw.png".format(outfile)]
+        "{}.a.jpg".format(outfile),
+        "{}.b.jpg".format(outfile),
+        "{}.HVCT.jpg".format(outfile),
+        "{}.MSA.jpg".format(outfile),
+        "{}.MSA-precip.jpg".format(outfile),
+        "{}.raw.jpg".format(outfile)]

@@ -5,6 +5,9 @@ import os
 import time
 from imgurpython import ImgurClient
 from discord_webhook import DiscordWebhook, DiscordEmbed
+import requests
+import base64
+import piexif
 
 
 #######################################
@@ -46,19 +49,16 @@ def imgur(path, image):
         print("Error: Image does not exists.")
         return
 
-    #get imgur credentials from secrets.json
-    with open("/home/pi/website/weather/scripts/secrets.json") as f:
-        data = json.load(f)
-        client_id = data["id"]
-        client_secret = data["secret"]
-
     #create title for imgur post
     with open(path) as f:
         data = json.load(f)
         title = "{} at {}° at {}".format(data["satellite"], data["max_elevation"], data["aos"])
 
-    #upload the image
-    print("uploading {} to imgur".format(image))
+    #get imgur credentials from secrets.json
+    with open("/home/pi/website/weather/scripts/secrets.json") as f:
+        data = json.load(f)
+        client_id = data["id"]
+        client_secret = data["secret"]
 
     client = ImgurClient(client_id, client_secret)
     config = {
@@ -82,5 +82,14 @@ def imgur(path, image):
 
             if count >= 10:
                 return None
-
         
+
+def imgbb(image):
+    with open(image, "rb") as file:
+        payload = {
+            "key": "59baedc9d3ee23a6f6b9b9b084973ac8",
+            "image": base64.b64encode(file.read()),
+        }
+        res = requests.post("https://api.imgbb.com/1/upload", payload, timeout=400, verify=False)
+        data = json.loads(res.content)
+        return data["data"]["url"]

@@ -5,6 +5,8 @@ import json
 import os
 from datetime import datetime, timezone
 import ephem
+import piexif
+import piexif.helper
 
 #local imports
 import process_satellite
@@ -83,11 +85,19 @@ if __name__ == "__main__":
 
     #upload each image to imgur
     links = {}
-    for image in images:
-        tag = image.split(".")[-2]
-        if tag == "a" or tag == "rgb123":
-            main_image = image
-        links[tag] = share.imgur(pass_file, image)
+    with open(pass_file) as f:
+        data = json.load(f)
+        for image in images:
+            #add metadata to image
+            exif_dict = piexif.load(image)
+            exif_dict["Exif"][piexif.ExifIFD.UserComment] = piexif.helper.UserComment.dump(json.dumps(data), encoding="unicode")
+            piexif.insert(piexif.dump(exif_dict), image)
+
+            #upload image and get a link
+            tag = image.split(".")[-2]
+            if tag == "a" or tag == "rgb123":
+                main_image = image
+            links[tag] = share.imgbb(image)
 
     #write pass info to json file
     with open(pass_file) as fr:
