@@ -27,9 +27,8 @@ def METEOR(path, outfile):
     print("decoding image...")
     os.system("/usr/local/bin/medet_arm {}.qpsk {} -q -cd".format(outfile, outfile))
     
-    #convert bmp to jpg
-    bmp = Image.open("{}.bmp".format(outfile))
-    bmp.rotate(180).save("{}.jpg".format(outfile))
+    #convert bmp to jpg and rotate 180 deg
+    os.system("convert {}.bmp -rotate 180 {}.jpg".format(outfile, outfile))
 
     #get rid of the blue tint in the image (thanks to PotatoSalad for the code)
     img = Image.open(outfile + ".jpg")
