@@ -58,8 +58,8 @@ def imgur(path, image):
     #get imgur credentials from secrets.json
     with open("/home/pi/website/weather/scripts/secrets.json") as f:
         data = json.load(f)
-        client_id = data["id"]
-        client_secret = data["secret"]
+        client_id = data["imgur_id"]
+        client_secret = data["imgur_secret"]
 
     client = ImgurClient(client_id, client_secret)
     config = {
@@ -85,13 +85,15 @@ def imgur(path, image):
                 return None
         
 
+#######################################
 #uploads an image to imgbb.com given the image's file pathm, then return a link
 def imgbb(image):
     with open(image, "rb") as file:
-        payload = {
-            "key": "59baedc9d3ee23a6f6b9b9b084973ac8",
-            "image": base64.b64encode(file.read()),
-        }
+        with open("/home/pi/website/weather/scripts/secrets.json") as s:
+            payload = {
+                "key": json.load(s)["imgbb_id"],
+                "image": base64.b64encode(file.read()),
+            }
         res = requests.post("https://api.imgbb.com/1/upload", payload, timeout=400, verify=False)
         data = json.loads(res.content)
         return data["data"]["url"]
