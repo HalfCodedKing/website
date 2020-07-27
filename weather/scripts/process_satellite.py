@@ -46,7 +46,7 @@ def METEOR(path, outfile):
     os.rename("{}.equalized-rectified.jpg".format(outfile), "{}.rgb123.jpg".format(outfile))
 
     #return the image's file path
-    return ["{}.rgb123.jpg".format(outfile)]
+    return ["{}.rgb123.jpg".format(outfile)], "rgb123"
 
 
 #######################################
@@ -59,6 +59,7 @@ def NOAA(path, outfile):
         frequency = data["frequency"]
         satellite = data["satellite"]
         aos = data["aos"]
+        sun_elev = data["sun_elev"]
 
     #record the pass with rtl_fm
     print("writing to file: {}.wav".format(outfile))
@@ -84,6 +85,12 @@ def NOAA(path, outfile):
     os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -i JPEG -e MSA-precip {}.wav {}.MSA-precip.jpg".format(outfile, outfile, outfile))
     os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -i JPEG {}.wav {}.raw.jpg".format(outfile, outfile, outfile))
 
+    #show channel b as main image is the the sun is below 10 degrees
+    if sun_elev >= 10 :
+        main_tag = "HVCT"
+    else :
+        main_tag = "b"
+
     #return the images' file paths
     return [
         "{}.a.jpg".format(outfile),
@@ -91,4 +98,4 @@ def NOAA(path, outfile):
         "{}.HVCT.jpg".format(outfile),
         "{}.MSA.jpg".format(outfile),
         "{}.MSA-precip.jpg".format(outfile),
-        "{}.raw.jpg".format(outfile)]
+        "{}.raw.jpg".format(outfile)], main_tag

@@ -79,9 +79,9 @@ if __name__ == "__main__":
 
     #process depending on the satellite
     if sat[:4] == "NOAA":
-        images = process_satellite.NOAA(pass_file, outfile)
+        images, main_tag = process_satellite.NOAA(pass_file, outfile)
     elif sat == "METEOR-M 2":
-        images = process_satellite.METEOR(pass_file, outfile)
+        images, main_tag = process_satellite.METEOR(pass_file, outfile)
 
     #upload each image to imgur
     links = {}
@@ -96,7 +96,7 @@ if __name__ == "__main__":
             #upload image and get a link
             tag = image.split(".")[-2]
             link = share.imgbb(image)
-            if tag == "a" or tag == "rgb123":
+            if tag == main_tag:
                 main_image = link
             links[tag] = link
 
