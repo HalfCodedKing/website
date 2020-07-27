@@ -26,11 +26,13 @@ def discord_webhook(path, webhook_url):
     embed.add_embed_field(name="Duration", value=str(round(data["duration"])) + " seconds")
     embed.add_embed_field(name='Pass Start', value=data["aos"])
     embed.add_embed_field(name='Sun Elevation', value=str(data["sun_elev"]))
-    if data["satellite"][:4] == "NOAA":
-        embed.set_image(url=data["links"]["a"])
-        embed.add_embed_field(name='Other Image Links', value="[Channel A]({})\n[Channel B]({})\n[HVCT Enhanced]({})\n[MSA Enhanced]({})\n[Raw]({})".format(data["links"]["a"], data["links"]["b"], data["links"]["HVCT"], data["links"]["MSA"], data["links"]["raw"]))
-    elif data["satellite"] == "METEOR-M 2":
-        embed.set_image(url=data["links"]["rgb123"])
+    embed.set_image(url=data["main_image"])
+
+    #add all the image links
+    links_string = ""
+    for link in data["links"]:
+        links_string += "[{}]({})\n".format(link, data["links"][link])
+
     webhook.add_embed(embed)
     response = webhook.execute()
 
@@ -83,6 +85,7 @@ def imgur(path, image):
                 return None
         
 
+#uploads an image to imgbb.com given the image's file pathm, then return a link
 def imgbb(image):
     with open(image, "rb") as file:
         payload = {
