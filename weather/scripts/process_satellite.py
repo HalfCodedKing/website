@@ -29,7 +29,7 @@ def METEOR(path, outfile):
     
     #convert bmp to jpg
     bmp = Image.open("{}.bmp".format(outfile))
-    bmp.save("{}.jpg".format(outfile))
+    bmp.rotate(180).save("{}.jpg".format(outfile))
 
     #get rid of the blue tint in the image (thanks to PotatoSalad for the code)
     img = Image.open(outfile + ".jpg")
