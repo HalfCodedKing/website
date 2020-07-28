@@ -1,0 +1,16 @@
+{
+    "aos": "2020-07-28 02:46:22.233990 UTC",
+    "duration": 904.607228,
+    "frequency": 137100000,
+    "links": {
+        "rgb123": "https://i.ibb.co/nDCSwmz/901a270d5067.jpg"
+    },
+    "los": "2020-07-28 03:01:26.841218 UTC",
+    "main_image": "https://i.ibb.co/nDCSwmz/901a270d5067.jpg",
+    "max_elevation": 47.3,
+    "satellite": "METEOR-M 2",
+    "status": "CURRENT",
+    "sun_elev": 9.0,
+    "tca": "2020-07-28 02:53:53.276300 UTC",
+    "type": "METEOR"
+}
