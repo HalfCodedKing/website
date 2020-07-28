@@ -2,6 +2,20 @@
 
 //everything is 'display: none' until everything is loaded
 $(document).ready(function () {
+
+    $(document).on('scroll', function() {
+        if ($(this).scrollTop() >= $('.pass').eq(-2).position().top) {
+          console.log('I have been reached');
+        }
+    })
+
+    $.getJSON("/weather/images/2020-07-27/2020-07-27_11.30.20/2020-07-27_11.30.20.json", data => {
+        console.log(data)
+    })
+
+    loadDoc()
+
+
     //only get the passed that need to be shown
     $.getJSON("/weather/scripts/showing_passes.json", function(result) {
         //add a template html block to the page for every pass
@@ -130,4 +144,43 @@ function ShowNextPassInfo () {
         button.value = "More Info";
         info.style.display = "none"
     }
+}
+
+
+
+
+function loadDoc() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            
+            // gets the entire html file of the folder 'logpost' in this case and labels it thing
+            thing = this.responseText
+            searchFor = /.html</g
+            a=0;
+            b=0;
+            var str = "";
+    
+            // greps file for .html and then backs up leter by letter till you hot the file name and all
+            while ((dothtmls = searchFor.exec(thing)) != null ){
+
+                str = "";
+                console.log(dothtmls.index);
+                
+                a = dothtmls.index;
+
+                while (thing[a]  != '>' ){
+                    a--;
+                }
+                a++;
+                while(thing[a] != '<'){
+                    str = str + thing[a];
+                    a++;
+                }
+                console.log(str);
+            } 
+        }
+    };
+    xhttp.open("GET", "weather/images", true);
+    xhttp.send();
 }

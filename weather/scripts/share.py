@@ -32,6 +32,7 @@ def discord_webhook(path, webhook_url):
     links_string = ""
     for link in data["links"]:
         links_string += "[{}]({})\n".format(link, data["links"][link])
+    embed.add_embed_field(name="Other Image Links", value=links_string)
 
     webhook.add_embed(embed)
     response = webhook.execute()
