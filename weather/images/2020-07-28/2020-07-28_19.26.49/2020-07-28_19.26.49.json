@@ -1,0 +1,12 @@
+{
+    "aos": "2020-07-29 02:26:49.489029 UTC",
+    "duration": 877.36307,
+    "frequency": 137100000,
+    "los": "2020-07-29 02:41:26.852099 UTC",
+    "max_elevation": 34.2,
+    "satellite": "METEOR-M 2",
+    "status": "INCOMING",
+    "sun_elev": 11.9,
+    "tca": "2020-07-29 02:34:06.909260 UTC",
+    "type": "METEOR"
+}
