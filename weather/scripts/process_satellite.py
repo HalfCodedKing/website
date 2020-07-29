@@ -87,7 +87,7 @@ def NOAA(path, outfile):
 
     #show channel b as main image is the the sun is below 10 degrees
     if sun_elev >= 10 :
-        main_tag = "HVCT"
+        main_tag = "MSA-precip"
     else :
         main_tag = "b"
 
