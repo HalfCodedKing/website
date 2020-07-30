@@ -85,11 +85,13 @@ def NOAA(path, outfile):
     os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -i JPEG -e MSA-precip {}.wav {}.MSA-precip.jpg".format(outfile, outfile, outfile))
     os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -i JPEG {}.wav {}.raw.jpg".format(outfile, outfile, outfile))
 
-    #show channel b as main image is the the sun is below 10 degrees
-    if sun_elev >= 10 :
-        main_tag = "MSA-precip"
-    else :
+    #change the main image depending on the sun elevation
+    if sun_elev <= 10 :
         main_tag = "b"
+    elif sun_elev <= 20:
+        main_tag = "HVCT"
+    else:
+        main_tag = "MSA-precip"
 
     #return the images' file paths
     return [
