@@ -21,7 +21,7 @@ def METEOR(path, outfile):
 
     #demodulate the signal
     print("demodulating meteor signal...")
-    os.system("/usr/bin/meteor_demod -B -s 72000 -m qpsk -o {}.qpsk {}.iq.wav".format(outfile, outfile))
+    os.system("/usr/bin/meteor_demod -B -r 72000 -m qpsk -o {}.qpsk {}.iq.wav".format(outfile, outfile))
 
     #decode the signal into an image
     print("decoding image...")
