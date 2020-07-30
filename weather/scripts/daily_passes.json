@@ -83,7 +83,7 @@
         "los": "2020-07-30 04:01:55.975308 UTC",
         "max_elevation": 60.9,
         "satellite": "METEOR-M 2",
-        "status": "INCOMING",
+        "status": "CURRENT",
         "tca": "2020-07-30 03:54:11.310851 UTC",
         "type": "METEOR"
     },
@@ -94,7 +94,7 @@
         "los": "2020-07-30 05:53:14.657580 UTC",
         "max_elevation": 35.9,
         "satellite": "NOAA 18",
-        "status": "INCOMING",
+        "status": "PASSED",
         "tca": "2020-07-30 05:45:38.472448 UTC",
         "type": "NOAA"
     }
