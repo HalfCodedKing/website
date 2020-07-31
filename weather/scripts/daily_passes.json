@@ -6,7 +6,7 @@
         "los": "2020-07-30 14:56:26.378916 UTC",
         "max_elevation": 77.6,
         "satellite": "NOAA 19",
-        "status": "INCOMING",
+        "status": "CURRENT",
         "tca": "2020-07-30 14:48:30.875413 UTC",
         "type": "NOAA"
     },
@@ -17,7 +17,7 @@
         "los": "2020-07-30 16:14:32.366788 UTC",
         "max_elevation": 40.3,
         "satellite": "METEOR-M 2",
-        "status": "INCOMING",
+        "status": "CURRENT",
         "tca": "2020-07-30 16:07:03.342446 UTC",
         "type": "METEOR"
     },
@@ -28,7 +28,7 @@
         "los": "2020-07-30 16:29:53.107958 UTC",
         "max_elevation": 72.0,
         "satellite": "NOAA 15",
-        "status": "INCOMING",
+        "status": "CURRENT",
         "tca": "2020-07-30 16:22:21.231746 UTC",
         "type": "NOAA"
     },
@@ -39,7 +39,7 @@
         "los": "2020-07-30 17:54:28.600144 UTC",
         "max_elevation": 35.5,
         "satellite": "METEOR-M 2",
-        "status": "INCOMING",
+        "status": "CURRENT",
         "tca": "2020-07-30 17:47:10.170758 UTC",
         "type": "METEOR"
     },
@@ -50,7 +50,7 @@
         "los": "2020-07-30 18:10:26.520950 UTC",
         "max_elevation": 69.1,
         "satellite": "NOAA 18",
-        "status": "INCOMING",
+        "status": "CURRENT",
         "tca": "2020-07-30 18:02:38.157414 UTC",
         "type": "NOAA"
     },
@@ -61,7 +61,7 @@
         "los": "2020-07-30 19:49:49.507241 UTC",
         "max_elevation": 23.3,
         "satellite": "NOAA 18",
-        "status": "INCOMING",
+        "status": "CURRENT",
         "tca": "2020-07-30 19:42:50.872444 UTC",
         "type": "NOAA"
     },
@@ -72,7 +72,7 @@
         "los": "2020-07-31 00:46:32.016290 UTC",
         "max_elevation": 38.7,
         "satellite": "NOAA 19",
-        "status": "INCOMING",
+        "status": "CURRENT",
         "tca": "2020-07-31 00:38:55.289338 UTC",
         "type": "NOAA"
     },
@@ -83,7 +83,7 @@
         "los": "2020-07-31 02:14:38.407135 UTC",
         "max_elevation": 45.8,
         "satellite": "NOAA 15",
-        "status": "INCOMING",
+        "status": "PASSED",
         "tca": "2020-07-31 02:07:12.059998 UTC",
         "type": "NOAA"
     },
