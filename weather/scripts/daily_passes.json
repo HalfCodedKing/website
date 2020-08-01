@@ -105,7 +105,7 @@
         "los": "2020-08-01 03:22:04.779665 UTC",
         "max_elevation": 68.0,
         "satellite": "METEOR-M 2",
-        "status": "INCOMING",
+        "status": "PASSED",
         "tca": "2020-08-01 03:14:21.628739 UTC",
         "type": "METEOR"
     },
