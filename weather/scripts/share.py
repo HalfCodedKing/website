@@ -25,7 +25,7 @@ def discord_webhook(path, webhook_url):
     embed.add_embed_field(name='Frequency', value=str(data["frequency"]) + " Hz")
     embed.add_embed_field(name="Duration", value=str(round(data["duration"])) + " seconds")
     embed.add_embed_field(name='Pass Start', value=data["aos"])
-    embed.add_embed_field(name='Sun Elevation', value=str(data["sun_elev"]))
+    embed.add_embed_field(name='Sun Elevation', value=str(data["sun_elev"]) + "°")
     embed.set_image(url=data["main_image"])
 
     #add all the image links

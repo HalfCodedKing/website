@@ -17,7 +17,7 @@ def METEOR(path, outfile):
 
     #record pass baseband with rtl_fm
     print("recording pass...")
-    os.system("timeout {} /usr/bin/rtl_fm -M raw -s 140k -f {} -E dc -g 49.6 -p 0 - | sox -t raw -r 140k -c 2 -b 16 -e s - -t wav {}.iq.wav rate 192k".format(duration, frequency, outfile))
+    os.system("timeout {} /usr/bin/rtl_fm -M raw -s 110k -f {} -E dc -g 49.6 -p 0 - | sox -t raw -r 110k -c 2 -b 16 -e s - -t wav {}.iq.wav rate 192k".format(duration, frequency, outfile))
 
     #demodulate the signal
     print("demodulating meteor signal...")

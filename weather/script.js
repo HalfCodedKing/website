@@ -82,7 +82,7 @@ function ShowPass(path, i) {
                 pass_info.children[j].getElementsByClassName("sat")[0].innerHTML = "Satellite: " + result.satellite;
                 pass_info.children[j].getElementsByClassName("max_elev")[0].innerHTML = "Max elevation: " + result.max_elevation + "°";
                 pass_info.children[j].getElementsByClassName("frequency")[0].innerHTML = "Frequency: " + result.frequency + " Hz";
-                pass_info.children[j].getElementsByClassName("sun_elev")[0].innerHTML = "Sun Elevation: " + result["sun_elev"]; 
+                pass_info.children[j].getElementsByClassName("sun_elev")[0].innerHTML = "Sun Elevation: " + result["sun_elev"] + "°"; 
             
                 //add all the links
                 for (var key in result.links) {
