@@ -17,7 +17,7 @@ def METEOR(path, outfile):
 
     #record pass baseband with rtl_fm
     print("recording pass...")
-    os.system("timeout {} /usr/bin/rtl_fm -M raw -s 110k -f {} -E dc -g 49.6 -p 0 - | sox -t raw -r 110k -c 2 -b 16 -e s - -t wav {}.iq.wav rate 192k".format(duration, frequency, outfile))
+    os.system("timeout {} /usr/bin/rtl_fm -M raw -s 110k -f {} -E dc -g 49.6 -p 0 - | sox -t raw -r 100k -c 2 -b 16 -e s - -t wav {}.iq.wav rate 192k".format(duration, frequency, outfile))
 
     #demodulate the signal
     print("demodulating meteor signal...")
@@ -59,6 +59,7 @@ def NOAA(path, outfile):
         frequency = data["frequency"]
         satellite = data["satellite"]
         aos = data["aos"]
+        max_elevation = data["max_elevation"]
         sun_elev = data["sun_elev"]
 
     #record the pass with rtl_fm
@@ -88,7 +89,7 @@ def NOAA(path, outfile):
     #change the main image depending on the sun elevation
     if sun_elev <= 10 :
         main_tag = "b"
-    elif sun_elev <= 20:
+    elif sun_elev <= 30 or max_elevation <= 30:
         main_tag = "HVCT"
     else:
         main_tag = "MSA-precip"
