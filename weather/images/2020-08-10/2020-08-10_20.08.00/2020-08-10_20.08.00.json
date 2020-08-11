@@ -1,0 +1,16 @@
+{
+    "aos": "2020-08-11 03:08:00.911953 UTC",
+    "duration": 921.760848,
+    "frequency": 137100000,
+    "links": {
+        "rgb123": "https://i.ibb.co/ZVpwwHv/b6f7c6b6fd3e.jpg"
+    },
+    "los": "2020-08-11 03:23:22.672801 UTC",
+    "main_image": "https://i.ibb.co/ZVpwwHv/b6f7c6b6fd3e.jpg",
+    "max_elevation": 70.7,
+    "satellite": "METEOR-M 2",
+    "status": "CURRENT",
+    "sun_elev": 2.8,
+    "tca": "2020-08-11 03:15:40.026552 UTC",
+    "type": "METEOR"
+}
