@@ -127,7 +127,7 @@
         "los": "2020-08-14 06:17:01.317100 UTC",
         "max_elevation": 24.2,
         "satellite": "NOAA 18",
-        "status": "INCOMING",
+        "status": "PASSED",
         "tca": "2020-08-14 06:09:47.967671 UTC",
         "type": "NOAA"
     }
