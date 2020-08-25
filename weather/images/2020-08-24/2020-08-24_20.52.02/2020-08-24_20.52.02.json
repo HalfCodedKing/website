@@ -1,0 +1,12 @@
+{
+    "aos": "2020-08-25 03:52:02.429720 UTC",
+    "duration": 892.57646,
+    "frequency": 137912500,
+    "los": "2020-08-25 04:06:55.006180 UTC",
+    "max_elevation": 36.0,
+    "satellite": "NOAA 18",
+    "status": "CURRENT",
+    "sun_elev": -8.0,
+    "tca": "2020-08-25 03:59:26.434497 UTC",
+    "type": "NOAA"
+}
