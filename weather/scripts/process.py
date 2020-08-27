@@ -131,7 +131,7 @@ if __name__ == "__main__":
 
     #append the pass to the passes list
     with open("/home/pi/website/weather/images/passes.txt", "a+") as f:
-        f.write("/weather/images/{}/{}/{}.json".format(day, local_time, local_time)
+        f.write("/weather/images/{}/{}/{}.json".format(day, local_time, local_time))
 
     #commit changes to git repository
     print("commiting to github")
