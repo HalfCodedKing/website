@@ -129,6 +129,10 @@ if __name__ == "__main__":
         showing_passes[0] = "/weather/images/{}/{}/{}.json".format(day, local_time, local_time)
         json.dump(showing_passes, f, indent=4, sort_keys=True)
 
+    #append the pass to the passes list
+    with open("/home/pi/website/weather/images/passes.txt", "a+") as f:
+        f.write("/weather/images/{}/{}/{}.json".format(day, local_time, local_time)
+
     #commit changes to git repository
     print("commiting to github")
     os.system("/home/pi/website/weather/scripts/commit.sh 'auto commit for pass'")
