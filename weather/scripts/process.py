@@ -130,8 +130,11 @@ if __name__ == "__main__":
         json.dump(showing_passes, f, indent=4, sort_keys=True)
 
     #append the pass to the passes list
-    with open("/home/pi/website/weather/images/passes.txt", "a+") as f:
-        f.write("/weather/images/{}/{}/{}.json".format(day, local_time, local_time))
+    with open("/home/pi/website/weather/images/passes.json", "r+") as rf:
+        data = json.load(rf)
+        with open("/home/pi/website/weather/images/passes.json", "a+") as f:
+            data.append("/weather/images/{}/{}/{}.json".format(day, local_time, local_time))
+            json.dump(data, f, indent=4, sort_keys=True)
 
     #commit changes to git repository
     print("commiting to github")
