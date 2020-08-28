@@ -3,35 +3,37 @@
 //everything is 'display: none' until everything is loaded
 $(document).ready(function () {
 
+    var pass_count = 0;
+    var passes;
+
+    //get all the passes
+    $.ajaxSetup({
+        async: false
+    });
+    $.getJSON("/weather/images/passes.json", function(result) {
+        passes = result
+    });
+    $.ajaxSetup({
+        async: true
+    });
+
+    //show the first 5 passes
+    for (var i = 0; i < 5; i++) {
+        ShowNewPass(passes[passes.length-pass_count-1]);
+        pass_count++;
+    }
+
+    //show the next pass when the user scrolls down enough
     $(document).on('scroll', function() {
-        if ($(this).scrollTop() >= $('.pass').eq(-2).position().top) {
-          console.log('I have been reached');
+        if ($(this).scrollTop() >= $('.pass').eq(-3).position().top) {
+          ShowNewPass(passes[passes.length-pass_count-1])
+          pass_count++;
         }
     })
 
-    $.getJSON("/weather/images/2020-07-27/2020-07-27_11.30.20/2020-07-27_11.30.20.json", data => {
-        console.log(data)
-    })
-
-    loadDoc()
 
 
-    //only get the passed that need to be shown
-    $.getJSON("/weather/scripts/showing_passes.json", function(result) {
-        //add a template html block to the page for every pass
-        $.each(result, function (i, field) {
-            var clone = document.getElementById("template").cloneNode(true);
-            document.getElementById("main_content").innerHTML = document.getElementById("main_content").innerHTML + clone.innerHTML;
-        });
-        //edit the html blocks to show individual passes
-        //editing the blocks after they were created makes the order of the passes correctly consistent
-        var i = 0;
-        $.each(result, function (i, field) {
-            ShowPass(field, i);
-            i++;
-        });
-    });
-
+    //next pass info
     //read all the passes of the day
     $.getJSON("/weather/scripts/daily_passes.json", function(result) {
         $.each(result, function (i, field) {
@@ -61,21 +63,33 @@ $(document).ready(function () {
     document.getElementsByClassName("seperator")[0].style.display = "block";
     document.getElementById("main_content").style.display = "block";
     document.getElementById("footer_div").style.display = "block";
+
 });
 
-function ShowPass(path, i) {
-    //get info about the specific pass
+//add and show a pass to the website from its json file path
+function ShowNewPass(path) {
+    $.ajaxSetup({
+        async: false
+    });
+
+    //create clone of template
+    var clone = document.getElementById("template").cloneNode(true);
+    document.getElementById("main_content").innerHTML = document.getElementById("main_content").innerHTML + clone.innerHTML; 
+
+    //get the clone in the document html (last div with id=pass)
+    var pass = document.getElementsByClassName("pass")[document.getElementsByClassName("pass").length - 1]
+
     $.getJSON(path, function(result) {
         //change the UTC date to local time
         date = new Date(result.aos).toLocaleString("en-US", {timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone});
         date = new Date(date)
 
         //add the name the title of the pass
-        document.getElementsByClassName("pass_title")[i].innerHTML = date;
-        document.getElementsByClassName("main_image")[i].setAttribute("src", result.main_image)
+        pass.getElementsByClassName("pass_title")[0].innerHTML = date;
+        pass.getElementsByClassName("main_image")[0].setAttribute("src", result.main_image)
 
         //loop only show the div that matched the satellite's type
-        var pass_info = document.getElementsByClassName("pass_info")[i]
+        var pass_info = pass.getElementsByClassName("pass_info")[0]
         for (var j = 0; j < pass_info.children.length; j++) {
             if (pass_info.children[j].getAttribute("class") == result.type) {
                 //add general information
@@ -86,7 +100,7 @@ function ShowPass(path, i) {
             
                 //add all the links
                 for (var key in result.links) {
-                    document.getElementsByClassName(key)[i].setAttribute("href", result.links[key])
+                    pass.getElementsByClassName(key)[0].setAttribute("href", result.links[key])
                 }
             } else {
                 //hide divs of different types
@@ -95,8 +109,11 @@ function ShowPass(path, i) {
             
         }
     });
-}
 
+    $.ajaxSetup({
+        async: true
+    });
+}
 
 //copied from stack overflow or something lol
 function CountDownTimer(dt, id)
@@ -144,43 +161,4 @@ function ShowNextPassInfo () {
         button.value = "More Info";
         info.style.display = "none"
     }
-}
-
-
-
-
-function loadDoc() {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            
-            // gets the entire html file of the folder 'logpost' in this case and labels it thing
-            thing = this.responseText
-            searchFor = /.html</g
-            a=0;
-            b=0;
-            var str = "";
-    
-            // greps file for .html and then backs up leter by letter till you hot the file name and all
-            while ((dothtmls = searchFor.exec(thing)) != null ){
-
-                str = "";
-                console.log(dothtmls.index);
-                
-                a = dothtmls.index;
-
-                while (thing[a]  != '>' ){
-                    a--;
-                }
-                a++;
-                while(thing[a] != '<'){
-                    str = str + thing[a];
-                    a++;
-                }
-                console.log(str);
-            } 
-        }
-    };
-    xhttp.open("GET", "weather/images", true);
-    xhttp.send();
 }

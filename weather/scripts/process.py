@@ -121,18 +121,10 @@ if __name__ == "__main__":
         data[pass_index]["status"] = "PASSED"
         json.dump(data, f, indent=4, sort_keys=True)
 
-    #add the pass to the top of showing_passes.json
-    with open("/home/pi/website/weather/scripts/showing_passes.json", "r") as f:
-        showing_passes = json.load(f)
-    with open("/home/pi/website/weather/scripts/showing_passes.json", "w") as f:
-        showing_passes = showing_passes[-1:] + showing_passes[:-1]
-        showing_passes[0] = "/weather/images/{}/{}/{}.json".format(day, local_time, local_time)
-        json.dump(showing_passes, f, indent=4, sort_keys=True)
-
     #append the pass to the passes list
     with open("/home/pi/website/weather/images/passes.json", "r+") as rf:
         data = json.load(rf)
-        with open("/home/pi/website/weather/images/passes.json", "a+") as f:
+        with open("/home/pi/website/weather/images/passes.json", "w") as f:
             data.append("/weather/images/{}/{}/{}.json".format(day, local_time, local_time))
             json.dump(data, f, indent=4, sort_keys=True)
 
