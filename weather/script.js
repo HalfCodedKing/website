@@ -30,6 +30,7 @@ $(document).ready(function () {
           pass_count++;
         }
 
+        //show the back to top button when use scrolls down 2000 pixels
         if ($(this).scrollTop() >= 2000) {
             document.getElementById("top_button").style.display = "block";
         } else {
