@@ -81,12 +81,40 @@ function ShowNewPass(path) {
 
     $.getJSON(path, function(result) {
         //change the UTC date to local time
-        date = new Date(result.aos).toLocaleString("en-US", {timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone});
-        date = new Date(date)
+        var options = {
+            timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            dateStyle: "long",
+            timeStyle: "long"
+        };
+        var formatter = new Intl.DateTimeFormat([], options);
+        var date = formatter.format(new Date(result.aos));
+
+        var delta_time = Math.round(Date.now()/1000 - new Date(result.aos).getTime()/1000);
+        var delta_days = Math.floor(delta_time/86400)
+        var delta_hours = Math.floor((delta_time-delta_days*86400)/3600)
+        var delta_mins = Math.floor(((delta_time-delta_days*86400)-delta_hours*3600)/60)
+
+        if (delta_days != 0) {
+            pass.getElementsByClassName("delta_time")[0].innerHTML += delta_days + " day" + (delta_days === 1 ? "" : "s")
+            if (delta_hours != 0) {
+                pass.getElementsByClassName("delta_time")[0].innerHTML += ", "
+            }
+        }
+        if (delta_hours != 0) {
+            pass.getElementsByClassName("delta_time")[0].innerHTML += delta_hours + " hour" + (delta_hours === 1 ? "" : "s")
+            if (delta_mins != 0) {
+                pass.getElementsByClassName("delta_time")[0].innerHTML += " and "
+            }
+        }
+        if (delta_mins != 0) {
+            pass.getElementsByClassName("delta_time")[0].innerHTML += delta_mins + " minute" + (delta_mins === 1 ? "" : "s")
+        }
+        pass.getElementsByClassName("delta_time")[0].innerHTML += " ago."
 
         //add the name the title of the pass
         pass.getElementsByClassName("pass_title")[0].innerHTML = date;
-        pass.getElementsByClassName("main_image")[0].setAttribute("src", result.main_image)
+        
+        pass.getElementsByClassName("main_image")[0].setAttribute("src", result.main_image);
 
         //loop only show the div that matched the satellite's type
         var pass_info = pass.getElementsByClassName("pass_info")[0]

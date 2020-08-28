@@ -15,6 +15,10 @@ body {
     margin: 0;
 }
 
+.delta_time {
+    font-size: 1.25vw;
+}
+
 .main_image_div {
     width: 35vw;
 }
