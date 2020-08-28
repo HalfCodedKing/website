@@ -74,16 +74,17 @@ body {
 }
 
 #next_pass input {
-    border: 1px solid black;
-    background: none;
+    border: solid 3px #2b2b2b;
+    background-color: #2b2b2b;
     outline: none;
+    color: whitesmoke;
     border-radius: 5px;
     font-size: 1.2vw;
     font-weight: 300;
 }
 
 #next_pass input:hover {
-    background-color: #cccccc;
+    background-color: red;
 }
 
 #next_pass_info ul {
@@ -97,16 +98,34 @@ body {
 
 #all_passes_button {
     position: absolute;
+    border: solid 3px #2b2b2b;
     right: 0px;
     top: 0px;
-    color: black;
+    color: whitesmoke;
+    background-color: #2b2b2b;
+    padding: 3px;
     text-decoration: none;
-    border: 1px solid black;
     border-radius: 5px;
     font-size: 0.9vw;
     font-weight: 300;
 }
 
 #all_passes_button:hover {
-    background-color: #cccccc;
+    background-color: red;
+}
+
+#top_button {
+    border: solid 3px #2b2b2b;
+    border-radius: 5px;
+    background-color: #2b2b2b;
+    color: whitesmoke;
+    padding: 5px;
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+}
+
+#top_button:hover {
+    background-color: red;
 }

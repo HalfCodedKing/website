@@ -19,15 +19,21 @@ $(document).ready(function () {
 
     //show the first 5 passes
     for (var i = 0; i < 5; i++) {
-        ShowNewPass(passes[passes.length-pass_count-1]);
+        ShowPass(passes[passes.length-pass_count-1]);
         pass_count++;
     }
 
     //show the next pass when the user scrolls down enough
     $(document).on('scroll', function() {
         if ($(this).scrollTop() >= $('.pass').eq(-3).position().top) {
-          ShowNewPass(passes[passes.length-pass_count-1])
+          ShowPass(passes[passes.length-pass_count-1])
           pass_count++;
+        }
+
+        if ($(this).scrollTop() >= 2000) {
+            document.getElementById("top_button").style.display = "block";
+        } else {
+            document.getElementById("top_button").style.display = "none"
         }
     })
 
@@ -67,7 +73,7 @@ $(document).ready(function () {
 });
 
 //add and show a pass to the website from its json file path
-function ShowNewPass(path) {
+function ShowPass(path) {
     $.ajaxSetup({
         async: false
     });
@@ -89,11 +95,13 @@ function ShowNewPass(path) {
         var formatter = new Intl.DateTimeFormat([], options);
         var date = formatter.format(new Date(result.aos));
 
+        //get date difference between now and the time of the pass
         var delta_time = Math.round(Date.now()/1000 - new Date(result.aos).getTime()/1000);
         var delta_days = Math.floor(delta_time/86400)
         var delta_hours = Math.floor((delta_time-delta_days*86400)/3600)
         var delta_mins = Math.floor(((delta_time-delta_days*86400)-delta_hours*3600)/60)
 
+        //show the delta in a nice string
         if (delta_days != 0) {
             pass.getElementsByClassName("delta_time")[0].innerHTML += delta_days + " day" + (delta_days === 1 ? "" : "s")
             if (delta_hours != 0) {
@@ -113,7 +121,6 @@ function ShowNewPass(path) {
 
         //add the name the title of the pass
         pass.getElementsByClassName("pass_title")[0].innerHTML = date;
-        
         pass.getElementsByClassName("main_image")[0].setAttribute("src", result.main_image);
 
         //loop only show the div that matched the satellite's type
@@ -189,4 +196,9 @@ function ShowNextPassInfo () {
         button.value = "More Info";
         info.style.display = "none"
     }
+}
+
+function ScrollToTop() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
 }
