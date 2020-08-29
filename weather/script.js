@@ -2,7 +2,6 @@
 
 //everything is 'display: none' until everything is loaded
 $(document).ready(function () {
-
     var pass_count = 0;
     var passes;
 
@@ -47,7 +46,10 @@ $(document).ready(function () {
             //get the first pass with status INCOMING
             if (field.status == "INCOMING") {
                 //start the countdown to the start of the next pass
-                CountDownTimer(field.aos, 'countdown')
+                var date = field.aos.split(/[\s- :.]+/)
+                date = Date.UTC(date[0], date[1]-1, date[2], date[3], date[4], date[5])
+
+                CountDownTimer(date, 'countdown')
                 //fill in info about the next pass
                 document.getElementById("next_pass_sat").innerHTML = "Satellite: " + field.satellite;
                 document.getElementById("next_pass_max_elev").innerHTML = "Max Elevation: " + field.max_elevation + "°";
@@ -87,17 +89,18 @@ function ShowPass(path) {
     var pass = document.getElementsByClassName("pass")[document.getElementsByClassName("pass").length - 1]
 
     $.getJSON(path, function(result) {
-        //change the UTC date to local time
-        var options = {
-            timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-            dateStyle: "long",
-            timeStyle: "long"
-        };
-        var formatter = new Intl.DateTimeFormat([], options);
-        var date = formatter.format(new Date(result.aos));
+        //seperate the date into its components
+        var date = result.aos.split(/[\s- :.]+/)
+        //make a new date object from the components
+        date = Date.UTC(date[0], date[1]-1, date[2], date[3], date[4], date[5])
+
+        //reformat the date into a nice string
+        const dateTimeFormat = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'long', day: '2-digit', hour: "numeric", minute: "2-digit", second: "2-digit", timeZoneName: "short"}) 
+        const [{ value: month },,{ value: day },,{ value: year },,{value: hour},,{value: minute},,{value: second},,{value: dayPeriod},,{value: timeZoneName}] = dateTimeFormat.formatToParts(date)
+        dateString = `${month} ${day}, ${year} at ${hour}:${minute}:${second} ${dayPeriod} ${timeZoneName}`
 
         //get date difference between now and the time of the pass
-        var delta_time = Math.round(Date.now()/1000 - new Date(result.aos).getTime()/1000);
+        var delta_time = Math.round(Date.now()/1000 - new Date(date).getTime()/1000);
         var delta_days = Math.floor(delta_time/86400)
         var delta_hours = Math.floor((delta_time-delta_days*86400)/3600)
         var delta_mins = Math.floor(((delta_time-delta_days*86400)-delta_hours*3600)/60)
@@ -121,7 +124,7 @@ function ShowPass(path) {
         pass.getElementsByClassName("delta_time")[0].innerHTML += " ago."
 
         //add the name the title of the pass
-        pass.getElementsByClassName("pass_title")[0].innerHTML = date;
+        pass.getElementsByClassName("pass_title")[0].innerHTML = dateString;
         pass.getElementsByClassName("main_image")[0].setAttribute("src", result.main_image);
 
         //loop only show the div that matched the satellite's type
