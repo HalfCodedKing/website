@@ -25,7 +25,7 @@ body {
 
 .main_image_div img {
     width: inherit;
-    padding-right: 100px;
+    margin-right: 100px;
 }
 
 .container {
