@@ -19,7 +19,7 @@ body {
     font-size: 1.25vw;
 }
 
-.main_image_div {
+.main_image_div .main_image_link{
     width: 35vw;
 }
 

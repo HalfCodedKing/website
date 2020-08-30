@@ -126,7 +126,7 @@ function ShowPass(path) {
         //add the name the title of the pass
         pass.getElementsByClassName("pass_title")[0].innerHTML = dateString;
         pass.getElementsByClassName("main_image")[0].setAttribute("src", result.main_image);
-        pass.getElementsByClassName("main_image_div").setAttribute("href", result.main_image);
+        pass.getElementsByClassName("main_image_link")[0].setAttribute("href", result.main_image);
 
         //loop only show the div that matched the satellite's type
         var pass_info = pass.getElementsByClassName("pass_info")[0]
