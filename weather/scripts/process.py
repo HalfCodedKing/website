@@ -40,7 +40,7 @@ if __name__ == "__main__":
     duration = p['duration']
     max_elevation = p['max_elevation']
     #string used for naming the files  (aos in %Y-%m-%d %H.%M.%S format)
-    local_time = datetime.strptime(p['aos'], "%Y-%m-%d %H:%M:%S.%f %Z").replace(tzinfo=timezone.utc).astimezone(tz=None).strftime("%Y-%m-%d_%H.%M.%S")#[:-13].replace(" ", "_").replace(":", ".")
+    local_time = datetime.fromtimestamp(p['aos']).replace(tzinfo=timezone.utc).astimezone(tz=None).strftime("%Y-%m-%d_%H.%M.%S")
     day = str(local_time)[:10]
     #the name of the folder containing all the passes for the day (aos in %Y-%m-%d format)
     outfile = "/home/pi/drive/weather/images/{}/{}/{}".format(day, local_time, local_time)
@@ -65,7 +65,7 @@ if __name__ == "__main__":
     obs = ephem.Observer()
     obs.lat = str(lat)
     obs.long = str(lon)
-    obs.date = datetime.strptime(p['tca'], "%Y-%m-%d %H:%M:%S.%f %Z")
+    obs.date = datetime.fromtimestamp(p['tca'])
 
     sun = ephem.Sun(obs)
     sun.compute(obs)
