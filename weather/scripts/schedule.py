@@ -37,19 +37,19 @@ loc = (lat, 123.1579, 20)
 
 #get the next passes of NOAA 15 within the next 24 hours
 print("getting NOAA 15 passes")
-NOAA15_passes = predict.transits(NOAA15, loc, time.time(), time.time() + 86400)
+NOAA15_passes = predict.transits(NOAA15, loc, time.time() + 900, time.time() + 86400)
 
 #get the next passes of NOAA 18 within the next 24 hours
 print("getting NOAA 18 passes")
-NOAA18_passes = predict.transits(NOAA18, loc, time.time(), time.time() + 86400)
+NOAA18_passes = predict.transits(NOAA18, loc, time.time() + 900, time.time() + 86400)
 
 #get the next passes of NOAA 19 within the next 24 hours
 print("getting NOAA 19 passes")
-NOAA19_passes = predict.transits(NOAA19, loc, time.time(), time.time() + 86400)
+NOAA19_passes = predict.transits(NOAA19, loc, time.time() + 900, time.time() + 86400)
 
 #get the next passes of METEOR within the next 24 hours
 print("getting METEOR passes")
-METEOR_passes = predict.transits(METEOR, loc, time.time(), time.time() + 86400)
+METEOR_passes = predict.transits(METEOR, loc, time.time() + 900, time.time() + 86400)
 
 #create one big list of all the passes
 print("sorting passes by time")
@@ -145,7 +145,7 @@ for p in data:
     #create an 'at' job
     ps = subprocess.Popen(('echo', 'python3 /home/pi/website/weather/scripts/process.py {}'.format(i)), stdout=subprocess.PIPE)
     print('$(date --date="@{}" +"%H:%M %D")'.format(p['aos']))
-    #subprocess.check_output(('at', '$(date --date="@{}" +"%H:%M %D")'.format(p['aos']), stdin=ps.stdout)
+    subprocess.check_output(('at', '$(date --date="@{}" +"%H:%M %D")'.format(p['aos'])), stdin=ps.stdout)
     i += 1
 
 #commit changes to git repository
