@@ -1,19 +1,5 @@
 [
     {
-        "aos": 1598840346,
-        "azimuth_aos": 152.5,
-        "azimuth_los": 348.0,
-        "direction": "southbound",
-        "duration": 897,
-        "frequency": 137620000,
-        "los": 1598841243,
-        "max_elevation": 63.1,
-        "satellite": "NOAA 15",
-        "status": "INCOMING",
-        "tca": 1598840795,
-        "type": "NOAA"
-    },
-    {
         "aos": 1598842326,
         "azimuth_aos": 204.2,
         "azimuth_los": 334.2,
@@ -23,7 +9,7 @@
         "los": 1598843184,
         "max_elevation": 21.7,
         "satellite": "NOAA 19",
-        "status": "PASSED",
+        "status": "INCOMING",
         "tca": 1598842752,
         "type": "NOAA"
     },
