@@ -13,10 +13,7 @@ import process_satellite
 import share
 
 
-if __name__ == "__main__":
-    #get the index of the pass in daily_passes.json
-    pass_index = int(sys.argv[1])
-
+def start(pass_index):
     #update the status in daily_passes.json
     with open("/home/pi/website/weather/scripts/daily_passes.json", "r") as f:
         data = json.load(f)

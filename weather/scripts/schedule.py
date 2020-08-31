@@ -4,6 +4,11 @@ import predict
 import time
 import os
 import subprocess
+from datetime import datetime
+import sched
+
+#local imports
+import process
 
 #get lat and lon from private file
 f = open("/home/pi/website/weather/scripts/secrets.json")
@@ -140,12 +145,12 @@ with open("/home/pi/website/weather/scripts/daily_passes.json", "w") as outfile:
 
 #schedule the passes for the day
 print("scheduling at jobs")
+s = sched.scheduler(time.time, time.sleep)
 i = 0
 for p in data:
-    #create an 'at' job
-    ps = subprocess.Popen(('echo', 'python3 /home/pi/website/weather/scripts/process.py {}'.format(i)), stdout=subprocess.PIPE)
-    print('$(date --date="@{}" +"%H:%M %D")'.format(p['aos']))
-    subprocess.check_output(('at', '$(date --date="@{}" +"%H:%M %D")'.format(p['aos'])), stdin=ps.stdout)
+    #create a job for every pass
+    print("scheduled a job for %f or %f" % (p['aos'], datetime.fromtimestamp(p['aos'])))
+    s.enterabs(p['aos'], 1, process.start, (i))
     i += 1
 
 #commit changes to git repository
