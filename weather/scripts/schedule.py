@@ -150,7 +150,7 @@ i = 0
 for p in data:
     #create a job for every pass
     print("scheduled a job for {} or {}".format(p['aos'], datetime.fromtimestamp(p['aos']).strftime("%B %w, %Y at %-H:%M:%S %Z")))
-    s.enterabs(p['aos'], 1, process.start, (i))
+    s.enterabs(p['aos'], 1, process.start, argument=(i,))
     i += 1
 
 #commit changes to git repository
