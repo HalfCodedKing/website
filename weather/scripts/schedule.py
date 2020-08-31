@@ -149,7 +149,7 @@ s = sched.scheduler(time.time, time.sleep)
 i = 0
 for p in data:
     #create a job for every pass
-    print("scheduled a job for %f or %f" % (p['aos'], datetime.fromtimestamp(p['aos'])))
+    print("scheduled a job for %f or %f" % (p['aos'], datetime.fromtimestamp(p['aos']).strftime("%B %w, %Y at %-H:%M:%S %Z")))
     s.enterabs(p['aos'], 1, process.start, (i))
     i += 1
 
