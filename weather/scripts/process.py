@@ -37,7 +37,7 @@ def start(pass_index):
     duration = p['duration']
     max_elevation = p['max_elevation']
     #string used for naming the files  (aos in %Y-%m-%d %H.%M.%S format)
-    local_time = datetime.fromtimestamp(p['aos']).replace(tzinfo=timezone.utc).astimezone(tz=None).strftime("%Y-%m-%d_%H.%M.%S")
+    local_time = datetime.fromtimestamp(p['aos']).strftime("%Y-%m-%d_%H.%M.%S")
     day = str(local_time)[:10]
     #the name of the folder containing all the passes for the day (aos in %Y-%m-%d format)
     outfile = "/home/pi/drive/weather/images/{}/{}/{}".format(day, local_time, local_time)
