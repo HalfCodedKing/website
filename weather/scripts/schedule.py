@@ -158,3 +158,5 @@ print("commiting to github")
 os.system("/home/pi/website/weather/scripts/commit.sh 'auto scheduled passes for the next 24 hours'")
 
 print("done scheduling")
+
+s.run()
