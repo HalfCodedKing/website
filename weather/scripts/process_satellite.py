@@ -75,7 +75,7 @@ def NOAA(path, outfile):
 
     #create map overlay
     print("creating map")
-    date = (datetime.strptime(aos, "%Y-%m-%d %H:%M:%S.%f %Z")+timedelta(0, 90)).strftime("%d %b %Y %H:%M:%S")
+    date = (datetime.utcfromtimestamp(aos)+timedelta(0, 90)).strftime("%d %b %Y %H:%M:%S")
     os.system("/usr/local/bin/wxmap -T \"{}\" -H /home/pi/website/weather/scripts/weather.tle -p 0 -l 0 -g 0 -o \"{}\" {}-map.png".format(satellite, date, outfile))
 
     #create images

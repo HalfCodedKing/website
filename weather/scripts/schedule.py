@@ -77,8 +77,6 @@ freqs = {
     'METEOR-M 2': 137100000,
 }
 
-
-
 #turn the info into json data
 print("writing to file: /home/pi/website/weather/scripts/daily_passes.json")
 data = []
@@ -132,10 +130,6 @@ while i < len(data) - 2:
 #write to the json file
 with open("/home/pi/website/weather/scripts/daily_passes.json", "w") as outfile:
     json.dump(data, outfile, indent=4, sort_keys=True)
-
-#get timezone of groundstation
-tzwhere = tzwhere.tzwhere()
-timezone_str = tzwhere.tzNameAt(lat, lon)
 
 #schedule the passes for the day
 print("scheduling at jobs")

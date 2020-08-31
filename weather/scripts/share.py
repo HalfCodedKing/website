@@ -7,6 +7,7 @@ import base64
 from imgurpython import ImgurClient
 from discord_webhook import DiscordWebhook, DiscordEmbed
 import requests
+from datetime import datetime
 
 
 #######################################
@@ -24,7 +25,7 @@ def discord_webhook(path, webhook_url):
     embed.add_embed_field(name='Max Elevation', value=str(data["max_elevation"]) + "°")
     embed.add_embed_field(name='Frequency', value=str(data["frequency"]) + " Hz")
     embed.add_embed_field(name="Duration", value=str(round(data["duration"])) + " seconds")
-    embed.add_embed_field(name='Pass Start', value=data["aos"])
+    embed.add_embed_field(name='Pass Start', value=datetime.utcfromtimestamp(data["aos"]).strftime("%B %w, %Y at %-H:%M:%S %Z"))
     embed.add_embed_field(name='Sun Elevation', value=str(data["sun_elev"]) + "°")
     embed.set_image(url=data["main_image"])
 
