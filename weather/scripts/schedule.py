@@ -1,13 +1,9 @@
-#Made by Felix (Blobtoe)
-
-import json
-from datetime import datetime, timedelta
-import subprocess
-import os
 import requests
-from orbit_predictor.sources import get_predictor_from_tle_lines
-from orbit_predictor.locations import Location
-from tzwhere import tzwhere
+import json
+import predict
+import time
+import os
+import subprocess
 
 #get lat and lon from private file
 f = open("/home/pi/website/weather/scripts/secrets.json")
@@ -27,48 +23,52 @@ f.write(r.text.replace("\r", ""))
 f.close()
 
 #find the satellites in the tle
-NOAA15 = tle.index("NOAA 15                 ")
-NOAA18 = tle.index("NOAA 18                 ")
-NOAA19 = tle.index("NOAA 19                 ")
-METEOR = tle.index("METEOR-M 2              ")
+index =  tle.index("NOAA 15                 ")
+NOAA15 = "\n".join(tle[index:index+3])
+index = tle.index("NOAA 18                 ")
+NOAA18 = "\n".join(tle[index:index+3])
+index = tle.index("NOAA 19                 ")
+NOAA19 = "\n".join(tle[index:index+3])
+index = tle.index("METEOR-M 2              ")
+METEOR = "\n".join(tle[index:index+3])
 
 #set the ground station location
-loc = Location("ground station", lat, lon, 5)
+loc = (lat, 123.1579, 20)
 
 #get the next passes of NOAA 15 within the next 24 hours
 print("getting NOAA 15 passes")
-NOAA15_predictor = get_predictor_from_tle_lines((tle[NOAA15+1], tle[NOAA15+2]))
-NOAA15_passes = NOAA15_predictor.passes_over(location=loc, when_utc=datetime.utcnow(), limit_date=datetime.utcnow() + timedelta(hours=24), max_elevation_gt=20)
+NOAA15_passes = predict.transits(NOAA15, loc, time.time(), time.time() + 86400)
 
 #get the next passes of NOAA 18 within the next 24 hours
 print("getting NOAA 18 passes")
-NOAA18_predictor = get_predictor_from_tle_lines((tle[NOAA18+1], tle[NOAA18+2]))
-NOAA18_passes = NOAA18_predictor.passes_over(location=loc, when_utc=datetime.utcnow(), limit_date=datetime.utcnow() + timedelta(hours=24), max_elevation_gt=20)
+NOAA18_passes = predict.transits(NOAA18, loc, time.time(), time.time() + 86400)
 
 #get the next passes of NOAA 19 within the next 24 hours
 print("getting NOAA 19 passes")
-NOAA19_predictor = get_predictor_from_tle_lines((tle[NOAA19+1], tle[NOAA19+2]))
-NOAA19_passes = NOAA19_predictor.passes_over(location=loc, when_utc=datetime.utcnow(), limit_date=datetime.utcnow() + timedelta(hours=24), max_elevation_gt=20)
+NOAA19_passes = predict.transits(NOAA19, loc, time.time(), time.time() + 86400)
 
-#get the next passes of METEOR-M 2 within the next 24 hours
-print("getting METEOR-M 2 passes")
-METEOR_predictor = get_predictor_from_tle_lines((tle[METEOR+1], tle[METEOR+2]))
-METEOR_passes = METEOR_predictor.passes_over(location=loc, when_utc=datetime.utcnow(), limit_date=datetime.utcnow() + timedelta(hours=24), max_elevation_gt=20)
+#get the next passes of METEOR within the next 24 hours
+print("getting METEOR passes")
+METEOR_passes = predict.transits(METEOR, loc, time.time(), time.time() + 86400)
 
 #create one big list of all the passes
 print("sorting passes by time")
 passes = []
 for p in NOAA15_passes:
-    passes.append(["NOAA 15", "NOAA", p])
+	if p.peak()['elevation'] >= 20:
+		passes.append(["NOAA 15", "NOAA", p])
 for p in NOAA18_passes:
-    passes.append(["NOAA 18", "NOAA", p])
+	if p.peak()['elevation'] >= 20:
+		passes.append(["NOAA 18", "NOAA", p])
 for p in NOAA19_passes:
-    passes.append(["NOAA 19", "NOAA", p])
+	if p.peak()['elevation'] >= 20:
+		passes.append(["NOAA 19", "NOAA", p])
 for p in METEOR_passes:
-    passes.append(["METEOR-M 2", "METEOR", p])
+	if p.peak()['elevation'] >= 20:
+		passes.append(["METEOR-M 2", "METEOR", p])
 
 #sort them by their date
-passes.sort(key=lambda x: x[2].aos)
+passes.sort(key=lambda x: x[2].start)
 
 freqs = {
     'NOAA 15': 137620000,
@@ -77,40 +77,45 @@ freqs = {
     'METEOR-M 2': 137100000,
 }
 
-
-
 #turn the info into json data
-print("writing to file: /home/pi/website/weather/scripts/daily_passes.json")
 data = []
 for p in passes:
     sat = p[0]
     sat_type = p[1]
     info = p[2]
     data.append({
+	#ALL TIMES ARE IN SECONDS SINCE EPOCH (UTC)
+
         #name of the sat
         'satellite': sat,
         #the frequency in MHz the satellite transmits
         'frequency': freqs[sat],
         #time the sat rises above the horizon
-        'aos': str(info.aos) + " UTC",
+        'aos': round(info.start),
         #time the sat reaches its max elevation
-        'tca': str(info.max_elevation_date) + " UTC",
+        'tca': round(info.peak()['epoch']),
         #time the sat passes below the horizon 
-        'los': str(info.los) + " UTC",
+        'los': round(info.end),
         #maximum degrees of elevation
-        'max_elevation': round(info.max_elevation_deg, 1),
+        'max_elevation': round(info.peak()['elevation'], 1),
         #duration of the pass in seconds
-        'duration': info.duration_s,
+        'duration': round(info.duration()),
         #status INCOMING, CURRENT or PASSED
         'status': "INCOMING",
         #type of satellite
-        'type': sat_type
+        'type': sat_type,
+        #azimuth at the aos
+        'azimuth_aos': round(info.at(info.start)['azimuth'], 1),
+        #azimuth at the los
+        'azimuth_los': round(info.at(info.end)['azimuth'], 1),
+        #either northbound or southbound
+        'direction': "northbound" if 90 < info.at(info.start)['azimuth'] > 270 else "southbound"
     })
 
 #check if passes overlap and choose which one to prioritize
 i = 0
 while i < len(data) - 2:
-    if datetime.strptime(data[i]["los"], "%Y-%m-%d %H:%M:%S.%f %Z") > datetime.strptime(data[i+1]["aos"], "%Y-%m-%d %H:%M:%S.%f %Z"):
+    if data[i]['los'] > data[i+1]['aos']:
         #prioritize higher elevation passes
         priority1 = data[i]['max_elevation']
         priority2 = data[i+1]['max_elevation']
@@ -133,20 +138,14 @@ while i < len(data) - 2:
 with open("/home/pi/website/weather/scripts/daily_passes.json", "w") as outfile:
     json.dump(data, outfile, indent=4, sort_keys=True)
 
-#get timezone of groundstation
-tzwhere = tzwhere.tzwhere()
-timezone_str = tzwhere.tzNameAt(lat, lon)
-
 #schedule the passes for the day
 print("scheduling at jobs")
 i = 0
 for p in data:
-    #calculate minutes until start of each pass
-    delta = datetime.strptime(p["aos"], "%Y-%m-%d %H:%M:%S.%f %Z") - datetime.utcnow()
-    delta_min = round(delta.total_seconds() / 60)
     #create an 'at' job
     ps = subprocess.Popen(('echo', 'python3 /home/pi/website/weather/scripts/process.py {}'.format(i)), stdout=subprocess.PIPE)
-    subprocess.check_output(('at', 'now + {} minutes'.format(delta_min)), stdin=ps.stdout)
+    print('$(date --date="@{}" +"%H:%M %D")'.format(p['aos']))
+    #subprocess.check_output(('at', '$(date --date="@{}" +"%H:%M %D")'.format(p['aos']), stdin=ps.stdout)
     i += 1
 
 #commit changes to git repository
