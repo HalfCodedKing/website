@@ -1,5 +1,5 @@
 {
-    "aos": "2020-07-26 16:15:29.008355 UTC",
+    "aos": 1595780129,
     "duration": 905.76352,
     "frequency": 137620000,
     "links": {
@@ -10,12 +10,15 @@
         "b": "https://i.ibb.co/2jcFqqg/5665f9e064af.jpg",
         "raw": "https://i.ibb.co/56t2HXj/37676f8b538f.jpg"
     },
-    "los": "2020-07-26 16:30:34.771875 UTC",
+    "los": 1595781035,
     "main_image": "/home/pi/drive/weather/images/2020-07-26/2020-07-26_09.15.29/2020-07-26_09.15.29.a.jpg",
     "max_elevation": 70.9,
     "satellite": "NOAA 15",
-    "status": "CURRENT",
+    "status": "PASSED",
     "sun_elev": 34.4,
-    "tca": "2020-07-26 16:23:02.895401 UTC",
-    "type": "NOAA"
+    "tca": 1595780583,
+    "type": "NOAA",
+    "aos_old": "2020-07-26 16:15:29.008355 UTC",
+    "los_old": "2020-07-26 16:30:34.771875 UTC",
+    "tca_old": "2020-07-26 16:23:02.895401 UTC"
 }

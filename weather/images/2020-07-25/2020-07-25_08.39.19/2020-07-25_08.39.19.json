@@ -1,5 +1,5 @@
 {
-    "aos": "2020-07-25 15:39:19.314359 UTC",
+    "aos": 1595691559,
     "duration": 913.962016,
     "frequency": 137100000,
     "links": {
@@ -10,10 +10,13 @@
         "b": "https://i.imgur.com/DsPA162.jpg",
         "raw": "https://i.imgur.com/c68U445.jpg"
     },
-    "los": "2020-07-25 15:54:33.276375 UTC",
+    "los": 1595692473,
     "max_elevation": 40.0,
     "satellite": "NOAA 19",
-    "status": "CURRENT",
+    "status": "PASSED",
     "sun_elev": 28.8,
-    "tca": "2020-07-25 15:46:56.041629 UTC"
+    "tca": 1595692016,
+    "aos_old": "2020-07-25 15:39:19.314359 UTC",
+    "los_old": "2020-07-25 15:54:33.276375 UTC",
+    "tca_old": "2020-07-25 15:46:56.041629 UTC"
 }

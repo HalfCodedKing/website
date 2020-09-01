@@ -1,5 +1,5 @@
 {
-    "aos": "2020-07-25 04:56:03.019899 UTC",
+    "aos": 1595652963,
     "duration": 943.832118,
     "frequency": 137912500,
     "links": {
@@ -10,10 +10,13 @@
         "msa-precip": "https://i.imgur.com/MEdLVDY.jpeg",
         "raw": "https://i.imgur.com/S919xmw.jpg"
     },
-    "los": "2020-07-25 05:11:46.852017 UTC",
+    "los": 1595653907,
     "max_elevation": 74.4,
     "satellite": "NOAA 18",
-    "status": "CURRENT",
+    "status": "PASSED",
     "sun_elev": -8.4,
-    "tca": "2020-07-25 05:03:53.413648 UTC"
+    "tca": 1595653433,
+    "aos_old": "2020-07-25 04:56:03.019899 UTC",
+    "los_old": "2020-07-25 05:11:46.852017 UTC",
+    "tca_old": "2020-07-25 05:03:53.413648 UTC"
 }

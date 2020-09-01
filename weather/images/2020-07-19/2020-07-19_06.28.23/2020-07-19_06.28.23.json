@@ -1,5 +1,5 @@
 {
-    "aos": "2020-07-19 13:28:23.986141 UTC",
+    "aos": 1595165304,
     "duration": 864.230133,
     "frequency": 137100000,
     "links": {
@@ -9,9 +9,12 @@
         "msa-precip": "https://i.imgur.com/PtLa3Hb.jpg",
         "raw": ""
     },
-    "los": "2020-07-19 13:42:48.216274 UTC",
+    "los": 1595166168,
     "max_elevation": 22.8,
     "satellite": "NOAA 19",
     "status": "INCOMING",
-    "tca": "2020-07-19 13:35:36.862420 UTC"
+    "tca": 1595165737,
+    "aos_old": "2020-07-19 13:28:23.986141 UTC",
+    "los_old": "2020-07-19 13:42:48.216274 UTC",
+    "tca_old": "2020-07-19 13:35:36.862420 UTC"
 }

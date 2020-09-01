@@ -1,5 +1,5 @@
 {
-    "aos": "2020-07-02 14:40:00.988676 UTC",
+    "aos": 1593700801,
     "duration": 821.825101,
     "frequency": 137620000,
     "links": {
@@ -9,9 +9,12 @@
         "msa-precip": "",
         "raw": "https://i.imgur.com/JPNboor.jpg"
     },
-    "los": "2020-07-02 14:53:42.813777 UTC",
+    "los": 1593701623,
     "max_elevation": 21.1,
     "satellite": "NOAA 15",
     "status": "INCOMING",
-    "tca": "2020-07-02 14:46:54.163131 UTC"
+    "tca": 1593701214,
+    "aos_old": "2020-07-02 14:40:00.988676 UTC",
+    "los_old": "2020-07-02 14:53:42.813777 UTC",
+    "tca_old": "2020-07-02 14:46:54.163131 UTC"
 }

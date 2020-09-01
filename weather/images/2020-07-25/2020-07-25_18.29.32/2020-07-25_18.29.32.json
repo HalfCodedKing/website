@@ -1,5 +1,5 @@
 {
-    "aos": "2020-07-26 01:29:32.588674 UTC",
+    "aos": 1595726973,
     "duration": 945.42545,
     "frequency": 137100000,
     "links": {
@@ -11,11 +11,14 @@
         "raw": "https://i.imgur.com/tKBlgXj.jpg"
     },
     "main_image": "https://i.imgur.com/kPR4Bm8.jpeg",
-    "los": "2020-07-26 01:45:18.014124 UTC",
+    "los": 1595727918,
     "max_elevation": 79.7,
     "satellite": "NOAA 19",
-    "status": "CURRENT",
+    "status": "PASSED",
     "sun_elev": 21.4,
-    "tca": "2020-07-26 01:37:20.480388 UTC",
-    "type": "NOAA"
+    "tca": 1595727440,
+    "type": "NOAA",
+    "aos_old": "2020-07-26 01:29:32.588674 UTC",
+    "los_old": "2020-07-26 01:45:18.014124 UTC",
+    "tca_old": "2020-07-26 01:37:20.480388 UTC"
 }

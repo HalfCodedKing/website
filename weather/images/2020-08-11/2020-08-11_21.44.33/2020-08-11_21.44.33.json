@@ -1,5 +1,5 @@
 {
-    "aos": "2020-08-12 04:44:33.471463 UTC",
+    "aos": 1597207473,
     "duration": 939.76982,
     "frequency": 137912500,
     "links": {
@@ -10,12 +10,15 @@
         "b": "https://i.ibb.co/HNF0TXN/cb3d7059188c.jpg",
         "raw": "https://i.ibb.co/QNqWTrf/f08b563a22c5.jpg"
     },
-    "los": "2020-08-12 05:00:13.241283 UTC",
+    "los": 1597208413,
     "main_image": "https://i.ibb.co/HNF0TXN/cb3d7059188c.jpg",
     "max_elevation": 88.2,
     "satellite": "NOAA 18",
-    "status": "CURRENT",
+    "status": "PASSED",
     "sun_elev": -11.2,
-    "tca": "2020-08-12 04:52:20.819197 UTC",
-    "type": "NOAA"
+    "tca": 1597207941,
+    "type": "NOAA",
+    "aos_old": "2020-08-12 04:44:33.471463 UTC",
+    "los_old": "2020-08-12 05:00:13.241283 UTC",
+    "tca_old": "2020-08-12 04:52:20.819197 UTC"
 }

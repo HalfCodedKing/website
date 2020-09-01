@@ -46,16 +46,15 @@ $(document).ready(function () {
             //get the first pass with status INCOMING
             if (field.status == "INCOMING") {
                 //start the countdown to the start of the next pass
-                var date = field.aos.split(/[\s- :.]+/)
-                date = Date.UTC(date[0], date[1]-1, date[2], date[3], date[4], date[5])
+                var date = new Date(0).setUTCSeconds(field.aos)
 
                 CountDownTimer(date, 'countdown')
                 //fill in info about the next pass
                 document.getElementById("next_pass_sat").innerHTML = "Satellite: " + field.satellite;
                 document.getElementById("next_pass_max_elev").innerHTML = "Max Elevation: " + field.max_elevation + "°";
                 document.getElementById("next_pass_frequency").innerHTML = "Frequency: " + field.frequency + " Hz";
-                document.getElementById("next_pass_aos").innerHTML = "AOS: " + field.aos;
-                document.getElementById("next_pass_los").innerHTML = "LOS: " + field.los;
+                document.getElementById("next_pass_aos").innerHTML = "AOS: " + DateToString(date);
+                document.getElementById("next_pass_los").innerHTML = "LOS: " + DateToString(new Date(0).setUTCSeconds(field.los));
                 return false;
             }
         })
@@ -89,15 +88,7 @@ function ShowPass(path) {
     var pass = document.getElementsByClassName("pass")[document.getElementsByClassName("pass").length - 1]
 
     $.getJSON(path, function(result) {
-        //seperate the date into its components
-        var date = result.aos.split(/[\s- :.]+/)
-        //make a new date object from the components
-        date = Date.UTC(date[0], date[1]-1, date[2], date[3], date[4], date[5])
-
-        //reformat the date into a nice string
-        const dateTimeFormat = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'long', day: '2-digit', hour: "numeric", minute: "2-digit", second: "2-digit", timeZoneName: "short"}) 
-        const [{ value: month },,{ value: day },,{ value: year },,{value: hour},,{value: minute},,{value: second},,{value: dayPeriod},,{value: timeZoneName}] = dateTimeFormat.formatToParts(date)
-        dateString = `${month} ${day}, ${year} at ${hour}:${minute}:${second} ${dayPeriod} ${timeZoneName}`
+        var date = new Date(0).setUTCSeconds(result.aos)
 
         //get date difference between now and the time of the pass
         var delta_time = Math.round(Date.now()/1000 - new Date(date).getTime()/1000);
@@ -124,7 +115,7 @@ function ShowPass(path) {
         pass.getElementsByClassName("delta_time")[0].innerHTML += " ago."
 
         //add the name the title of the pass
-        pass.getElementsByClassName("pass_title")[0].innerHTML = dateString;
+        pass.getElementsByClassName("pass_title")[0].innerHTML = DateToString(date);
         pass.getElementsByClassName("main_image")[0].setAttribute("src", result.main_image);
         pass.getElementsByClassName("main_image_link")[0].setAttribute("href", result.main_image);
 
@@ -206,4 +197,12 @@ function ShowNextPassInfo () {
 function ScrollToTop() {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
+}
+
+function DateToString(date) {
+    //reformat the date into a nice string
+    const dateTimeFormat = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'long', day: '2-digit', hour: "numeric", minute: "2-digit", second: "2-digit", timeZoneName: "short"}) 
+    const [{ value: month },,{ value: day },,{ value: year },,{value: hour},,{value: minute},,{value: second},,{value: dayPeriod},,{value: timeZoneName}] = dateTimeFormat.formatToParts(date)
+    dateString = `${month} ${day}, ${year} at ${hour}:${minute}:${second} ${dayPeriod} ${timeZoneName}`
+    return dateString
 }

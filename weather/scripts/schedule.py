@@ -60,17 +60,17 @@ METEOR_passes = predict.transits(METEOR, loc, time.time() + 900, time.time() + 8
 print("sorting passes by time")
 passes = []
 for p in NOAA15_passes:
-	if p.peak()['elevation'] >= 20:
-		passes.append(["NOAA 15", "NOAA", p])
+    if p.peak()['elevation'] >= 20:
+        passes.append(["NOAA 15", "NOAA", p])
 for p in NOAA18_passes:
-	if p.peak()['elevation'] >= 20:
-		passes.append(["NOAA 18", "NOAA", p])
+    if p.peak()['elevation'] >= 20:
+        passes.append(["NOAA 18", "NOAA", p])
 for p in NOAA19_passes:
-	if p.peak()['elevation'] >= 20:
-		passes.append(["NOAA 19", "NOAA", p])
+    if p.peak()['elevation'] >= 20:
+        passes.append(["NOAA 19", "NOAA", p])
 for p in METEOR_passes:
-	if p.peak()['elevation'] >= 20:
-		passes.append(["METEOR-M 2", "METEOR", p])
+    if p.peak()['elevation'] >= 20:
+        passes.append(["METEOR-M 2", "METEOR", p])
 
 #sort them by their date
 passes.sort(key=lambda x: x[2].start)
@@ -89,7 +89,7 @@ for p in passes:
     sat_type = p[1]
     info = p[2]
     data.append({
-	#ALL TIMES ARE IN SECONDS SINCE EPOCH (UTC)
+    #ALL TIMES ARE IN SECONDS SINCE EPOCH (UTC)
 
         #name of the sat
         'satellite': sat,
