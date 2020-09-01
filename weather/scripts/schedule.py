@@ -164,5 +164,5 @@ def run(hours):
     run(hours)
 
 if __name__ == "__main__":
-    hours = sys.argv[1]
+    hours = int(sys.argv[1])
     run(hours)
