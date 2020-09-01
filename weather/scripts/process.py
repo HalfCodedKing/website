@@ -62,7 +62,7 @@ def start(pass_index):
     obs = ephem.Observer()
     obs.lat = str(lat)
     obs.long = str(lon)
-    obs.date = datetime.fromtimestamp(p['tca'])
+    obs.date = datetime.utcfromtimestamp(p['tca'])
 
     sun = ephem.Sun(obs)
     sun.compute(obs)
