@@ -24,6 +24,8 @@ def start(pass_index):
     #get info about the pass from the daily_passes.json
     with open("/home/pi/website/weather/scripts/daily_passes.json") as f:
         p = json.load(f)[pass_index]
+    
+    print("Started processing {}° {} pass at {}".format(p['max_elevation'], p['satellite'], datetime.fromtimestamp(p['aos']).strftime("%B %w, %Y at %-H:%M:%S")))
 
     #assign variables
     with open("/home/pi/website/weather/scripts/secrets.json") as f:
@@ -57,6 +59,10 @@ def start(pass_index):
     except:
         print("Failed creating new directories for the pass. Aborting")
         exit()
+
+    #send console output to log file
+    stdout_old = sys.stdout
+    sys.stdout = open("/home/pi/drive/weather/images/{}/{}/{}.log".format(day, local_time, local_time), "w")
 
     #compute sun elevation
     obs = ephem.Observer()
@@ -130,3 +136,20 @@ def start(pass_index):
     os.system("/home/pi/website/weather/scripts/commit.sh 'auto commit for pass'")
 
     print("done processing")
+
+    #set console output back to default
+    sys.stdout = stdout_old
+
+    #send status to console
+    print("Finished processing {}° {} pass at {}".format(p['max_elevation'], p['satellite'], datetime.fromtimestamp(p['aos']).strftime("%B %w, %Y at %-H:%M:%S")))
+    
+    #get info about next pass
+    next_pass = {}
+    for p in json.load(open("/home/pi/website/weather/scripts/daily_passes.json")):
+        if p.status == "INCOMING":
+            next_pass = p
+            break
+    if next_pass == {}:
+        print("No more passes to process. Rescheduling...")
+    else:    
+        print("Waiting until {} for {}° {} pass...".format(datetime.fromtimestamp(next_pass['aos']).strftime("%B %w, %Y at %-H:%M:%S"), next_pass['max_elevation'], next_pass['satellite']))

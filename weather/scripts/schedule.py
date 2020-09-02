@@ -144,7 +144,6 @@ def run(hours):
         json.dump(data, outfile, indent=4, sort_keys=True)
 
     #schedule the passes for the day
-    print("scheduling at jobs")
     s = sched.scheduler(time.time, time.sleep)
     i = 0
     for p in data:
@@ -158,6 +157,9 @@ def run(hours):
     os.system("/home/pi/website/weather/scripts/commit.sh 'auto scheduled passes for the next 24 hours'")
 
     print("done scheduling")
+
+    next_pass = data[0]
+    print("Waiting until {} for {}° {} pass...".format(datetime.fromtimestamp(next_pass['aos']).strftime("%B %w, %Y at %-H:%M:%S"), next_pass['max_elevation'], next_pass['satellite']))
 
     s.run()
 
