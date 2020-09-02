@@ -146,7 +146,7 @@ def start(pass_index):
     #get info about next pass
     next_pass = {}
     for p in json.load(open("/home/pi/website/weather/scripts/daily_passes.json")):
-        if p.status == "INCOMING":
+        if p["status"] == "INCOMING":
             next_pass = p
             break
     if next_pass == {}:
