@@ -57,7 +57,6 @@ def run(hours):
     METEOR_passes = predict.transits(METEOR, loc, time.time() + 900, time.time() + (3600 * hours))
 
     #create one big list of all the passes
-    print("sorting passes by time")
     passes = []
     for p in NOAA15_passes:
         if p.peak()['elevation'] >= 20:
@@ -148,7 +147,7 @@ def run(hours):
     i = 0
     for p in data:
         #create a job for every pass
-        print("scheduled a job for {} or {}".format(p['aos'], datetime.fromtimestamp(p['aos']).strftime("%B %w, %Y at %-H:%M:%S %Z")))
+        print("Scheduled a job for {} or {}".format(p['aos'], datetime.fromtimestamp(p['aos']).strftime("%B %-d, %Y at %-H:%M:%S %Z")))
         s.enterabs(p['aos'], 1, process.start, argument=(i,))
         i += 1
 
@@ -159,7 +158,7 @@ def run(hours):
     print("done scheduling")
 
     next_pass = data[0]
-    print("Waiting until {} for {}° {} pass...".format(datetime.fromtimestamp(next_pass['aos']).strftime("%B %w, %Y at %-H:%M:%S"), next_pass['max_elevation'], next_pass['satellite']))
+    print("STATUS: {} - ".format(datetime.now().strftime("%Y/%m/%d %H:%M:%S")) + "Waiting until {} for {}° {} pass...".format(datetime.fromtimestamp(next_pass['aos']).strftime("%B %-d, %Y at %-H:%M:%S"), next_pass['max_elevation'], next_pass['satellite']))
 
     s.run()
 

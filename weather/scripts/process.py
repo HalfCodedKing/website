@@ -25,7 +25,7 @@ def start(pass_index):
     with open("/home/pi/website/weather/scripts/daily_passes.json") as f:
         p = json.load(f)[pass_index]
     
-    print("Started processing {}° {} pass at {}".format(p['max_elevation'], p['satellite'], datetime.fromtimestamp(p['aos']).strftime("%B %w, %Y at %-H:%M:%S")))
+    print("STATUS: {} - ".format(datetime.now().strftime("%Y/%m/%d %H:%M:%S")) + "Started processing {}° {} pass at {}".format(p['max_elevation'], p['satellite'], datetime.fromtimestamp(p['aos']).strftime("%B %-d, %Y at %-H:%M:%S")))
 
     #assign variables
     with open("/home/pi/website/weather/scripts/secrets.json") as f:
@@ -141,7 +141,7 @@ def start(pass_index):
     sys.stdout = stdout_old
 
     #send status to console
-    print("Finished processing {}° {} pass at {}".format(p['max_elevation'], p['satellite'], datetime.fromtimestamp(p['aos']).strftime("%B %w, %Y at %-H:%M:%S")))
+    print("STATUS: {} - ".format(datetime.now().strftime("%Y/%m/%d %H:%M:%S")) + "Finished processing {}° {} pass at {}".format(p['max_elevation'], p['satellite'], datetime.fromtimestamp(p['aos']).strftime("%B %-d, %Y at %-H:%M:%S")))
     
     #get info about next pass
     next_pass = {}
@@ -150,6 +150,6 @@ def start(pass_index):
             next_pass = p
             break
     if next_pass == {}:
-        print("No more passes to process. Rescheduling...")
+        print("STATUS: {} - ".format(datetime.now().strftime("%Y/%m/%d %H:%M:%S")) + "No more passes to process. Rescheduling...")
     else:    
-        print("Waiting until {} for {}° {} pass...".format(datetime.fromtimestamp(next_pass['aos']).strftime("%B %w, %Y at %-H:%M:%S"), next_pass['max_elevation'], next_pass['satellite']))
+        print("STATUS: {} - ".format(datetime.now().strftime("%Y/%m/%d %H:%M:%S")) + "Waiting until {} for {}° {} pass...".format(datetime.fromtimestamp(next_pass['aos']).strftime("%B %-d, %Y at %-H:%M:%S"), next_pass['max_elevation'], next_pass['satellite']))
