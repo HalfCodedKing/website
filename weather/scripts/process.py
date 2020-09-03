@@ -62,7 +62,8 @@ def start(pass_index):
 
     #send console output to log file
     stdout_old = sys.stdout
-    sys.stdout = open("/home/pi/drive/weather/images/{}/{}/{}.log".format(day, local_time, local_time), "w")
+    log_file = "/home/pi/drive/weather/images/{}/{}/{}.log".format(day, local_time, local_time)
+    sys.stdout = open(log_file, "a")
 
     #compute sun elevation
     obs = ephem.Observer()
@@ -82,9 +83,9 @@ def start(pass_index):
 
     #process depending on the satellite
     if sat[:4] == "NOAA":
-        images, main_tag = process_satellite.NOAA(pass_file, outfile)
+        images, main_tag = process_satellite.NOAA(pass_file, outfile, log_file)
     elif sat == "METEOR-M 2":
-        images, main_tag = process_satellite.METEOR(pass_file, outfile)
+        images, main_tag = process_satellite.METEOR(pass_file, outfile, log_file)
 
     #upload each image to imgur
     links = {}
@@ -132,10 +133,8 @@ def start(pass_index):
             json.dump(data, f, indent=4, sort_keys=True)
 
     #commit changes to git repository
-    print("commiting to github")
-    os.system("/home/pi/website/weather/scripts/commit.sh 'auto commit for pass'")
-
-    print("done processing")
+    print("STATUS {} - ".format(datetime.now().strftime("%Y/%m/%d %H:%M:%S")) + "Commiting changes to github")
+    os.system("/home/pi/website/weather/scripts/commit.sh 'Automatic commit for satellite pass' >> {}".format(log_file))
 
     #set console output back to default
     sys.stdout = stdout_old

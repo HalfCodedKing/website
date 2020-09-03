@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 
 #######################################
 #records, demodulates, and decodes METEOR-M 2 given the json file for the pass and the output file name, then returns the image's file path
-def METEOR(path, outfile):
+def METEOR(path, outfile, logfile):
     #set variables
     with open(path) as f:
         data = json.load(f)
@@ -17,18 +17,18 @@ def METEOR(path, outfile):
 
     #record pass baseband with rtl_fm
     print("recording pass...")
-    os.system("timeout {} /usr/bin/rtl_fm -M raw -s 110k -f {} -E dc -g 49.6 -p 0 - | sox -t raw -r 110k -c 2 -b 16 -e s - -t wav {}.iq.wav rate 192k".format(duration, frequency, outfile))
+    os.system("timeout {} /usr/bin/rtl_fm -M raw -s 110k -f {} -E dc -g 49.6 -p 0 - | sox -t raw -r 110k -c 2 -b 16 -e s - -t wav {}.iq.wav rate 192k >> {}".format(duration, frequency, outfile, logfile))
 
     #demodulate the signal
     print("demodulating meteor signal...")
-    os.system("/usr/bin/meteor_demod -B -r 72000 -m qpsk -o {}.qpsk {}.iq.wav".format(outfile, outfile))
+    os.system("/usr/bin/meteor_demod -B -r 72000 -m qpsk -o {}.qpsk {}.iq.wav >> {}".format(outfile, outfile, logfile))
 
     #decode the signal into an image
     print("decoding image...")
-    os.system("/usr/local/bin/medet_arm {}.qpsk {} -q -cd".format(outfile, outfile))
+    os.system("/usr/local/bin/medet_arm {}.qpsk {} -q -cd >> {}".format(outfile, outfile, logfile))
     
     #convert bmp to jpg
-    os.system("convert {}.bmp {}.jpg".format(outfile, outfile))
+    os.system("convert {}.bmp {}.jpg >> {}".format(outfile, outfile, logfile))
 
     #get rid of the blue tint in the image (thanks to PotatoSalad for the code)
     img = Image.open(outfile + ".jpg")
@@ -40,7 +40,7 @@ def METEOR(path, outfile):
     img.save(outfile + ".equalized.jpg")
 
     #rectify images
-    os.system("/usr/local/bin/rectify-jpg {}.equalized.jpg".format(outfile))
+    os.system("/usr/local/bin/rectify-jpg {}.equalized.jpg >> {}".format(outfile, logfile))
 
     #rename file
     os.rename("{}.equalized-rectified.jpg".format(outfile), "{}.rgb123.jpg".format(outfile))
@@ -51,7 +51,7 @@ def METEOR(path, outfile):
 
 #######################################
 #records and decodes NOAA APT satellites given the json file for the pass and the output file name, then returns the images' file paths
-def NOAA(path, outfile):
+def NOAA(path, outfile, logfile):
     #set variables
     with open(path) as f:
         data = json.load(f)
@@ -64,7 +64,7 @@ def NOAA(path, outfile):
 
     #record the pass with rtl_fm
     print("writing to file: {}.wav".format(outfile))
-    os.system("timeout {} /usr/bin/rtl_fm -d 0 -f {} -g 49.6 -s 37000 -E deemp -F 9 - | sox -traw -esigned -c1 -b16 -r37000 - {}.wav rate 11025".format(duration, frequency, outfile))
+    os.system("timeout {} /usr/bin/rtl_fm -d 0 -f {} -g 49.6 -s 37000 -E deemp -F 9 - | sox -traw -esigned -c1 -b16 -r37000 - {}.wav rate 11025 >> {}".format(duration, frequency, outfile, logfile))
 
     #check if the wav file was properly created
     if os.path.isfile(outfile + ".wav") == True and os.stat(outfile + ".wav").st_size > 10:
@@ -76,15 +76,15 @@ def NOAA(path, outfile):
     #create map overlay
     print("creating map")
     date = (datetime.utcfromtimestamp(aos)+timedelta(0, 90)).strftime("%d %b %Y %H:%M:%S")
-    os.system("/usr/local/bin/wxmap -T \"{}\" -H /home/pi/website/weather/scripts/weather.tle -p 0 -l 0 -g 0 -o \"{}\" {}-map.png".format(satellite, date, outfile))
+    os.system("/usr/local/bin/wxmap -T \"{}\" -H /home/pi/website/weather/scripts/weather.tle -p 0 -l 0 -g 0 -o \"{}\" {}-map.png >> {}".format(satellite, date, outfile, logfile))
 
     #create images
-    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -i JPEG -a -e contrast {}.wav {}.a.jpg".format(outfile, outfile, outfile))
-    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -i JPEG -b -e contrast {}.wav {}.b.jpg".format(outfile, outfile, outfile))
-    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -i JPEG -e HVCT {}.wav {}.HVCT.jpg".format(outfile, outfile, outfile))
-    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -i JPEG -e MSA {}.wav {}.MSA.jpg".format(outfile, outfile, outfile))
-    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -i JPEG -e MSA-precip {}.wav {}.MSA-precip.jpg".format(outfile, outfile, outfile))
-    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -i JPEG {}.wav {}.raw.jpg".format(outfile, outfile, outfile))
+    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -i JPEG -a -e contrast {}.wav {}.a.jpg >> {}".format(outfile, outfile, outfile, logfile))
+    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -i JPEG -b -e contrast {}.wav {}.b.jpg >> {}".format(outfile, outfile, outfile, logfile))
+    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -i JPEG -e HVCT {}.wav {}.HVCT.jpg >> {}".format(outfile, outfile, outfile, logfile))
+    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -i JPEG -e MSA {}.wav {}.MSA.jpg >> {}".format(outfile, outfile, outfile, logfile))
+    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -i JPEG -e MSA-precip {}.wav {}.MSA-precip.jpg >> {}".format(outfile, outfile, outfile, logfile))
+    os.system("/usr/local/bin/wxtoimg -m {}-map.png -A -i JPEG {}.wav {}.raw.jpg >> {}".format(outfile, outfile, outfile, logfile))
 
     #change the main image depending on the sun elevation
     if sun_elev <= 10 :

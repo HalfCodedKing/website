@@ -3,7 +3,6 @@ import json
 import predict
 import time
 import os
-import subprocess
 from datetime import datetime
 import sched
 import sys
@@ -152,10 +151,10 @@ def run(hours):
         i += 1
 
     #commit changes to git repository
-    print("commiting to github")
-    os.system("/home/pi/website/weather/scripts/commit.sh 'auto scheduled passes for the next 24 hours'")
+    print("STATUS {} - ".format(datetime.now().strftime("%Y/%m/%d %H:%M:%S")) + "Commiting changes to github")
+    os.system("/home/pi/website/weather/scripts/commit.sh 'Automatically scheduled satellite passes for the next 24 hours'")
 
-    print("done scheduling")
+    print("STATUS {} - ".format(datetime.now().strftime("%Y/%m/%d %H:%M:%S")) + "Finished scheduling")
 
     next_pass = data[0]
     print("STATUS: {} - ".format(datetime.now().strftime("%Y/%m/%d %H:%M:%S")) + "Waiting until {} for {}° {} pass...".format(datetime.fromtimestamp(next_pass['aos']).strftime("%B %-d, %Y at %-H:%M:%S"), next_pass['max_elevation'], next_pass['satellite']))
