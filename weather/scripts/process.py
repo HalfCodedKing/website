@@ -115,8 +115,9 @@ def start(pass_index):
     #send discord webhook
     with open("/home/pi/website/weather/scripts/secrets.json") as f:
         data = json.load(f)
-        result = share.discord_webhook(pass_file, data["discord_webhook_url"])
-        print(result)
+        for webhook in data["discord_webhook_urls"]:
+            result = share.discord_webhook(pass_file, webhook)
+            print(result)
 
     #update the status in daily_passes.json
     with open("/home/pi/website/weather/scripts/daily_passes.json", "r") as f:
