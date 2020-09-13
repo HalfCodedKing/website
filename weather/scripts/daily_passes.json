@@ -1,19 +1,5 @@
 [
     {
-        "aos": 1599973721,
-        "azimuth_aos": 171.8,
-        "azimuth_los": 343.0,
-        "direction": "southbound",
-        "duration": 941,
-        "frequency": 137912500,
-        "los": 1599974662,
-        "max_elevation": 64.8,
-        "satellite": "NOAA 18",
-        "status": "INCOMING",
-        "tca": 1599974187,
-        "type": "NOAA"
-    },
-    {
         "aos": 1600006584,
         "azimuth_aos": 19.8,
         "azimuth_los": 177.6,
@@ -28,13 +14,13 @@
         "type": "NOAA"
     },
     {
-        "aos": 1600011705,
+        "aos": 1600011704,
         "azimuth_aos": 16.9,
         "azimuth_los": 186.6,
         "direction": "southbound",
         "duration": 907,
         "frequency": 137620000,
-        "los": 1600012612,
+        "los": 1600012611,
         "max_elevation": 62.2,
         "satellite": "NOAA 15",
         "status": "INCOMING",
@@ -166,5 +152,19 @@
         "status": "INCOMING",
         "tca": 1600054807,
         "type": "METEOR"
+    },
+    {
+        "aos": 1600059407,
+        "azimuth_aos": 166.0,
+        "azimuth_los": 344.3,
+        "direction": "southbound",
+        "duration": 943,
+        "frequency": 137912500,
+        "los": 1600060351,
+        "max_elevation": 79.6,
+        "satellite": "NOAA 18",
+        "status": "INCOMING",
+        "tca": 1600059876,
+        "type": "NOAA"
     }
 ]
