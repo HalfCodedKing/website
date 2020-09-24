@@ -79,7 +79,7 @@
         "los": 1600969315,
         "max_elevation": 40.1,
         "satellite": "METEOR-M 2",
-        "status": "INCOMING",
+        "status": "PASSED",
         "tca": 1600968868,
         "type": "METEOR"
     },
