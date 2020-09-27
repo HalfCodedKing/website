@@ -51,7 +51,7 @@
         "los": 1601230641,
         "max_elevation": 71.2,
         "satellite": "NOAA 18",
-        "status": "INCOMING",
+        "status": "PASSED",
         "tca": 1601230163,
         "type": "NOAA"
     },
