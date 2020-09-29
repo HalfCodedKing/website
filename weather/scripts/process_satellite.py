@@ -25,11 +25,12 @@ def METEOR(path, outfile, logfile):
 
     #decode the signal into an image
     print("decoding image...")
-    os.system("/usr/local/bin/medet_arm {}.qpsk {} -q -cd >> {}".format(outfile, outfile, logfile))
+    os.system("/usr/local/bin/medet_arm {}.qpsk {} -q -cd -r 65 -g 65 -b 64>> {}".format(outfile, outfile, logfile))
     
     #convert bmp to jpg
     os.system("convert {}.bmp {}.jpg >> {}".format(outfile, outfile, logfile))
 
+    '''
     #get rid of the blue tint in the image (thanks to PotatoSalad for the code)
     img = Image.open(outfile + ".jpg")
     pix = img.load()
@@ -38,6 +39,7 @@ def METEOR(path, outfile, logfile):
             if pix[x, y][2] > 140 and pix[x, y][0] < pix[x, y][2]:
                 pix[x, y] = (pix[x, y][2], pix[x, y][1], pix[x, y][2])
     img.save(outfile + ".equalized.jpg")
+    '''
 
     #rectify images
     os.system("/usr/local/bin/rectify-jpg {}.equalized.jpg >> {}".format(outfile, logfile))
