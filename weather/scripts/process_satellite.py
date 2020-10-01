@@ -25,7 +25,7 @@ def METEOR(path, outfile, logfile):
 
     #decode the signal into an image
     print("decoding image...")
-    os.system("/usr/local/bin/medet_arm {}.qpsk {} -q -cd -r 65 -g 65 -b 64>> {}".format(outfile, outfile, logfile))
+    os.system("/usr/local/bin/medet_arm {}.qpsk {} -q -cd -r 65 -g 65 -b 64 >> {}".format(outfile, outfile, logfile))
     
     #convert bmp to jpg
     os.system("convert {}.bmp {}.jpg >> {}".format(outfile, outfile, logfile))
